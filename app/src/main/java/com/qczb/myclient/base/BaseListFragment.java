@@ -66,6 +66,7 @@ public abstract class BaseListFragment<E extends BaseEntity, I> extends BaseFrag
 
     protected RecyclerView.ItemDecoration dividerItemDecoration;
     protected FrameLayout mGlobalContainer;
+    protected LinearLayoutManager linearLayoutManager;
 
     @Nullable
     @Override
@@ -176,13 +177,20 @@ public abstract class BaseListFragment<E extends BaseEntity, I> extends BaseFrag
                         refreshed();
                         break;
                 }*/
-                return false;
+
+
+
+                return onMyTouch(v, event);
             }
         });
     }
 
+    protected boolean onMyTouch(View view, MotionEvent event) {
+        return false;
+    }
+
     private void initRecyclerView() {
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         handleTouch(linearLayoutManager);

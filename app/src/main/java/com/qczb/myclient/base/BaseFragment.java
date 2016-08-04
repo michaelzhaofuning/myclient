@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -92,6 +93,7 @@ public class BaseFragment extends Fragment {
 
 
     protected void loadOnce() {
+        Log.e("base fragment", "loadOnce called !!!");
     }
 
     protected void loadEveryTime() {

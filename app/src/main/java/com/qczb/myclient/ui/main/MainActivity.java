@@ -1,7 +1,6 @@
 package com.qczb.myclient.ui.main;
 
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.MyApplication;
-import com.qczb.myclient.base.MyConstants;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long firstTimeOfExit = 0;
@@ -29,8 +27,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initView();
 
         homeFragment = new HomeFragment();
-        publishFragment = new PublishGoodFragment();
-        myFragment = new MyFragment();
+        publishFragment = new ListItemFragment();
+        myFragment = new ListItemFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.container, homeFragment, "home")
                 .add(R.id.container, publishFragment, "my")
