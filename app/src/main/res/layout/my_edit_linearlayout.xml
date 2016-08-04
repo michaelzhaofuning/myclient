@@ -14,7 +14,7 @@
         android:layout_gravity="left"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="50dp" />
 
     <ImageView
         android:layout_width="20dp"
@@ -38,7 +38,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/contentOfMyEdit"
         android:layout_marginRight="15dp"
         android:background="@null"
@@ -46,4 +46,12 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:gravity="right"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/imageView"
+        android:src="@mipmap/bar21"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp" />
 </RelativeLayout>

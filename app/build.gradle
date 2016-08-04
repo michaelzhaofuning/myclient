@@ -31,6 +31,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.makeramen:roundedimageview:2.2.1'
     compile files('libs/fastjson-1.2.6.jar')
     compile files('libs/TencentLocationSDK_v4.4.6_r206631_151119_1441.jar')
     compile files('libs/TencentMapSDK_Raster_v1.1.2.16281.jar')

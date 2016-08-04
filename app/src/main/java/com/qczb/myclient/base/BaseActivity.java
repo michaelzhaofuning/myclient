@@ -37,7 +37,6 @@ public class BaseActivity extends AppCompatActivity{
             if (title != null && mTitle != null) mTitle.setText(title);
             mToolbar.setTitle("");
             mToolbar.setNavigationIcon(R.mipmap.navigation_icon);
-            setSupportActionBar(mToolbar);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
