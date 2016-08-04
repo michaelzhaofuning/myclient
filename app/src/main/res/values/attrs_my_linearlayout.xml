@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyLinearLayout">
+        <attr name="titleOfMyLinearLayout" format="string"/>
+        <attr name="dividerShow" format="boolean"/>
+        <attr name="expandedOfMyLinearLayout" format="boolean"/>
+        <attr name="contentOfMyLinearLayout" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="MyEditLinearLayout">
+        <attr name="titleOfMyEditLinearLayout" format="string"/>
+        <attr name="dividerShowEdit" format="boolean"/>
+        <attr name="contentOfMyEditLinearLayout" format="string"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_height="match_parent">
+    <include layout="@layout/toolbar_layout"/>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="商品标题"
+        android:id="@+id/title"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="联系电话"
+        android:id="@+id/tel"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="产品描述"
+        android:id="@+id/content"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="商品图片"
+            android:id="@+id/textView32"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView32"
+            android:foregroundGravity="center_horizontal"
+            android:layout_marginLeft="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/container"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/add_license"
+                    android:background="@drawable/rectangle"
+                    android:onClick="addPicture"
+                    android:src="@mipmap/ic_add_large"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerHorizontal="true"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+
+
+
+
+    </RelativeLayout>
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="发布商品"
+    android:id="@+id/button"
+    android:onClick="publish"
+    android:layout_marginBottom="40dp"
+    android:background="@drawable/button_selector"
+    android:textColor="#fff"
+    android:paddingLeft="120dp"
+    android:paddingRight="120dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="20dp" />
+</LinearLayout>
