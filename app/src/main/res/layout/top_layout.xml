@@ -12,12 +12,17 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/start_visit"
             />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:alpha="0"
+            android:id="@+id/scrim"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
+            style="@style/large_text_view"
+            android:text="工作执行"
             android:textColor="#fff"
             android:id="@+id/top_text"
             android:layout_gravity="center" />
