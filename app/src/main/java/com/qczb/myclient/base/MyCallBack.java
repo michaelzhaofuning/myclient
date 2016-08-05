@@ -25,8 +25,8 @@ public abstract class MyCallBack<T extends BaseEntity> implements Callback<T> {
         if (MyConstants.IS_DEBUG)
             Log.i("retrofit", call.request().toString() + "\n" + response.body().toString());
 
-        if (response.body().getRet() != 0) {
-            mActivity.showToastMsg(response.body().getMsg());
+        if (response.body().getStatus() > 200) {
+            mActivity.showToastMsg(response.body().getDesc());
             onMyFailure(call, response);
         } else {
             onMySuccess(call, response);

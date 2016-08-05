@@ -19,7 +19,7 @@ import com.qczb.myclient.view.PhotoPopupWindow;
  *
  * @author Michael Zhao
  */
-public class BaseActivity extends AppCompatActivity{
+public class BaseActivity extends AppCompatActivity {
 
     /** lots of fragments maybe use same dialog */
     private ProgressDialog mProgressDialog;

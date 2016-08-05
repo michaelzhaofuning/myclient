@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MyApplication extends Application {
     private static MyApplication app;
-    public static final String BASE_URL = "http://183.203.28.91:3000/yw_php_api/";
+    public static final String BASE_URL = "http://test.kaopuren.cn/";
     private HttpService httpService;
 
     public static MyApplication getMyApplication() {

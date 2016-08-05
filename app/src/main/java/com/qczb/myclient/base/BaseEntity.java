@@ -8,40 +8,30 @@ import com.google.gson.JsonObject;
  * @author Michael Zhao
  */
 public class BaseEntity {
-    int ret;
-    String msg;
-    long timestamp;
+    int status;
+    String desc;
 
-    public int getRet() {
-        return ret;
+    public int getStatus() {
+        return status;
     }
 
-    public void setRet(int ret) {
-        this.ret = ret;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     @Override
     public String toString() {
         return "BaseEntity{" +
-                "ret=" + ret +
-                ", msg='" + msg + '\'' +
-                ", timestamp=" + timestamp +
+                "status=" + status +
+                ", desc='" + desc + '\'' +
                 '}';
     }
 }

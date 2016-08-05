@@ -91,9 +91,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (v.getId()) {
 
             case R.id.login:
-                ActivityUtil.startActivityForResult(this, MainActivity.class);
-                finish();
-
                 if (isValid()) {
                     MyApplication.getMyApplication().getHttpService().login(mUser.getText().toString(),
                             mPassword.getText().toString()).enqueue(new MyCallBack<UserData>(this) {

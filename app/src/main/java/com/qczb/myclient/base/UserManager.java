@@ -46,11 +46,9 @@ public final class UserManager {
 
     public static void loginUser(BaseActivity activity, UserData userData) {
         User user = new User();
-        user.setAvatar(userData.result.headurl);
-        user.setName(userData.result.nickname);
-        user.setUid(userData.result.auid);
-        user.setToken(userData.result.user_key);
-        user.setGender(userData.result.gender);
+        user.setAvatar(userData.data.get(0).vcPhoto);
+        user.setName(userData.data.get(0).vcName);
+        user.setUid(userData.data.get(0).vcUserId);
         MyApplication.getMyApplication().getSharedPreference().edit().putBoolean(IS_LOG_IN, true).apply();
         MyApplication.getMyApplication().getSharedPreference().edit().putString(UID, user.getUid()).apply();
         CacheManager.getInstance().set(USER, JSON.toJSONString(user));

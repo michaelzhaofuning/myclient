@@ -26,6 +26,7 @@
             app:expandedTitleTextAppearance="@style/large_text_view"
             app:collapsedTitleTextAppearance="@style/medium_text_view"
             app:expandedTitleGravity="center"
+            app:expandedTitleMarginBottom="76dp"
             >
 
             <ImageView

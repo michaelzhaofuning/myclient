@@ -1,5 +1,6 @@
 package com.qczb.myclient.ui.main;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -19,13 +20,12 @@ import java.util.TimerTask;
  *
  * @author Michael Zhao
  */
-public class FlashActivity extends BaseActivity {
-    private final long DELAY = 1500;
+public class FlashActivity extends Activity {
+    private final long DELAY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.flash_activity);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             getWindow().getDecorView().setSystemUiVisibility(
@@ -39,14 +39,6 @@ public class FlashActivity extends BaseActivity {
                     ActivityUtil.startActivityForResult(FlashActivity.this, LoginActivity.class);
                     finish();
                 } else {
-                    if (MyConstants.IS_DEBUG) {
-                        FlashActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showToastMsg("debug: you have logged in !");
-                            }
-                        });
-                    }
                     ActivityUtil.startActivityForResult(FlashActivity.this, MainActivity.class);
                     finish();
                 }

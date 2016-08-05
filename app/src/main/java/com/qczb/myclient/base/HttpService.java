@@ -2,8 +2,11 @@ package com.qczb.myclient.base;
 
 
 
+import okhttp3.FormBody;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -29,8 +32,8 @@ public interface HttpService {
     Call<BaseResult> uploadImage(@Part MultipartBody.Part file);
 
 
-    @GET("yw/yw_user/no_login")
-    Call<UserData> login(@Query("username") String username, @Query("password") String password);
+    @GET("supervisor/login.htm")
+    Call<UserData> login(@Query("vcPhone") String username, @Query("vcPassword") String password);
 
     @GET("yw/yw_user/no_exist")
     Call<BaseResult> isUsernameExists(@Query("username") String username);
@@ -50,8 +53,8 @@ public interface HttpService {
                                  @Query("goodsname") String name, @Query("goodssortb") String price,
                                  @Query("goodscontent") String content, @Query("submit_pic_urls") String pics);
 
-    @GET("yw/yw_main/user_goods")
-    Call<BaseResult> myGoods(@Query("auid") String auid, @Query("user_key") String token);
+    @GET("visitPlan/findByUserid.htm")
+    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("state") int state, @Query("stateOpt") String stateOpt, );
 
     @GET("yw/yw_main/user_goods_cancel")
     Call<BaseResult> downGoods(@Query("auid") String auid, @Query("user_key") String token, @Query("user_goods_id") String goodsId);

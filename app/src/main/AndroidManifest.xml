@@ -26,13 +26,13 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.main.LoginActivity">
+        </activity>
+        <activity android:name=".ui.main.FlashActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.FlashActivity"/>
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.main.MyLocationActivity"/>
     </application>

@@ -101,6 +101,7 @@ public class ListItemFragment extends BaseListFragment<BaseResult, Item> {
 
                     // invalidate in different thread
                     // delay to wait another thread done
+                    // or use the same fraction
                     if (!scrimShow && mAboveList.getHeight() < getResources().getDimensionPixelSize(R.dimen.top_layout_height) / 2)
                         scrimShow();
 
@@ -109,6 +110,14 @@ public class ListItemFragment extends BaseListFragment<BaseResult, Item> {
                     myLastY = y;
                     return true;
                 }
+
+                // dy too large, FUTURE FRACTION
+
+                // recalculate
+                if (!scrimShow && mAboveList.getHeight() < getResources().getDimensionPixelSize(R.dimen.top_layout_height) / 2)
+                    scrimShow();
+                changeWithFraction();
+
 
                 // down
                 if (dy > 0 && linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0 && mAboveList.getHeight() < getResources().getDimensionPixelSize(R.dimen.top_layout_height)) {
