@@ -24,6 +24,5 @@ public class WorkExecuteFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().getFragmentManager().beginTransaction().add(R.id.fragment_container, new ListItemFragment()).commit();
     }
 }

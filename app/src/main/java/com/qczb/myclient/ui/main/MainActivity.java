@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         homeFragment = new HomeFragment();
         publishFragment = new ListItemFragment();
-        myFragment = new ListItemFragment();
+        myFragment = new WorkExecuteFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.container, homeFragment, "home")
                 .add(R.id.container, publishFragment, "my")

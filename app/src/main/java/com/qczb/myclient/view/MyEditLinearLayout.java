@@ -2,9 +2,11 @@ package com.qczb.myclient.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ import com.qczb.myclient.R;
  */
 public class MyEditLinearLayout extends LinearLayout {
     private TextView tvContent;
+    private TextView tvTitle;
+    private ImageView decoration;
 
     public MyEditLinearLayout(Context context) {
         super(context);
@@ -26,18 +30,21 @@ public class MyEditLinearLayout extends LinearLayout {
     public MyEditLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         View v = LayoutInflater.from(context).inflate(R.layout.my_edit_linearlayout, this, true);
-        TextView tvTitle = (TextView) v.findViewById(R.id.titleOfMyEdit);
+        tvTitle = (TextView) v.findViewById(R.id.titleOfMyEdit);
         tvContent = (TextView) v.findViewById(R.id.contentOfMyEdit);
+        decoration = (ImageView)v.findViewById(R.id.decoration);
         View divider = v.findViewById(R.id.divider);
-//        View ivArrow = v.findViewById(R.id.iv_arrow);
+        View ivArrow = v.findViewById(R.id.iv_arrow);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyEditLinearLayout);
         String title = a.getString(R.styleable.MyEditLinearLayout_titleOfMyEditLinearLayout);
         String content = a.getString(R.styleable.MyEditLinearLayout_contentOfMyEditLinearLayout);
         boolean dividerShow = a.getBoolean(R.styleable.MyEditLinearLayout_dividerShowEdit, true);
+        Drawable drawable = a.getDrawable(R.styleable.MyEditLinearLayout_decoratedDrawable);
 
         tvTitle.setText(title);
         tvContent.setText(content);
+        decoration.setImageDrawable(drawable);
         if (!dividerShow) divider.setVisibility(GONE);
 
         a.recycle();

@@ -82,27 +82,32 @@ public class ListItemFragment extends BaseListFragment<BaseResult, Item> {
                     myLastY = y;
 
                 float dy = y - myLastY;
-                Log.e("test", "dy: " + dy + "  paddingBottom: " + mAboveList.getPaddingBottom());
+                Log.e("test", "lastY: " + myLastY + "  dy: " + dy + "  paddingBottom: " + mAboveList.getPaddingBottom() + "\nrawY:" + y + "  Y:" + event.getY());
+                // up
                 if (dy <= 0 && mAboveList.getHeight() > getResources().getDimensionPixelSize(R.dimen.app_bar_height)) {
-                    if ((mAboveList.getPaddingBottom() + (int) (dy / 2)) > (getResources().getDimensionPixelSize(R.dimen.app_bar_height) - getResources().getDimensionPixelSize(R.dimen.top_layout_height)))
-                        mAboveList.setPadding(0, 0, 0, mAboveList.getPaddingBottom() + (int) (dy / 2));
+                    if ((mAboveList.getPaddingBottom() + (int) (dy)) > (getResources().getDimensionPixelSize(R.dimen.app_bar_height) - getResources().getDimensionPixelSize(R.dimen.top_layout_height)))
+                        mAboveList.setPadding(0, 0, 0, mAboveList.getPaddingBottom() + (int) (dy));
                     else
                         mAboveList.setPadding(0, 0, 0, (getResources().getDimensionPixelSize(R.dimen.app_bar_height) - getResources().getDimensionPixelSize(R.dimen.top_layout_height)));
+                    myLastY = y;
                     return true;
                 }
 
-                if (dy > 0 && mAboveList.getHeight() < getResources().getDimensionPixelSize(R.dimen.top_layout_height)) {
-                    if ((mAboveList.getPaddingBottom() + (int) (dy / 2)) < 0)
-                        mAboveList.setPadding(0, 0, 0, mAboveList.getPaddingBottom() + (int) (dy / 2));
+                // down
+                if (dy > 0 && linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0 && mAboveList.getHeight() < getResources().getDimensionPixelSize(R.dimen.top_layout_height)) {
+                    if ((mAboveList.getPaddingBottom() + (int) (dy)) < 0)
+                        mAboveList.setPadding(0, 0, 0, mAboveList.getPaddingBottom() + (int) (dy));
                     else
                         mAboveList.setPadding(0, 0, 0, 0);
+                    myLastY = y;
                     return true;
                 }
+
                 myLastY = y;
                 break;
+
             default:
                 myLastY = -1;
-
         }
         return super.onMyTouch(view, event);
     }
