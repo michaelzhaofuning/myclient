@@ -37,8 +37,12 @@
         <activity android:name=".ui.main.MyLocationActivity"/>
         <activity android:name=".ui.main.PlanDetailActivity"/>
         <activity android:name=".ui.publish.PublishGoodActivity"/>
-        <activity android:name=".ui.publish.SuccessActivity"/>
+        <activity android:name=".ui.main.SuccessActivity"/>
         <activity android:name=".ui.main.AddPlanActivity"/>
+        <activity android:name=".ui.main.AddCustomerActivity"/>
+        <activity android:name=".ui.main.AddProviderActivity"/>
+        <activity android:name=".ui.main.ProviderActivity"/>
+        <activity android:name=".ui.main.StartPlanActivity"/>
     </application>
 
 

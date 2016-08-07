@@ -12,6 +12,7 @@ import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.ui.main.PlanDetailActivity;
+import com.qczb.myclient.ui.main.StartPlanActivity;
 import com.qczb.myclient.util.ActivityUtil;
 
 import java.util.List;
@@ -57,8 +58,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public void onClick(View v) {
         int p = (int) v.getTag();
 
-
-        ActivityUtil.startActivityForResult(mActivity, PlanDetailActivity.class);
+        ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

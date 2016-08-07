@@ -13,22 +13,21 @@ import com.qczb.myclient.base.BaseActivity;
  *
  * @author Michael Zhao
  */
-public class AddCustomerActivity extends BaseActivity {
+public class AddProviderActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_activity);
         getFragmentManager().beginTransaction()
-                .add(R.id.container, new AddCustomerFragment()).commit();
+                .add(R.id.container, new AddProviderFragment()).commit();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-
     }
 
-    public static class AddCustomerFragment extends ScrollViewFragment {
+    public static class AddProviderFragment extends ScrollViewFragment {
 
         @Override
         protected void onSendForm() {
@@ -37,17 +36,17 @@ public class AddCustomerActivity extends BaseActivity {
 
         @Override
         protected int getScrollViewContentLayoutId() {
-            return R.layout.scroll_view_add_customer;
+            return R.layout.scroll_view_add_provider;
         }
 
         @Override
         protected int getTopImageID() {
-            return R.mipmap.add_customer;
+            return R.mipmap.add_provider;
         }
 
         @Override
         protected String getTitle() {
-            return "新增客户";
+            return "新增供货商";
         }
     }
 }

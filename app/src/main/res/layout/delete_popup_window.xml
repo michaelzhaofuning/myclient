@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="300dp"
-              android:layout_height="match_parent" android:paddingLeft="10dp" android:paddingTop="5dp"
-              android:paddingRight="5dp" android:paddingBottom="5dp" android:background="@drawable/gray_white_selector"
+              android:layout_height="match_parent" android:paddingLeft="10dp" android:paddingTop="7dp"
+              android:paddingRight="5dp" android:paddingBottom="7dp" android:background="@drawable/round_rectangle_white"
+
               android:id="@+id/popup_window_container">
 
     <TextView

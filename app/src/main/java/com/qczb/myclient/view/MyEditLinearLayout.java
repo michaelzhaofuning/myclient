@@ -2,6 +2,7 @@ package com.qczb.myclient.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -39,12 +40,14 @@ public class MyEditLinearLayout extends LinearLayout {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyEditLinearLayout);
         String title = a.getString(R.styleable.MyEditLinearLayout_titleOfMyEditLinearLayout);
+        int textColorOfTitle = a.getColor(R.styleable.MyLinearLayout_textColorOfTitle, getResources().getColor(android.R.color.darker_gray));
         String content = a.getString(R.styleable.MyEditLinearLayout_contentOfMyEditLinearLayout);
         boolean dividerShow = a.getBoolean(R.styleable.MyEditLinearLayout_dividerShowEdit, true);
         Drawable drawable = a.getDrawable(R.styleable.MyEditLinearLayout_decoratedDrawable);
         formName = a.getString(R.styleable.MyEditLinearLayout_formNameOfMyEditLinearLayout);
 
         tvTitle.setText(title);
+        tvTitle.setTextColor(textColorOfTitle);
         tvContent.setText(content);
         decoration.setImageDrawable(drawable);
         decoration.setColorFilter(getResources().getColor(R.color.colorPrimary));

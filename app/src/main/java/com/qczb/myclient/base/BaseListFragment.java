@@ -195,6 +195,11 @@ public abstract class BaseListFragment<E extends BaseEntity, I> extends BaseFrag
 
         handleTouch(linearLayoutManager);
 
+        mAdapter = getAdapter();
+        dividerItemDecoration = new DividerItemDecoration();
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
 
         if (getRetrofitCall() != null && getItemClass() != null) {
             FAKE = false;
@@ -206,12 +211,6 @@ public abstract class BaseListFragment<E extends BaseEntity, I> extends BaseFrag
             for (int i = 0; i < 20; i++)
                 mList.add(newEntity());
         }
-
-        mAdapter = getAdapter();
-        dividerItemDecoration = new DividerItemDecoration();
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mAdapter);
 
     }
 

@@ -1,19 +1,14 @@
 package com.qczb.myclient.ui.main;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.google.gson.JsonArray;
 import com.qczb.myclient.R;
-import com.qczb.myclient.adapter.CustomerAdapter;
 import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.UserManager;
-import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.entity.Item;
-import com.qczb.myclient.util.ActivityUtil;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -23,32 +18,31 @@ import retrofit2.Response;
  *
  * @author Michael Zhao
  */
-public class CustomerFragment extends ListItemFragment<Customer> {
+public class ExecuteFragment extends ListItemFragment<Item> {
     @Override
     protected Class<?> getTopAddActivity() {
-        return AddCustomerActivity.class;
+        return AddPlanActivity.class;
     }
 
     @Override
     protected int getTopImageID() {
-        return R.mipmap.customer;
+        return R.mipmap.execute;
     }
 
     @Override
     protected String getTitle() {
-        return "我的客户";
+        return "工作执行";
     }
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getCustomers(UserManager.getUID());
+        return getHttpService().getPlans(UserManager.getUID(), null, null, null, null);
     }
 
     @Override
-    protected Class<Customer> getItemClass() {
-        return Customer.class;
+    protected Class<Item> getItemClass() {
+        return Item.class;
     }
-
 
     @Override
     protected JsonArray getJsonArray(Response<BaseResult> response) {
@@ -57,16 +51,16 @@ public class CustomerFragment extends ListItemFragment<Customer> {
 
     @Override
     protected String getCacheKey() {
-        return "customer";
+        return "exec";
     }
 
     @Override
-    public Customer newEntity() {
-        return new Customer();
+    public Item newEntity() {
+        return new Item();
     }
 
     @Override
     protected RecyclerView.Adapter getAdapter() {
-        return new CustomerAdapter((BaseActivity) getActivity(), mList);
+        return new ListItemAdapter((BaseActivity) getActivity(), mList, "plan");
     }
 }

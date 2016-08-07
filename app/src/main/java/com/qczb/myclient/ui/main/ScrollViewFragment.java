@@ -10,18 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseFragment;
-import com.qczb.myclient.ui.publish.SuccessActivity;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.MyEditLinearLayout;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.FormBody;
 
 /**
  * 2016/8/4

@@ -73,7 +73,7 @@ public class PublishGoodActivity extends BaseActivity {
                             if (i++ < uris.size() - 1)
                                 sb.append(",");
                         }
-                        getHttpService().submitGoods(UserManager.getUID(), UserManager.getUser().getToken(),
+                        /*getHttpService().submitGoods(UserManager.getUID(), UserManager.getUser().getToken(),
                                 title.getContent(), typeId, content.getContent()
                                 , sb.toString()).enqueue(new MyCallBack<BaseResult>(PublishGoodActivity.this) {
                             @Override
@@ -81,7 +81,7 @@ public class PublishGoodActivity extends BaseActivity {
                                 ActivityUtil.startActivityForResult(PublishGoodActivity.this, SuccessActivity.class);
                                 finish();
                             }
-                        });
+                        });*/
                     }
                 }
 

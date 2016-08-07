@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textAppearanceMedium">@style/my_medium</item>
+        <item name="actionMenuTextColor">@color/text_view_selector</item>
     </style>
 
     <style name="nav_footer_image_view">

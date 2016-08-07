@@ -2,9 +2,11 @@ package com.qczb.myclient.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,17 +33,22 @@ public class MyLinearLayout extends LinearLayout {
         tvContent = (TextView) v.findViewById(R.id.contentOfMy);
         View divider = v.findViewById(R.id.divider);
         View ivArrow = v.findViewById(R.id.iv_arrow);
+        ImageView decoration = (ImageView)v.findViewById(R.id.decoration);
+
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyLinearLayout);
         String title = a.getString(R.styleable.MyLinearLayout_titleOfMyLinearLayout);
         String content = a.getString(R.styleable.MyLinearLayout_contentOfMyLinearLayout);
         boolean dividerShow = a.getBoolean(R.styleable.MyLinearLayout_dividerShow, true);
         boolean expanded = a.getBoolean(R.styleable.MyLinearLayout_expandedOfMyLinearLayout, true);
+        Drawable drawable = a.getDrawable(R.styleable.MyLinearLayout_decoratedDrawableOfMyLinearLayout);
 
         tvTitle.setText(title);
         tvContent.setText(content);
         if (!dividerShow) divider.setVisibility(GONE);
         if (!expanded) ivArrow.setVisibility(GONE);
+        decoration.setImageDrawable(drawable);
+        decoration.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
         a.recycle();
     }

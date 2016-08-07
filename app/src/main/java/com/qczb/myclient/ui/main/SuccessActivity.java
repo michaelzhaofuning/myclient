@@ -1,4 +1,4 @@
-package com.qczb.myclient.ui.publish;
+package com.qczb.myclient.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +28,8 @@ public class SuccessActivity extends BaseActivity {
         assert textView != null;
         textView.setText(title != null ? title : "发布成功");
         initToolBar(title != null ? title : "发布成功");
+
+        mToolbar.inflateMenu(R.menu.confirm_button);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -35,11 +37,7 @@ public class SuccessActivity extends BaseActivity {
                 return true;
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.confirm_button, menu);
-        return true;
+
     }
 }

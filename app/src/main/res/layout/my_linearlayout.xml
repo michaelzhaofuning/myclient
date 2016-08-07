@@ -12,9 +12,10 @@
         android:text="Medium Text"
         android:id="@+id/titleOfMy"
         android:layout_gravity="left"
+        android:layout_marginLeft="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp" />
+       />
 
     <ImageView
         android:layout_width="20dp"
@@ -39,8 +40,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="hello"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/contentOfMy"
         android:layout_marginRight="45dp"
         android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/decoration"
+        android:src="@mipmap/bar21"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp" />
 </RelativeLayout>

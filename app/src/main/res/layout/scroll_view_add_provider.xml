@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="姓名"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="title"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="住址"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="time"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/title"
+        app:titleOfMyEditLinearLayout="店铺电话"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="content"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="供货商名称"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="content"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="供货商地址"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="content"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="供货商电话"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="content"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="确      定"
+        android:id="@+id/commit" style="@style/my_button"/>
+</LinearLayout>

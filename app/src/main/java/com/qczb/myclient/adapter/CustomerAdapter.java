@@ -40,7 +40,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.itemView.setTag(position);
             holder.title.setText(mList.get(position).BName);
             holder.date.setText(mList.get(position).BNewtime);
-            holder.location.setText(mList.get(position).XCoordinate);
+            holder.location.setText(mList.get(position).BAddress);
 
 
     }

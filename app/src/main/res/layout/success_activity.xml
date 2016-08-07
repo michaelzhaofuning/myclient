@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 <include layout="@layout/toolbar_layout"
      />
-    <com.efulink.ewuexchange.customview.SuccessView
+    <com.qczb.myclient.view.SuccessView
         android:layout_width="130dp"
         android:layout_gravity="center"
         android:layout_height="130dp"

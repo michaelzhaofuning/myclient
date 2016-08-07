@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoPreviewActivity;
+import com.photoselector.ui.PhotoSelectorActivity;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.MyConstants;
@@ -94,7 +95,7 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
                 PhotoPopupWindow.this.dismiss();
             }
         });
-    /*    picture.setOnClickListener(new View.OnClickListener() {
+        picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v1) {
                 Bundle bundle = new Bundle();
@@ -102,7 +103,7 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
                 ActivityUtil.startActivityForResult(mActivity, PhotoSelectorActivity.class, bundle, REQUEST_CODE_PICTURE);
                 PhotoPopupWindow.this.dismiss();
             }
-        });*/
+        });
     }
 
     public static void requestCamera(Activity activity) {

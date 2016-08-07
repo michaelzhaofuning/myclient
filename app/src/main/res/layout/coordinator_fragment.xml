@@ -22,7 +22,6 @@
             app:title="工作执行"
             app:contentScrim="@color/colorPrimary"
             app:statusBarScrim="@color/colorPrimary"
-            app:collapsedTitleGravity="center_horizontal"
             app:expandedTitleTextAppearance="@style/large_text_view"
             app:collapsedTitleTextAppearance="@style/medium_text_view"
             app:expandedTitleGravity="center"
@@ -43,6 +42,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                app:contentInsetLeft="70dp"
+                app:contentInsetStart="70dp"
                 android:layout_height="?attr/actionBarSize"
                 app:titleTextColor="@color/white"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
