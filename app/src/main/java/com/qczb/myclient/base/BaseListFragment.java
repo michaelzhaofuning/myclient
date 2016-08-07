@@ -292,6 +292,7 @@ public abstract class BaseListFragment<E extends BaseEntity, I> extends BaseFrag
             @Override
             public void onFailure(Call<E> call, Throwable t) {
                 dismissLoadingLayout();
+                swipeRefreshLayout.setRefreshing(false);
                 showToastMsg("请检查您的网络连接");
                 mPageIndex--;
 //                mRecyclerView.setRefreshing(false);

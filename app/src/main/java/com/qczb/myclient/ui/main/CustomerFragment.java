@@ -1,20 +1,17 @@
 package com.qczb.myclient.ui.main;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.gson.JsonArray;
 import com.qczb.myclient.R;
+import com.qczb.myclient.adapter.CustomerAdapter;
 import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.UserManager;
+import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.util.ActivityUtil;
 
@@ -22,36 +19,36 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
- * 2016/8/3
+ * 2016/8/7
  *
  * @author Michael Zhao
  */
-public class PlanFragment extends ListItemFragment<Item> {
-
+public class CustomerFragment extends ListItemFragment<Customer> {
     @Override
     protected Class<?> getTopAddActivity() {
-        return AddPlanActivity.class;
+        return AddCustomerActivity.class;
     }
 
     @Override
     protected int getTopImageID() {
-        return R.mipmap.plan;
+        return R.mipmap.customer;
     }
 
     @Override
     protected String getTitle() {
-        return "拜访计划";
+        return "我的客户";
     }
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getPlans(UserManager.getUID(), null, null, null, null);
+        return getHttpService().getCustomers(UserManager.getUID());
     }
 
     @Override
-    protected Class<Item> getItemClass() {
-        return Item.class;
+    protected Class<Customer> getItemClass() {
+        return Customer.class;
     }
+
 
     @Override
     protected JsonArray getJsonArray(Response<BaseResult> response) {
@@ -60,16 +57,16 @@ public class PlanFragment extends ListItemFragment<Item> {
 
     @Override
     protected String getCacheKey() {
-        return "plan";
+        return null;
     }
 
     @Override
-    public Item newEntity() {
-        return new Item();
+    public Customer newEntity() {
+        return new Customer();
     }
 
     @Override
     protected RecyclerView.Adapter getAdapter() {
-        return new ListItemAdapter((BaseActivity) getActivity(), mList, "plan");
+        return new CustomerAdapter((BaseActivity) getActivity(), mList);
     }
 }

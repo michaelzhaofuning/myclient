@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         homeFragment = new PlanFragment();
         publishFragment = new PlanFragment();
-        myFragment = new AddPlanActivity.AddPlanFragment();
+        myFragment = new CustomerFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.container, homeFragment, "home")
                 .add(R.id.container, publishFragment, "my")

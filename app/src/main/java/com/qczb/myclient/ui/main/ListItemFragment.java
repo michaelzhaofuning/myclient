@@ -1,28 +1,17 @@
 package com.qczb.myclient.ui.main;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.JsonArray;
 import com.qczb.myclient.R;
-import com.qczb.myclient.adapter.ListItemAdapter;
-import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseListFragment;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.entity.Item;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 
 /**
@@ -30,13 +19,14 @@ import retrofit2.Response;
  *
  * @author Michael Zhao
  */
-public abstract class ListItemFragment extends BaseListFragment<BaseResult, Item> {
+public abstract class ListItemFragment<I> extends BaseListFragment<BaseResult, I> {
     ImageView topImageView;
     ImageView topAdd;
     TextView topTextView;
     private float myLastY = -1;
     private View scrim;
     boolean scrimShow = false;
+    public static int CODE = 41;
 
     @Override
     protected void initActionBar() {
@@ -53,7 +43,9 @@ public abstract class ListItemFragment extends BaseListFragment<BaseResult, Item
         topAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onTopAddClicked(v);
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), getTopAddActivity());
+                startActivityForResult(intent, CODE);
             }
         });
         topTextView.setText(getTitle());
@@ -61,11 +53,11 @@ public abstract class ListItemFragment extends BaseListFragment<BaseResult, Item
 
     }
 
+    protected abstract Class<?> getTopAddActivity();
+
     protected abstract int getTopImageID();
 
     protected abstract String getTitle();
-
-    protected abstract void onTopAddClicked(View v);
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -141,7 +133,7 @@ public abstract class ListItemFragment extends BaseListFragment<BaseResult, Item
     private void changeWithFraction() {
         float fraction = ((float) (mAboveList.getHeight() - getResources().getDimensionPixelSize(R.dimen.app_bar_height))) / (getResources().getDimensionPixelSize(R.dimen.top_layout_height) - getResources().getDimensionPixelSize(R.dimen.app_bar_height));
         fraction = 1 - fraction;
-        Log.e("test", fraction + "");
+//        Log.e("test", fraction + "");
         topTextView.setTextSize(35 - fraction * (35 - 19));
         float centerYLarge = getResources().getDimensionPixelSize(R.dimen.top_layout_height) / 2 - getResources().getDimensionPixelSize(R.dimen.large_sp) / 2;
         float centerYSmall = (getResources().getDimensionPixelSize(R.dimen.app_bar_height) - getResources().getDimensionPixelSize(R.dimen.status_bar)) / 2  - getResources().getDimensionPixelSize(R.dimen.medium_sp) / 2 + getResources().getDimensionPixelSize(R.dimen.status_bar) / 2;

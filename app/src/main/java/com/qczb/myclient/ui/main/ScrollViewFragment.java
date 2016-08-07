@@ -9,10 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseFragment;
+import com.qczb.myclient.ui.publish.SuccessActivity;
+import com.qczb.myclient.util.ActivityUtil;
+import com.qczb.myclient.view.MyEditLinearLayout;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.FormBody;
 
 /**
  * 2016/8/4
@@ -41,10 +50,29 @@ public abstract class ScrollViewFragment extends BaseFragment {
                 getActivity().finish();
             }
         });
-        NestedScrollView nestedScrollView = (NestedScrollView) v.findViewById(R.id.scroll_view);
-        nestedScrollView.addView(getActivity().getLayoutInflater().inflate(getScrollViewContentLayoutId(), null));
-
         topImageView.setImageDrawable(getResources().getDrawable(getTopImageID()));
+        NestedScrollView nestedScrollView = (NestedScrollView) v.findViewById(R.id.scroll_view);
+        LinearLayout linearLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(getScrollViewContentLayoutId(), null);
+        nestedScrollView.addView(linearLayout);
+        if (linearLayout.findViewById(R.id.commit) != null)
+            linearLayout.findViewById(R.id.commit).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle b = new Bundle();
+                    b.putString("title", getTitle() + "成功");
+                    ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class, b, 100);
+                    getActivity().finish();
+                }
+            });
+
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
+                MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
+                map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
+            }
+        }
+
 
         onSendForm();
 

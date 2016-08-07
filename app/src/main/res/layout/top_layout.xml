@@ -29,12 +29,12 @@
 
         <ImageView
             android:background="@drawable/circle_selector"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:id="@+id/top_add"
             android:layout_gravity="right|top"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:src="@mipmap/add" />
     </FrameLayout>
 </LinearLayout>

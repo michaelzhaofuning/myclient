@@ -35,8 +35,6 @@ public class SuccessActivity extends BaseActivity {
                 return true;
             }
         });
-
-
     }
 
     @Override
@@ -44,6 +42,4 @@ public class SuccessActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.confirm_button, menu);
         return true;
     }
-
-
 }

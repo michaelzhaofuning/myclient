@@ -2,9 +2,12 @@ package com.qczb.myclient.base;
 
 
 
+import java.util.Map;
+
 import okhttp3.FormBody;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -12,6 +15,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * http request goes here...
@@ -38,6 +42,9 @@ public interface HttpService {
     @GET("visitPlan/findByUserid.htm")
     Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("state") Integer state, @Query("stateOpt") String stateOpt, @Query("planTime") String time, @Query("planTimeOpt") String planTimeOpt);
 
+    @GET("business/findByUserid.htm")
+    Call<BaseResult> getCustomers(@Query("vcUserid") String uid);
+
 
 
     /////////////////////////////////////////////////////////////////////////
@@ -50,9 +57,7 @@ public interface HttpService {
     /////////////////////////////////////////////////////////////////////////
 
     @GET("yw/yw_main/goods_submit")
-    Call<BaseResult> submitGoods(@Query("auid") String auid, @Query("user_key") String token,
-                                 @Query("goodsname") String name, @Query("goodssortb") String price,
-                                 @Query("goodscontent") String content, @Query("submit_pic_urls") String pics);
+    Call<BaseResult> submitGoods(@QueryMap Map<String, String> map);
 
 
 
