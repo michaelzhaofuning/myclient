@@ -31,29 +31,32 @@
                 android:layout_height="fill_parent" android:layout_weight="1" android:id="@+id/bar0"
                 android:gravity="center">
             <ImageView
-                    android:id="@+id/imageView_bar0" style="@style/nav_footer_image_view"/>
+                    android:id="@+id/imageView_bar0" style="@style/nav_footer_image_view"
+                android:scaleType="centerCrop" />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="执行"
+                    android:text="计划"
                     android:id="@+id/textView_bar0"
                     android:textSize="@dimen/nav_footer_text_size"/>
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:gravity="center" android:layout_height="fill_parent"
                       android:layout_weight="1" android:id="@+id/bar1">
             <ImageView
-                    android:id="@+id/imageView_bar1" style="@style/nav_footer_image_view"/>
+                    android:id="@+id/imageView_bar1" style="@style/nav_footer_image_view"
+                android:scaleType="centerCrop" />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="计划"
+                    android:text="执行"
                     android:id="@+id/textView_bar1"
                     android:textSize="@dimen/nav_footer_text_size"/>
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:gravity="center"
                       android:layout_height="fill_parent" android:layout_weight="1" android:id="@+id/bar2">
             <ImageView
-                    android:id="@+id/imageView_bar2" style="@style/nav_footer_image_view"/>
+                    android:id="@+id/imageView_bar2" style="@style/nav_footer_image_view"
+                android:scaleType="centerCrop" />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

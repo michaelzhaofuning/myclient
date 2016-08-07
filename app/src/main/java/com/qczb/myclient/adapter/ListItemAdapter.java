@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Item;
+import com.qczb.myclient.ui.main.PlanDetailActivity;
+import com.qczb.myclient.util.ActivityUtil;
 
 import java.util.List;
 
@@ -22,9 +24,11 @@ import java.util.List;
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> implements View.OnClickListener {
     private List<Item> mList;
     private BaseActivity mActivity;
-    public ListItemAdapter(BaseActivity activity, List<Item> list) {
+    private String mWhich;
+    public ListItemAdapter(BaseActivity activity, List<Item> list, String which) {
         mList = list;
         mActivity = activity;
+        mWhich = which;
     }
 
     @Override
@@ -35,6 +39,12 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setOnClickListener(this);
+        holder.itemView.setTag(position);
+        if (mWhich.equals("plan")) {
+            holder.title.setText(mList.get(position).visitPlanTitle);
+            holder.date.setText(mList.get(position).visitPlanTime);
+            holder.location.setText(mList.get(position).visitPlanContent);
+        }
 
     }
 
@@ -45,7 +55,10 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
     @Override
     public void onClick(View v) {
-//        ActivityUtil.startActivityForResult(mActivity, ChartActivity.class);
+        int p = (int) v.getTag();
+
+
+        ActivityUtil.startActivityForResult(mActivity, PlanDetailActivity.class);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

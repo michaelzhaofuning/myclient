@@ -22,6 +22,7 @@ public class MyEditLinearLayout extends LinearLayout {
     private TextView tvContent;
     private TextView tvTitle;
     private ImageView decoration;
+    private String formName;
 
     public MyEditLinearLayout(Context context) {
         super(context);
@@ -41,10 +42,12 @@ public class MyEditLinearLayout extends LinearLayout {
         String content = a.getString(R.styleable.MyEditLinearLayout_contentOfMyEditLinearLayout);
         boolean dividerShow = a.getBoolean(R.styleable.MyEditLinearLayout_dividerShowEdit, true);
         Drawable drawable = a.getDrawable(R.styleable.MyEditLinearLayout_decoratedDrawable);
+        formName = a.getString(R.styleable.MyEditLinearLayout_formNameOfMyEditLinearLayout);
 
         tvTitle.setText(title);
         tvContent.setText(content);
         decoration.setImageDrawable(drawable);
+        decoration.setColorFilter(getResources().getColor(R.color.colorPrimary));
         if (!dividerShow) divider.setVisibility(GONE);
 
         a.recycle();

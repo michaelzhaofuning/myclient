@@ -12,5 +12,6 @@
         <attr name="dividerShowEdit" format="boolean"/>
         <attr name="contentOfMyEditLinearLayout" format="string"/>
         <attr name="decoratedDrawable" format="reference"/>
+        <attr name="formNameOfMyEditLinearLayout" format="string"/>
     </declare-styleable>
 </resources>

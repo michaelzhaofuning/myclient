@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 
+import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.MyCallBack;
+import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.ui.main.MainActivity;
+import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.MyEditLinearLayout;
 import com.qczb.myclient.view.MyLinearLayout;
 import com.qczb.myclient.view.PhotoPopupWindow;
@@ -34,7 +38,7 @@ public class PublishGoodActivity extends BaseActivity {
 
     private MyEditLinearLayout content, price, title;
     private LinearLayout mContainer;
-//    private ArrayList<PhotoModel> photoModels = new ArrayList<>();
+    private ArrayList<PhotoModel> photoModels = new ArrayList<>();
     private String[] aType;
     private String typeId;
     private ArrayList<String> uris = new ArrayList<>();
@@ -51,11 +55,6 @@ public class PublishGoodActivity extends BaseActivity {
     }
 
     public void publish(View view) {
-
-    }
-/*
-
-    public void publish(View view) {
         if (typeId == null || photoModels.size() == 0 || TextUtils.isEmpty(title.getContent()) || TextUtils.isEmpty(content.getContent())) {
             showToastMsg("请完善信息！");
             return;
@@ -64,7 +63,7 @@ public class PublishGoodActivity extends BaseActivity {
             MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>(this) {
                 @Override
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                    uris.add(response.body().getResult().get("url").getAsString());
+                    uris.add(response.body().getData().get(0).getAsJsonObject().get("url").getAsString());
                     if (uris.size() == photoModels.size()) {
                         StringBuilder sb = new StringBuilder();
 
@@ -103,7 +102,5 @@ public class PublishGoodActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         PhotoPopupWindow.callBack(this, photoModels, requestCode, resultCode, data, null, mContainer);
-    }*/
-
-
+    }
 }

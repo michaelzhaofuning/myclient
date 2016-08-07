@@ -1,5 +1,6 @@
 package com.qczb.myclient.base;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 /**
@@ -8,20 +9,20 @@ import com.google.gson.JsonObject;
  * @author Michael Zhao
  */
 public class BaseResult extends BaseEntity {
-    JsonObject result;
+    JsonArray data;
 
-    public JsonObject getResult() {
-        return result;
+    public JsonArray getData() {
+        return data;
     }
 
-    public void setResult(JsonObject result) {
-        this.result = result;
+    public void setData(JsonArray data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "BaseResult{" +
-                "result=" + result +
+                "result=" + data +
                 '}' + super.toString();
     }
 }

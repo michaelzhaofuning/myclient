@@ -18,9 +18,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.photoselector.model.PhotoModel;
+import com.photoselector.ui.PhotoPreviewActivity;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.MyConstants;
+import com.qczb.myclient.util.ActivityUtil;
+import com.qczb.myclient.util.UiUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -133,7 +138,7 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
         return lastUri;
     }
 
-    /*public static void callBack(BaseActivity activity, ArrayList<PhotoModel> photos, int requestCode, int resultCode, Intent data, ImageView avatar, LinearLayout container) {
+    public static void callBack(BaseActivity activity, ArrayList<PhotoModel> photos, int requestCode, int resultCode, Intent data, ImageView avatar, LinearLayout container) {
         ArrayList<PhotoModel> tempPhotos = null;
         if (data != null) {
              tempPhotos = (ArrayList<PhotoModel>) data.getExtras().getSerializable("photos");
@@ -147,8 +152,8 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
                     photos.addAll(tempPhotos);
                     setImages(activity, tempPhotos, null, container, photos);
                 }
-                else
-                    Crop.of(PhotoPopupWindow.getLastUri(), PhotoPopupWindow.getTimestampUri()).asSquare().start(activity);
+//                else
+//                    Crop.of(PhotoPopupWindow.getLastUri(), PhotoPopupWindow.getTimestampUri()).asSquare().start(activity);
         }
         if (requestCode == PhotoPopupWindow.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {// selected image
                 if (tempPhotos == null || tempPhotos.isEmpty()) {
@@ -158,13 +163,13 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
                         photos.addAll(tempPhotos);
                         setImages(activity, tempPhotos, null, container, photos);
                     } else {
-                        Crop.of(Uri.fromFile(new File(tempPhotos.get(0).getOriginalPath())), PhotoPopupWindow.getTimestampUri()).asSquare().start(activity);
+//                        Crop.of(Uri.fromFile(new File(tempPhotos.get(0).getOriginalPath())), PhotoPopupWindow.getTimestampUri()).asSquare().start(activity);
                     }
                 }
             }
-        if (requestCode == Crop.REQUEST_CROP && resultCode == Activity.RESULT_OK) {
-            avatar.setImageURI(PhotoPopupWindow.getLastUri());
-        }
+//        if (requestCode == Crop.REQUEST_CROP && resultCode == Activity.RESULT_OK) {
+//            avatar.setImageURI(PhotoPopupWindow.getLastUri());
+//        }
     }
 
 
@@ -260,5 +265,5 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
         imageView.setLayoutParams(lp);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return imageView;
-    }*/
+    }
 }

@@ -3,6 +3,7 @@ package com.qczb.myclient.ui.main;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
@@ -29,32 +30,19 @@ import retrofit2.Response;
  *
  * @author Michael Zhao
  */
-public class ListItemFragment extends BaseListFragment<BaseResult, Item> {
+public abstract class ListItemFragment extends BaseListFragment<BaseResult, Item> {
     ImageView topImageView;
+    ImageView topAdd;
     TextView topTextView;
     private float myLastY = -1;
     private View scrim;
     boolean scrimShow = false;
 
     @Override
-    public Call<BaseResult> getRetrofitCall() {
-        return null;
-    }
-
-    @Override
-    protected Class<Item> getItemClass() {
-        return Item.class;
-    }
-
-    @Override
-    protected JsonArray getJsonArray(Response<BaseResult> response) {
-        return null;
-    }
-
-    @Override
     protected void initActionBar() {
         View v = getActivity().getLayoutInflater().inflate(R.layout.top_layout, mAboveList);
         topImageView = (ImageView) v.findViewById(R.id.top_image);
+        topAdd = (ImageView) v.findViewById(R.id.top_add);
         topTextView = (TextView) v.findViewById(R.id.top_text);
         scrim = v.findViewById(R.id.scrim);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -62,22 +50,27 @@ public class ListItemFragment extends BaseListFragment<BaseResult, Item> {
             getActivity().getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+        topAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTopAddClicked(v);
+            }
+        });
+        topTextView.setText(getTitle());
+        topImageView.setImageDrawable(getResources().getDrawable(getTopImageID()));
 
     }
 
-    @Override
-    protected String getCacheKey() {
-        return null;
-    }
+    protected abstract int getTopImageID();
+
+    protected abstract String getTitle();
+
+    protected abstract void onTopAddClicked(View v);
 
     @Override
-    public Item newEntity() {
-        return new Item();
-    }
-
-    @Override
-    protected RecyclerView.Adapter getAdapter() {
-        return new ListItemAdapter((BaseActivity) getActivity(), mList);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        onRefresh();
     }
 
     @Override

@@ -35,4 +35,5 @@ dependencies {
     compile files('libs/fastjson-1.2.6.jar')
     compile files('libs/TencentLocationSDK_v4.4.6_r206631_151119_1441.jar')
     compile files('libs/TencentMapSDK_Raster_v1.1.2.16281.jar')
+    compile project(path: ':photoSelector')
 }

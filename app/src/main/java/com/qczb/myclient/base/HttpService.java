@@ -35,8 +35,9 @@ public interface HttpService {
     @GET("supervisor/login.htm")
     Call<UserData> login(@Query("vcPhone") String username, @Query("vcPassword") String password);
 
-    @GET("yw/yw_user/no_exist")
-    Call<BaseResult> isUsernameExists(@Query("username") String username);
+    @GET("visitPlan/findByUserid.htm")
+    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("state") Integer state, @Query("stateOpt") String stateOpt, @Query("planTime") String time, @Query("planTimeOpt") String planTimeOpt);
+
 
 
     /////////////////////////////////////////////////////////////////////////
@@ -53,8 +54,7 @@ public interface HttpService {
                                  @Query("goodsname") String name, @Query("goodssortb") String price,
                                  @Query("goodscontent") String content, @Query("submit_pic_urls") String pics);
 
-    @GET("visitPlan/findByUserid.htm")
-    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("state") int state, @Query("stateOpt") String stateOpt, );
+
 
     @GET("yw/yw_main/user_goods_cancel")
     Call<BaseResult> downGoods(@Query("auid") String auid, @Query("user_key") String token, @Query("user_goods_id") String goodsId);

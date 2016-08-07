@@ -10,7 +10,16 @@ import android.widget.TextView;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
+import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyApplication;
+import com.qczb.myclient.base.MyCallBack;
+
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long firstTimeOfExit = 0;
@@ -26,9 +35,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         initView();
 
-        homeFragment = new HomeFragment();
-        publishFragment = new ListItemFragment();
-        myFragment = new WorkExecuteFragment();
+        homeFragment = new PlanFragment();
+        publishFragment = new PlanFragment();
+        myFragment = new AddPlanActivity.AddPlanFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.container, homeFragment, "home")
                 .add(R.id.container, publishFragment, "my")
@@ -66,7 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (i) {
             case 0:
                 textViewBar0.setTextColor(getResources().getColor(R.color.colorPrimary));
-                imageViewBar0.setImageResource(R.mipmap.bar01);
+                imageViewBar0.setImageResource(R.mipmap.bar11);
                 getFragmentManager().beginTransaction().show(homeFragment).hide(myFragment).hide(publishFragment).commit();
 //                getFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
                 break;
@@ -89,7 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void resetBar() {
-        imageViewBar0.setImageResource(R.mipmap.bar00);
+        imageViewBar0.setImageResource(R.mipmap.bar10);
         imageViewBar1.setImageResource(R.mipmap.bar10);
         imageViewBar2.setImageResource(R.mipmap.bar20);
 
@@ -131,5 +140,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void publish(View view) {
 
+    }
+
+    public static void uploadGoods(String path, MyCallBack<BaseResult> callback) {
+        File file = new File(path);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("image", "test.jpg", requestBody);
+        Call<BaseResult> call = MyApplication.getMyApplication().getHttpService().uploadGoods(part);
+        call.enqueue(callback);
     }
 }
