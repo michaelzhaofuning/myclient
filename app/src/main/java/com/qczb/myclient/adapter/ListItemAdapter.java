@@ -14,6 +14,8 @@ import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.ui.main.PlanDetailActivity;
 import com.qczb.myclient.ui.main.StartPlanActivity;
 import com.qczb.myclient.util.ActivityUtil;
+import com.qczb.myclient.util.DateUtil;
+import com.qczb.myclient.util.Utils;
 
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         holder.itemView.setTag(position);
         if (mWhich.equals("plan")) {
             holder.title.setText(mList.get(position).visitPlanTitle);
-            holder.date.setText(mList.get(position).visitPlanTime);
+            holder.date.setText(DateUtil.toMyString(mList.get(position).visitPlanTime));
             holder.location.setText(mList.get(position).visitPlanContent);
         }
 

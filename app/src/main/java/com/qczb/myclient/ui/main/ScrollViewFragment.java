@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseFragment;
@@ -26,6 +28,9 @@ import java.util.Map;
  */
 public abstract class ScrollViewFragment extends BaseFragment {
     ImageView topImageView;
+    private LinearLayout linearLayout;
+    Map<String, String> map = new HashMap<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,30 +53,37 @@ public abstract class ScrollViewFragment extends BaseFragment {
         });
         topImageView.setImageDrawable(getResources().getDrawable(getTopImageID()));
         NestedScrollView nestedScrollView = (NestedScrollView) v.findViewById(R.id.scroll_view);
-        LinearLayout linearLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(getScrollViewContentLayoutId(), null);
+        linearLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(getScrollViewContentLayoutId(), null);
         nestedScrollView.addView(linearLayout);
         if (linearLayout.findViewById(R.id.commit) != null)
             linearLayout.findViewById(R.id.commit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle b = new Bundle();
-                    b.putString("title", getTitle() + "成功");
-                    ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class, b, 100);
-                    getActivity().finish();
+                    if (!collectInput(linearLayout)) showToastMsg("请完善信息");
+                    else onSendForm();
                 }
             });
 
-        Map<String, String> map = new HashMap<>();
+
+    }
+
+    protected boolean collectInput(LinearLayout linearLayout) {
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                 MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
+                if (TextUtils.isEmpty(myEditLinearLayout.getContent())) return false;
                 map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
+            } else if (linearLayout.getChildAt(i) instanceof LinearLayout){
+                collectInput((LinearLayout) linearLayout.getChildAt(i));
             }
         }
-
-
-        onSendForm();
-
+        return true;
+    }
+    protected void success() {
+        Bundle b = new Bundle();
+        b.putString("title", getTitle() + "成功");
+        ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class, b, 100);
+        getActivity().finish();
     }
 
     protected abstract void onSendForm();

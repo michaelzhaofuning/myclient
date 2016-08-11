@@ -16,6 +16,7 @@
         <attr name="contentOfMyEditLinearLayout" format="string"/>
         <attr name="decoratedDrawable" format="reference"/>
         <attr name="formNameOfMyEditLinearLayout" format="string"/>
+        <attr name="isNumOfMyEditLinearLayout" format="boolean"/>
     </declare-styleable>
 
 </resources>

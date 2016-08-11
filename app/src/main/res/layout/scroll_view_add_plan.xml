@@ -6,16 +6,16 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="标题"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="title"
+        app:decoratedDrawable="@mipmap/title"
+        app:formNameOfMyEditLinearLayout="visitPlanTitle"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="时间"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="time"
+        app:decoratedDrawable="@mipmap/time"
+        app:formNameOfMyEditLinearLayout="visitPlanTime"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
@@ -23,17 +23,25 @@
         android:layout_width="match_parent"
         android:id="@+id/title"
         app:titleOfMyEditLinearLayout="内容"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/content"
+        app:formNameOfMyEditLinearLayout="visitPlanContent"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         android:id="@+id/business"
-        app:titleOfMyEditLinearLayout="店铺"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:titleOfMyEditLinearLayout="商家名称"
+        app:decoratedDrawable="@mipmap/business"
+        app:formNameOfMyEditLinearLayout="Bname"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="商家编号"
+        app:isNumOfMyEditLinearLayout="true"
+        app:decoratedDrawable="@mipmap/code"
+        app:formNameOfMyEditLinearLayout="Bid"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
 

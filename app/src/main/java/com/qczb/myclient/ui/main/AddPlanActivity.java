@@ -7,6 +7,12 @@ import android.view.View;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
+import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.MyCallBack;
+import com.qczb.myclient.base.UserManager;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * 2016/8/7
@@ -31,7 +37,15 @@ public class AddPlanActivity extends BaseActivity {
 
         @Override
         protected void onSendForm() {
-
+            map.put("editModel", "add");
+            map.put("salesmanId", UserManager.getUID());
+            map.put("state", "0");
+            getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                @Override
+                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                    success();
+                }
+            });
         }
 
         @Override

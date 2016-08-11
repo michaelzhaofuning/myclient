@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
-        app:titleOfMyEditLinearLayout="标题"
+        app:titleOfMyEditLinearLayout="店铺名称"
         app:decoratedDrawable="@mipmap/lock"
         app:formNameOfMyEditLinearLayout="title"
         android:layout_height="wrap_content">
@@ -13,7 +13,7 @@
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
-        app:titleOfMyEditLinearLayout="时间"
+        app:titleOfMyEditLinearLayout="所在地点"
         app:decoratedDrawable="@mipmap/lock"
         app:formNameOfMyEditLinearLayout="time"
         android:layout_height="wrap_content">
@@ -22,7 +22,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         android:id="@+id/title"
-        app:titleOfMyEditLinearLayout="内容"
+        app:titleOfMyEditLinearLayout="店铺电话"
         app:decoratedDrawable="@mipmap/lock"
         app:formNameOfMyEditLinearLayout="content"
         android:layout_height="wrap_content">
@@ -30,12 +30,56 @@
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/business"
-        app:titleOfMyEditLinearLayout="店铺"
+        app:titleOfMyEditLinearLayout="客户级别"
         app:decoratedDrawable="@mipmap/lock"
         app:formNameOfMyEditLinearLayout="content"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="联系电话"
+        app:decoratedDrawable="@mipmap/lock"
+        app:formNameOfMyEditLinearLayout="content"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否是陈列店"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:id="@+id/switch1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/bar01"
+        android:drawablePadding="10dp"
+        android:layout_gravity="center_horizontal" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/default_color"/>
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否推荐婚宴"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/switch_wedding_feast"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/bar01"
+        android:drawablePadding="10dp"
+        android:layout_gravity="center_horizontal" />
+    <include layout="@layout/wedding_feast_layout"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/default_color"/>
 
     <Button
         android:layout_width="match_parent"

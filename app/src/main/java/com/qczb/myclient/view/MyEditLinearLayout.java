@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,7 +46,9 @@ public class MyEditLinearLayout extends LinearLayout {
         boolean dividerShow = a.getBoolean(R.styleable.MyEditLinearLayout_dividerShowEdit, true);
         Drawable drawable = a.getDrawable(R.styleable.MyEditLinearLayout_decoratedDrawable);
         formName = a.getString(R.styleable.MyEditLinearLayout_formNameOfMyEditLinearLayout);
+        boolean isNum = a.getBoolean(R.styleable.MyEditLinearLayout_isNumOfMyEditLinearLayout, false);
 
+        if (isNum) tvContent.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         tvTitle.setText(title);
         tvTitle.setTextColor(textColorOfTitle);
         tvContent.setText(content);

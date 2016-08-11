@@ -56,8 +56,11 @@ public interface HttpService {
     ////  publish
     /////////////////////////////////////////////////////////////////////////
 
-    @GET("yw/yw_main/goods_submit")
-    Call<BaseResult> submitGoods(@QueryMap Map<String, String> map);
+    @GET("visitPlan/msave.htm")
+    Call<BaseResult> submitPlan(@QueryMap Map<String, String> map);
+
+    @GET("visitPlan/addBusiness.htm")
+    Call<BaseResult> submitCustomer(@QueryMap Map<String, String> map);
 
 
 
