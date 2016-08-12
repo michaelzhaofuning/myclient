@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:visibility="gone"
     android:id="@+id/wedding_feast"
-    android:scaleY="0"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="新人姓名"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="title"
+        app:decoratedDrawable="@mipmap/man"
+        app:formNameOfMyEditLinearLayout="Mname"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="家庭住址"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="time"
+        app:decoratedDrawable="@mipmap/address"
+        app:formNameOfMyEditLinearLayout="Maddress"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
@@ -26,54 +26,54 @@
         android:layout_width="match_parent"
         android:id="@+id/title"
         app:titleOfMyEditLinearLayout="联系电话"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/mobile_small"
+        app:formNameOfMyEditLinearLayout="Mtelephone"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="喜宴时间"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/time"
+        app:formNameOfMyEditLinearLayout="marryTime"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
 
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="喜宴地点"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/marker"
+        app:formNameOfMyEditLinearLayout="marryAddr"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
 
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="所用产品"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/product"
+        app:formNameOfMyEditLinearLayout="marryProducts"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
 
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="喜宴桌数"
-        app:decoratedDrawable="@mipmap/lock"
+        app:decoratedDrawable="@mipmap/fan"
         app:formNameOfMyEditLinearLayout="content"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="总管姓名"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/man_double"
+        app:formNameOfMyEditLinearLayout="zgName"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="总管电话"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/tel"
+        app:formNameOfMyEditLinearLayout="zgTelephone"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <RelativeLayout
@@ -92,13 +92,20 @@
             android:textColor="@android:color/darker_gray"
             android:text="酒桌照片"
             android:id="@+id/textView32"
-            android:drawableLeft="@mipmap/bar01"
-            android:drawablePadding="10dp"
             android:layout_gravity="center_vertical"
             android:layout_alignParentLeft="false"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_marginLeft="10dp" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/decoration"
+            android:src="@mipmap/pic"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:scaleType="centerCrop" />
 
         <HorizontalScrollView
             android:scrollbars="none"

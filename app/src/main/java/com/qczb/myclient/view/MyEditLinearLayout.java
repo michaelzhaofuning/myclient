@@ -41,7 +41,7 @@ public class MyEditLinearLayout extends LinearLayout {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyEditLinearLayout);
         String title = a.getString(R.styleable.MyEditLinearLayout_titleOfMyEditLinearLayout);
-        int textColorOfTitle = a.getColor(R.styleable.MyLinearLayout_textColorOfTitle, getResources().getColor(android.R.color.darker_gray));
+        int textColorOfTitle = a.getColor(R.styleable.MyEditLinearLayout_textColorOfTitle, getResources().getColor(android.R.color.darker_gray));
         String content = a.getString(R.styleable.MyEditLinearLayout_contentOfMyEditLinearLayout);
         boolean dividerShow = a.getBoolean(R.styleable.MyEditLinearLayout_dividerShowEdit, true);
         Drawable drawable = a.getDrawable(R.styleable.MyEditLinearLayout_decoratedDrawable);

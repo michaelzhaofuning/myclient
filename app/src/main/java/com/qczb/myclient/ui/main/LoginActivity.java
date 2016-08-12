@@ -67,14 +67,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mPassword = (EditText) findViewById(R.id.password);
         mLogin = (Button) findViewById(R.id.login);
         mLogin.setOnClickListener(this);
-        ValueAnimator v = ObjectAnimator.ofInt(-getResources().getDimensionPixelSize(R.dimen.top_layout_height) / 2, 0);
-        v.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                findViewById(R.id.container).setPadding((Integer) animation.getAnimatedValue(), (Integer) animation.getAnimatedValue(), (Integer) animation.getAnimatedValue(), (Integer) animation.getAnimatedValue());
-            }
-        });
-        v.start();
     }
 
     private boolean isPhoneValid() {

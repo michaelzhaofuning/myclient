@@ -6,12 +6,12 @@
         <attr name="expandedOfMyLinearLayout" format="boolean"/>
         <attr name="contentOfMyLinearLayout" format="string"/>
         <attr name="decoratedDrawableOfMyLinearLayout" format="reference"/>
-        <attr name="textColorOfTitle" format="color"/>
 
     </declare-styleable>
 
     <declare-styleable name="MyEditLinearLayout">
         <attr name="titleOfMyEditLinearLayout" format="string"/>
+        <attr name="textColorOfTitle" format="color"/>
         <attr name="dividerShowEdit" format="boolean"/>
         <attr name="contentOfMyEditLinearLayout" format="string"/>
         <attr name="decoratedDrawable" format="reference"/>

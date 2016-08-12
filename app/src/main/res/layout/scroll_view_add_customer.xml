@@ -6,16 +6,16 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="店铺名称"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="title"
+        app:decoratedDrawable="@mipmap/business"
+        app:formNameOfMyEditLinearLayout="BName"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="所在地点"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="time"
+        app:decoratedDrawable="@mipmap/marker"
+        app:formNameOfMyEditLinearLayout="BAddress"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
@@ -23,27 +23,18 @@
         android:layout_width="match_parent"
         android:id="@+id/title"
         app:titleOfMyEditLinearLayout="店铺电话"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/tel"
+        app:formNameOfMyEditLinearLayout="BTelephone"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="客户级别"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/code"
+        app:formNameOfMyEditLinearLayout="BLevel"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
-
-    <com.qczb.myclient.view.MyEditLinearLayout
-        android:layout_width="match_parent"
-        app:titleOfMyEditLinearLayout="联系电话"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
-        android:layout_height="wrap_content">
-    </com.qczb.myclient.view.MyEditLinearLayout>
-
 
     <Switch
         android:layout_width="match_parent"
@@ -55,7 +46,7 @@
         android:paddingBottom="7dp"
         android:id="@+id/switch1"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/bar01"
+        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/exhibit"
         android:drawablePadding="10dp"
         android:layout_gravity="center_horizontal" />
     <View
@@ -72,7 +63,7 @@
         android:paddingBottom="10dp"
         android:id="@+id/switch_wedding_feast"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/bar01"
+        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/wedding"
         android:drawablePadding="10dp"
         android:layout_gravity="center_horizontal" />
     <include layout="@layout/wedding_feast_layout"/>

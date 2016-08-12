@@ -6,13 +6,13 @@
     android:layout_height="match_parent">
     <com.qczb.myclient.view.MyLinearLayout
         android:layout_width="match_parent"
-        app:decoratedDrawableOfMyLinearLayout="@mipmap/bar11"
+        app:decoratedDrawableOfMyLinearLayout="@mipmap/business"
         app:titleOfMyLinearLayout="供货商管理"
         android:onClick="providers"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyLinearLayout>
     <com.qczb.myclient.view.MyLinearLayout
-        app:decoratedDrawableOfMyLinearLayout="@mipmap/bar11"
+        app:decoratedDrawableOfMyLinearLayout="@mipmap/product"
         android:layout_width="match_parent"
         app:titleOfMyLinearLayout="库存管理"
         android:onClick="providers"
@@ -34,7 +34,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="拜访拍照"
             android:id="@+id/textView32"
-            android:drawableLeft="@mipmap/bar01"
+            android:drawableLeft="@mipmap/camera"
             android:drawablePadding="10dp"
             android:layout_gravity="center_vertical"
             android:layout_alignParentLeft="false"
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="拜访内容"
         app:textColorOfTitle="#000"
-        app:decoratedDrawable="@mipmap/bar11"
+        app:decoratedDrawable="@mipmap/content"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>

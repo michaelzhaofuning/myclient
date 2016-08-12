@@ -45,8 +45,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .commit();
 
         selectedBar(0);
-
-
     }
 
 
@@ -75,7 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (i) {
             case 0:
                 textViewBar0.setTextColor(getResources().getColor(R.color.colorPrimary));
-                imageViewBar0.setImageResource(R.mipmap.bar11);
+                imageViewBar0.setImageResource(R.mipmap.bar01);
                 getFragmentManager().beginTransaction().show(homeFragment).hide(myFragment).hide(publishFragment).commit();
 //                getFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
                 break;
@@ -98,7 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void resetBar() {
-        imageViewBar0.setImageResource(R.mipmap.bar10);
+        imageViewBar0.setImageResource(R.mipmap.bar00);
         imageViewBar1.setImageResource(R.mipmap.bar10);
         imageViewBar2.setImageResource(R.mipmap.bar20);
 
