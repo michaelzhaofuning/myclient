@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import com.qczb.myclient.R;
  * @author Michael Zhao
  */
 public class MyEditLinearLayout extends LinearLayout {
-    private TextView tvContent;
+    private EditText tvContent;
     private TextView tvTitle;
     private ImageView decoration;
     private String formName;
@@ -34,7 +35,7 @@ public class MyEditLinearLayout extends LinearLayout {
         super(context, attrs);
         View v = LayoutInflater.from(context).inflate(R.layout.my_edit_linearlayout, this, true);
         tvTitle = (TextView) v.findViewById(R.id.titleOfMyEdit);
-        tvContent = (TextView) v.findViewById(R.id.contentOfMyEdit);
+        tvContent = (EditText) v.findViewById(R.id.contentOfMyEdit);
         decoration = (ImageView)v.findViewById(R.id.decoration);
         View divider = v.findViewById(R.id.divider);
         View ivArrow = v.findViewById(R.id.iv_arrow);
@@ -52,6 +53,7 @@ public class MyEditLinearLayout extends LinearLayout {
         tvTitle.setText(title);
         tvTitle.setTextColor(textColorOfTitle);
         tvContent.setText(content);
+        tvContent.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         decoration.setImageDrawable(drawable);
         decoration.setColorFilter(getResources().getColor(R.color.colorPrimary));
         if (!dividerShow) divider.setVisibility(GONE);

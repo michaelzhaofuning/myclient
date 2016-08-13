@@ -63,7 +63,7 @@ public class PublishGoodActivity extends BaseActivity {
             MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>(this) {
                 @Override
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                    uris.add(response.body().getData().get(0).getAsJsonObject().get("url").getAsString());
+                    uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
                     if (uris.size() == photoModels.size()) {
                         StringBuilder sb = new StringBuilder();
 

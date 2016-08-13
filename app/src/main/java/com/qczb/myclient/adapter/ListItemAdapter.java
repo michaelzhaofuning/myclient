@@ -11,11 +11,9 @@ import android.widget.TextView;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Item;
-import com.qczb.myclient.ui.main.PlanDetailActivity;
 import com.qczb.myclient.ui.main.StartPlanActivity;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.util.DateUtil;
-import com.qczb.myclient.util.Utils;
 
 import java.util.List;
 
@@ -47,8 +45,21 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             holder.title.setText(mList.get(position).visitPlanTitle);
             holder.date.setText(DateUtil.toMyString(mList.get(position).visitPlanTime));
             holder.location.setText(mList.get(position).visitPlanContent);
-        }
+            /*switch (Integer.parseInt(mList.get(position).state)) {
+                // state:0未完成1拜访中2已完成
+                case 0:
+                    holder.status.setText("未完成");
+                    break;
+                case 1:
+                    holder.status.setText("拜访中");
+                    break;
+                case 2:
+                    holder.status.setText("已完成");
+                    break;
+                default:
 
+            }*/
+        }
     }
 
     @Override

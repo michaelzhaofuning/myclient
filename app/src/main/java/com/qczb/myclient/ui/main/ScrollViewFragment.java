@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.qczb.myclient.R;
@@ -64,16 +65,20 @@ public abstract class ScrollViewFragment extends BaseFragment {
                 }
             });
 
-
     }
 
     protected boolean collectInput(LinearLayout linearLayout) {
+        boolean isMarryOn = false;
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                 MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
                 if (TextUtils.isEmpty(myEditLinearLayout.getContent())) return false;
                 map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
-            } else if (linearLayout.getChildAt(i) instanceof LinearLayout){
+            } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_exhibit) {
+                map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "true" : "false");
+            } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
+                isMarryOn = ((Switch) linearLayout.getChildAt(i)).isChecked();
+            } else if (linearLayout.getChildAt(i) instanceof LinearLayout && isMarryOn) {
                 collectInput((LinearLayout) linearLayout.getChildAt(i));
             }
         }

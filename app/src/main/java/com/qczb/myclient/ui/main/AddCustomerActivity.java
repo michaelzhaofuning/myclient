@@ -16,10 +16,16 @@ import android.widget.Switch;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
+import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * 2016/8/7
@@ -27,7 +33,8 @@ import java.util.ArrayList;
  * @author Michael Zhao
  */
 public class AddCustomerActivity extends BaseActivity {
-    private ArrayList<PhotoModel> photoModels = new ArrayList<>();
+    public ArrayList<PhotoModel> photoModels = new ArrayList<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class AddCustomerActivity extends BaseActivity {
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
+
     public void shot(View view) {
         new PhotoPopupWindow(this).show(false);
     }
@@ -53,11 +61,44 @@ public class AddCustomerActivity extends BaseActivity {
 
     public static class AddCustomerFragment extends ScrollViewFragment {
         static LinearLayout mContainer;
+        private ArrayList<String> uris = new ArrayList<>();
 
 
         @Override
         protected void onSendForm() {
+            final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
+            for (PhotoModel model : photoModels) {
+                MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                    @Override
+                    public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                        uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
+                        if (uris.size() == photoModels.size()) {
+                            StringBuilder sb = new StringBuilder();
 
+                            int i = 0;
+                            for (String s : uris) {
+                                sb.append(s);
+                                if (i++ < uris.size() - 1)
+                                    sb.append(",");
+                            }
+                            map.put("img", sb.toString());
+                            getHttpService().submitCustomer(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                                @Override
+                                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                                    ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class);
+                                    getActivity().finish();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
+                        super.onMyFailure(call, response);
+                        uris.clear();
+                    }
+                });
+            }
         }
 
         @Override

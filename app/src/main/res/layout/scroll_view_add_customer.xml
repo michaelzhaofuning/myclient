@@ -44,7 +44,7 @@
         android:paddingRight="20dp"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
-        android:id="@+id/switch1"
+        android:id="@+id/switch_exhibit"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/exhibit"
         android:drawablePadding="10dp"

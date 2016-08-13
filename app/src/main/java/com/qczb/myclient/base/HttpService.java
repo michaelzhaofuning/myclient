@@ -32,8 +32,8 @@ public interface HttpService {
     /////////////////////////////////////////////////////////////////////////
 
     @Multipart
-    @POST("yw/yw_user/upload_head")
-    Call<BaseResult> uploadImage(@Part MultipartBody.Part file);
+    @POST("jk/uploadPic.htm")
+    Call<BaseResult> uploadGoods(@Part MultipartBody.Part file);
 
 
     @GET("supervisor/login.htm")
@@ -86,7 +86,4 @@ public interface HttpService {
                                      @Query("nickname") String nickname, @Query("gender") int gender,
                                      @Query("headurl") String headurl, @Query("phone") String phone, @Query("purpose_one") String purpose, @Query("introduction") String intro);
 
-    @Multipart
-    @POST("yw/yw_main/upload_goods")
-    Call<BaseResult> uploadGoods(@Part MultipartBody.Part part);
 }
