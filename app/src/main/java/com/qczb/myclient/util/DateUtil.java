@@ -12,6 +12,8 @@
  */
 package com.qczb.myclient.util;
 
+import android.text.TextUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -225,6 +227,7 @@ public class DateUtil {
     }
 
 	public static String toMyString(String s) {
+		if (TextUtils.isEmpty(s)) return "";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
 		Date date = null;
 		try {

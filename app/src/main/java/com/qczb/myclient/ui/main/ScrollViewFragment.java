@@ -84,6 +84,7 @@ public abstract class ScrollViewFragment extends BaseFragment {
         }
         return true;
     }
+
     protected void success() {
         Bundle b = new Bundle();
         b.putString("title", getTitle() + "成功");

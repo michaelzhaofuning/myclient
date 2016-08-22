@@ -4,12 +4,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
+import com.qczb.myclient.entity.Item;
+import com.qczb.myclient.view.MyEditLinearLayout;
+
+import java.lang.reflect.Field;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -20,9 +26,12 @@ import retrofit2.Response;
  * @author Michael Zhao
  */
 public class AddPlanActivity extends BaseActivity {
+    public Item item;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        item = (Item) getIntent().getSerializableExtra("item");
+
         setContentView(R.layout.base_activity);
         getFragmentManager().beginTransaction()
                 .add(R.id.container, new AddPlanFragment()).commit();
@@ -34,6 +43,28 @@ public class AddPlanActivity extends BaseActivity {
     }
 
     public static class AddPlanFragment extends ScrollViewFragment {
+        @Override
+        public void onViewCreated(View v, Bundle savedInstanceState) {
+            super.onViewCreated(v, savedInstanceState);
+            Item item = ((AddPlanActivity) getActivity()).item;
+            LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.scroll_view_content);
+
+            /*for (int i = 0; i < linearLayout.getChildCount(); i++) {
+                if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
+                    MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
+                    String formName = myEditLinearLayout.getFormName();
+                    for (Field field : Item.class.getDeclaredFields()) {
+                        if (field.getName().equals(formName)) {
+                            try {
+                                myEditLinearLayout.setContent(field.get(item).toString());
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }*/
+        }
 
         @Override
         protected void onSendForm() {

@@ -1,5 +1,6 @@
 package com.qczb.myclient.adapter;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Item;
+import com.qczb.myclient.ui.main.AddPlanActivity;
 import com.qczb.myclient.ui.main.StartPlanActivity;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.util.DateUtil;
@@ -42,9 +44,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
         if (mWhich.equals("plan")) {
-            holder.title.setText(mList.get(position).visitPlanTitle);
-            holder.date.setText(DateUtil.toMyString(mList.get(position).visitPlanTime));
-            holder.location.setText(mList.get(position).visitPlanContent);
+//            holder.title.setText(mList.get(position).visitPlanTitle);
+//            holder.date.setText(DateUtil.toMyString(mList.get(position).visitPlanTime));
+//            holder.location.setText(mList.get(position).visitPlanContent);
             /*switch (Integer.parseInt(mList.get(position).state)) {
                 // state:0未完成1拜访中2已完成
                 case 0:
@@ -71,7 +73,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public void onClick(View v) {
         int p = (int) v.getTag();
 
-        ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("item", mList.get(p));
+        ActivityUtil.startActivityForResult(mActivity, AddPlanActivity.class, b, 100);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
