@@ -13,6 +13,9 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
@@ -21,9 +24,15 @@ import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -68,6 +77,43 @@ public class AddCustomerActivity extends BaseActivity {
         protected void onSendForm() {
             final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
             for (PhotoModel model : photoModels) {
+                RequestParams rp = new RequestParams();
+                try {
+                    rp.put("vcImg", new File(model.getOriginalPath()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/kj/uploadPic.htm", rp, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        super.onSuccess(statusCode, headers, response);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        super.onSuccess(statusCode, headers, responseString);
+                    }
+                });
                 MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                     @Override
                     public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
