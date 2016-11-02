@@ -79,6 +79,7 @@ public abstract class ScrollViewFragment extends BaseFragment {
             } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
                 isMarryOn = ((Switch) linearLayout.getChildAt(i)).isChecked();
             } else if (linearLayout.getChildAt(i) instanceof LinearLayout && isMarryOn) {
+                map.put("isMarry", "1");
                 collectInput((LinearLayout) linearLayout.getChildAt(i));
             }
         }

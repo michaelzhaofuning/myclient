@@ -10,37 +10,41 @@ import android.widget.TextView;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Customer;
-import com.qczb.myclient.entity.Item;
+import com.qczb.myclient.entity.Provider;
 import com.qczb.myclient.ui.main.PlanDetailActivity;
 import com.qczb.myclient.util.ActivityUtil;
 
 import java.util.List;
 
 /**
- * 2016/8/7
+ * 2016/11/2
  *
  * @author Michael Zhao
  */
-public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> implements View.OnClickListener{
-    private List<Customer> mList;
+public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolder> implements View.OnClickListener{
+    private List<Provider> mList;
     private BaseActivity mActivity;
-    public CustomerAdapter(BaseActivity activity, List<Customer> list) {
+    public ProviderAdapter(BaseActivity activity, List<Provider> list) {
         mList = list;
         mActivity = activity;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.provider_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
-            holder.title.setText(mList.get(position).BName);
-            holder.date.setText(mList.get(position).BNewtime);
-            holder.location.setText(mList.get(position).BAddress);
+        holder.title.setText(mList.get(position).SName);
+        holder.date.setText(mList.get(position).addTime);
+        holder.location.setText(mList.get(position).SAddr);
+        holder.status.setText(mList.get(position).SPhone);
+        holder.company.setText(mList.get(position).SCompany);
+        holder.companyAddress.setText(mList.get(position).SCompanyAddr);
+        holder.companyTel.setText(mList.get(position).SCompanyTel);
 
 
     }
@@ -53,14 +57,13 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     @Override
     public void onClick(View v) {
         int p = (int) v.getTag();
-//        mList.get(p).salesmanId
 
 
         ActivityUtil.startActivityForResult(mActivity, PlanDetailActivity.class);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, location, date, status;
+        TextView title, location, date, status, company, companyTel, companyAddress;
         ImageView avatar;
 
         public ViewHolder(View itemView) {
@@ -70,6 +73,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             date = (TextView) itemView.findViewById(R.id.date);
             status = (TextView) itemView.findViewById(R.id.status);
             title = (TextView) itemView.findViewById(R.id.title);
+            companyAddress = (TextView) itemView.findViewById(R.id.company_address);
+            company = (TextView) itemView.findViewById(R.id.company);
+            companyTel = (TextView) itemView.findViewById(R.id.company_tel);
         }
     }
 }

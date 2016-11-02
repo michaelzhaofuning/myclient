@@ -1,20 +1,10 @@
 {
-  "BAddress": "",
-  "BId": "40289f81566d0c2801566d0e1e5f0001",
-  "BDesc": "",
-  "remark": "",
-  "YCoordinate": "",
-  "BName": "北京",
-  "salesmanName": "tom",
-  "isDtd": "",
-  "isSdh": "",
-  "BLevel": "",
-  "isMarry": "1",
-  "isDisplay": "1",
-  "BIcon": "",
-  "BTelephone": "",
-  "XCoordinate": "",
-  "salesmanId": "34242",
-  "isCld": "",
-  "BNewtime": "2016-08-09 10:07:37"
+  "SPhone": "kkk",
+  "SCompany": "jjj",
+  "SAddr": "llll",
+  "SName": "kkk",
+  "SId": "40289f815620094f0156200e700c0003",
+  "addTime": "2016-11-01 23:46:16",
+  "SCompanyAddr": "kkk",
+  "SCompanyTel": "jjj"
 }

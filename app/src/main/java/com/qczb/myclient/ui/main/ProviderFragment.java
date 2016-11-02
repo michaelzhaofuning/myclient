@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import com.google.gson.JsonArray;
 import com.qczb.myclient.R;
 import com.qczb.myclient.adapter.ListItemAdapter;
+import com.qczb.myclient.adapter.ProviderAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Item;
+import com.qczb.myclient.entity.Provider;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -18,7 +20,7 @@ import retrofit2.Response;
  *
  * @author Michael Zhao
  */
-public class ProviderFragment extends ListItemFragment<Item> {
+public class ProviderFragment extends ListItemFragment<Provider> {
     @Override
     protected Class<?> getTopAddActivity() {
         return AddProviderActivity.class;
@@ -36,12 +38,13 @@ public class ProviderFragment extends ListItemFragment<Item> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getPlans(UserManager.getUID(), null, null, null, null);
+//        return getHttpService().getProviders(getArguments().getString("bid"));
+        return getHttpService().getProviders("40289f815660793c0156607b27fd0002");
     }
 
     @Override
-    protected Class<Item> getItemClass() {
-        return Item.class;
+    protected Class<Provider> getItemClass() {
+        return Provider.class;
     }
 
     @Override
@@ -55,12 +58,12 @@ public class ProviderFragment extends ListItemFragment<Item> {
     }
 
     @Override
-    public Item newEntity() {
-        return new Item();
+    public Provider newEntity() {
+        return new Provider();
     }
 
     @Override
     protected RecyclerView.Adapter getAdapter() {
-        return new ListItemAdapter((BaseActivity) getActivity(), mList, "plan");
+        return new ProviderAdapter((BaseActivity) getActivity(), mList);
     }
 }

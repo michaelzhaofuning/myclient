@@ -45,23 +45,17 @@ public interface HttpService {
     @GET("business/findByUserid.htm")
     Call<BaseResult> getCustomers(@Query("vcUserid") String uid);
 
-
-
-    /////////////////////////////////////////////////////////////////////////
-    ////  home
-    /////////////////////////////////////////////////////////////////////////
-
-
-    /////////////////////////////////////////////////////////////////////////
-    ////  publish
-    /////////////////////////////////////////////////////////////////////////
+    @GET("supplier/findByBid.htm")
+    Call<BaseResult> getProviders(@Query("Bid") String bid);
 
     @GET("visitPlan/msave.htm")
     Call<BaseResult> submitPlan(@QueryMap Map<String, String> map);
 
-    @GET("visitPlan/addBusiness.htm")
+    @GET("business/addBusiness.htm")
     Call<BaseResult> submitCustomer(@QueryMap Map<String, String> map);
 
+    @GET("supplier/msave.htm")
+    Call<BaseResult> submitProvider(@QueryMap Map<String, String> map);
 
 
     @GET("yw/yw_main/user_goods_cancel")

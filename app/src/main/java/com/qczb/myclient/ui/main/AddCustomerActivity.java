@@ -21,6 +21,7 @@ import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyCallBack;
+import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
@@ -76,75 +77,86 @@ public class AddCustomerActivity extends BaseActivity {
         @Override
         protected void onSendForm() {
             final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
-            for (PhotoModel model : photoModels) {
-                RequestParams rp = new RequestParams();
-                try {
-                    rp.put("vcImg", new File(model.getOriginalPath()));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/kj/uploadPic.htm", rp, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
+            if (!photoModels.isEmpty()) {
+                for (PhotoModel model : photoModels) {
+                    RequestParams rp = new RequestParams();
+                    try {
+                        rp.put("vcImg", new File(model.getOriginalPath()));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        super.onSuccess(statusCode, headers, response);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        super.onFailure(statusCode, headers, throwable, errorResponse);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                        super.onFailure(statusCode, headers, throwable, errorResponse);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        super.onSuccess(statusCode, headers, responseString);
-                    }
-                });
-                MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
-                    @Override
-                    public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                        uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
-                        if (uris.size() == photoModels.size()) {
-                            StringBuilder sb = new StringBuilder();
-
-                            int i = 0;
-                            for (String s : uris) {
-                                sb.append(s);
-                                if (i++ < uris.size() - 1)
-                                    sb.append(",");
-                            }
-                            map.put("img", sb.toString());
-                            getHttpService().submitCustomer(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
-                                @Override
-                                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                                    ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class);
-                                    getActivity().finish();
-                                }
-                            });
+                    new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/kj/uploadPic.htm", rp, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
                         }
-                    }
 
-                    @Override
-                    public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
-                        super.onMyFailure(call, response);
-                        uris.clear();
-                    }
-                });
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                            super.onSuccess(statusCode, headers, response);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                        }
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                            super.onSuccess(statusCode, headers, responseString);
+                        }
+                    });
+                    MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                        @Override
+                        public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                            uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
+                            if (uris.size() == photoModels.size()) {
+                                StringBuilder sb = new StringBuilder();
+
+                                int i = 0;
+                                for (String s : uris) {
+                                    sb.append(s);
+                                    if (i++ < uris.size() - 1)
+                                        sb.append(",");
+                                }
+                                map.put("img", sb.toString());
+                                submit();
+                            }
+                        }
+
+                        @Override
+                        public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
+                            super.onMyFailure(call, response);
+                            uris.clear();
+                        }
+                    });
+                }
+            } else {
+                submit();
             }
+        }
+
+        private void submit() {
+            map.put("editModel", "add");
+            map.put("salesmanId", "34242");
+//            map.put("salesmanId", UserManager.getUID());
+            getHttpService().submitCustomer(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                @Override
+                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                    ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class);
+                    getActivity().finish();
+                }
+            });
         }
 
         @Override

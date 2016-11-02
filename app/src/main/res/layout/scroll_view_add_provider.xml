@@ -3,19 +3,28 @@
     android:orientation="vertical" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
+    <!--editModel:edit,
+Sid:自动生成，修改时需要输入,
+Bid:商家编号(必填)
+SName:供货商姓名,
+SAddr:供货商地址
+SPhone:供货商地址
+SCompany:公司名称
+SCompanyTel:公司电话
+SCompanyAddr:公司地址 -->
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="姓名"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="title"
+        app:decoratedDrawable="@mipmap/title"
+        app:formNameOfMyEditLinearLayout="SName"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="住址"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="time"
+        app:decoratedDrawable="@mipmap/address"
+        app:formNameOfMyEditLinearLayout="SAddr"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
@@ -23,30 +32,30 @@
         android:layout_width="match_parent"
         android:id="@+id/title"
         app:titleOfMyEditLinearLayout="店铺电话"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/tel"
+        app:formNameOfMyEditLinearLayout="SPhone"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="供货商名称"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/title"
+        app:formNameOfMyEditLinearLayout="SCompany"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="供货商地址"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/address"
+        app:formNameOfMyEditLinearLayout="SCompanyAddr"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="供货商电话"
-        app:decoratedDrawable="@mipmap/lock"
-        app:formNameOfMyEditLinearLayout="content"
+        app:decoratedDrawable="@mipmap/tel"
+        app:formNameOfMyEditLinearLayout="SCompanyTel"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
 
