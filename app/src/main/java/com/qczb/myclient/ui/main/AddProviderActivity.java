@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.qczb.myclient.R;
+import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyCallBack;
+
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -36,8 +39,10 @@ public class AddProviderActivity extends BaseActivity {
 
         @Override
         protected void onSendForm() {
-            map.put("Bid", "40289f81563a4a9001563a626f6e0002");
+//            map.put("Bid", "40289f81563a4a9001563a626f6e0002");
+            map.put("Bid", ListItemAdapter.bid);
             map.put("editModel", "add");
+            map.put("SId", UUID.randomUUID().toString());
             getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                 @Override
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {

@@ -15,6 +15,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="时间"
+        android:id="@+id/pick_date"
         app:decoratedDrawable="@mipmap/time"
         app:formNameOfMyEditLinearLayout="visitPlanTime"
         android:layout_height="wrap_content">

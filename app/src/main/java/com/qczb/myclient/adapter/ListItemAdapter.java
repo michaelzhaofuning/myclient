@@ -29,6 +29,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     private List<Item> mList;
     private BaseActivity mActivity;
     private String mWhich;
+
+    public static String bid;
+
     public ListItemAdapter(BaseActivity activity, List<Item> list, String which) {
         mList = list;
         mActivity = activity;
@@ -76,9 +79,18 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public void onClick(View v) {
         int p = (int) v.getTag();
 
-        Bundle b = new Bundle();
-        b.putSerializable("item", mList.get(p));
-        ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class, b, 100);
+        bid = mList.get(p).salesmanId;
+
+
+        if (mWhich.equals("plan")) {
+            Bundle b = new Bundle();
+            b.putSerializable("item", mList.get(p));
+            ActivityUtil.startActivityForResult(mActivity, AddPlanActivity.class, b, 100);
+        }
+        if (mWhich.equals("exec")) {
+            ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class);
+        }
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

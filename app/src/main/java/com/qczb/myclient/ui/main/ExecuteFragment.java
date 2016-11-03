@@ -61,6 +61,6 @@ public class ExecuteFragment extends ListItemFragment<Item> {
 
     @Override
     protected RecyclerView.Adapter getAdapter() {
-        return new ListItemAdapter((BaseActivity) getActivity(), mList, "plan");
+        return new ListItemAdapter((BaseActivity) getActivity(), mList, "exec");
     }
 }
