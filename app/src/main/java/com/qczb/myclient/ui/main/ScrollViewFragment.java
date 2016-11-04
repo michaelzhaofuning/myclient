@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public abstract class ScrollViewFragment extends BaseFragment {
     ImageView topImageView;
-    private LinearLayout linearLayout;
+    protected LinearLayout linearLayout;
     Map<String, String> map = new HashMap<>();
     protected Object item;
 
@@ -70,6 +70,11 @@ public abstract class ScrollViewFragment extends BaseFragment {
 
         if (item == null) return;
 
+        reflectToUI();
+
+    }
+
+    protected void reflectToUI() {
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                 MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
@@ -85,7 +90,6 @@ public abstract class ScrollViewFragment extends BaseFragment {
                 }
             }
         }
-
     }
 
     protected abstract Class getItemClass();

@@ -1,5 +1,6 @@
 package com.qczb.myclient.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author Michael Zhao
  */
-public class Customer {
+public class Customer implements Serializable {
 
     public String BAddress;
     public String BId;
