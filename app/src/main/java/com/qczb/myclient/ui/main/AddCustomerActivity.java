@@ -179,11 +179,6 @@ public class AddCustomerActivity extends BaseActivity {
                 Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_exhibit);
                 switchMarry.setChecked(true);
             }
-
-
-
-
-
         }
 
         @Nullable
@@ -198,6 +193,8 @@ public class AddCustomerActivity extends BaseActivity {
             super.onViewCreated(v, savedInstanceState);
             mContainer = (LinearLayout) v.findViewById(R.id.container_photos);
             Switch s = (Switch) v.findViewById(R.id.switch_wedding_feast);
+            weddingFeast = (LinearLayout) getView().findViewById(R.id.wedding_feast);
+
             weddingFeast.setLayoutTransition(new LayoutTransition());
             s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

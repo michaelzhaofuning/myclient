@@ -47,7 +47,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
-        if (mWhich.equals("plan")) {
+//        if (mWhich.equals("plan")) {
             holder.title.setText(mList.get(position).visitPlanTitle);
             holder.date.setText(DateUtil.toMyString(mList.get(position).visitPlanTime));
             holder.location.setText(mList.get(position).visitPlanContent);
@@ -67,7 +67,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
                 }
             }
-        }
+
     }
 
     @Override
@@ -88,7 +88,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             ActivityUtil.startActivityForResult(mActivity, AddPlanActivity.class, b, 100);
         }
         if (mWhich.equals("exec")) {
-            ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("vid", mList.get(p).VId);
+            ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class, bundle, 102);
         }
 
     }

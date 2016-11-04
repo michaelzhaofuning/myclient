@@ -57,6 +57,12 @@ public interface HttpService {
     @GET("supplier/msave.htm")
     Call<BaseResult> submitProvider(@QueryMap Map<String, String> map);
 
+    @GET("visitPlan/saveRecord.htm")
+    Call<BaseResult> startVisit(@QueryMap Map<String, String> map);
+
+    @GET("visitPlan/findRecordByVid.htm")
+    Call<BaseResult> getVisit(@Query("Vid") String vid);
+
 
     @GET("yw/yw_main/user_goods_cancel")
     Call<BaseResult> downGoods(@Query("auid") String auid, @Query("user_key") String token, @Query("user_goods_id") String goodsId);

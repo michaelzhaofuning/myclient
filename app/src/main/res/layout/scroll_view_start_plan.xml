@@ -75,6 +75,8 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="拜访内容"
+        app:formNameOfMyEditLinearLayout="visitContent"
+        android:id="@+id/visit_content"
         app:textColorOfTitle="#000"
         app:decoratedDrawable="@mipmap/content"
         android:layout_height="wrap_content">

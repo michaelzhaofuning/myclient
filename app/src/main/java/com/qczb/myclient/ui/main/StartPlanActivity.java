@@ -3,19 +3,34 @@ package com.qczb.myclient.ui.main;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseEntity;
+import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.MyApplication;
+import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.entity.Item;
+import com.qczb.myclient.entity.PlanContent;
 import com.qczb.myclient.util.ActivityUtil;
+import com.qczb.myclient.view.MyEditLinearLayout;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 2016/8/7
@@ -23,7 +38,7 @@ import java.util.ArrayList;
  * @author Michael Zhao
  */
 public class StartPlanActivity extends BaseActivity {
-    private ArrayList<PhotoModel> photoModels = new ArrayList<>();
+    ArrayList<PhotoModel> photoModels = new ArrayList<>();
 
 
     @Override
@@ -55,11 +70,29 @@ public class StartPlanActivity extends BaseActivity {
 
     public static class StartPlanFragment extends ScrollViewFragment {
         static LinearLayout mContainer;
+        private long startTime = System.currentTimeMillis();
+        private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+        }
 
         @Override
         public void onViewCreated(View v, Bundle savedInstanceState) {
             super.onViewCreated(v, savedInstanceState);
             mContainer = (LinearLayout) v.findViewById(R.id.container_photos);
+            getHttpService().getVisit(getActivity().getIntent().getStringExtra("vid")).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                @Override
+                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                    PlanContent planContent = JSON.parseObject(response.body().getData().get(0).getAsJsonObject().toString(), PlanContent.class);
+                    item = planContent;
+                    MyEditLinearLayout myEditLinearLayout= (MyEditLinearLayout) linearLayout.findViewById(R.id.visit_content);
+                    myEditLinearLayout.setContent(planContent.visitContent);
+                }
+            });
         }
 
         @Override
@@ -69,7 +102,27 @@ public class StartPlanActivity extends BaseActivity {
 
         @Override
         protected void onSendForm() {
+            super.onSendForm();
 
+
+            map.put("planId", UUID.randomUUID().toString());
+            map.put("longitude", "");
+            map.put("latitude", "");
+            map.put("startTime", simpleDateFormat.format(new Date(startTime)));
+            map.put("endTime", simpleDateFormat.format(new Date(System.currentTimeMillis())));
+
+            if (item != null) {
+                PlanContent planContent = (PlanContent) item;
+                map.put("planId", planContent.planId);
+            }
+
+            getHttpService().startVisit(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                @Override
+                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                    success();
+
+                }
+            });
         }
 
         @Override
