@@ -1,5 +1,6 @@
 package com.qczb.myclient.adapter;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.entity.Provider;
+import com.qczb.myclient.ui.main.AddProviderActivity;
 import com.qczb.myclient.ui.main.PlanDetailActivity;
 import com.qczb.myclient.util.ActivityUtil;
 
@@ -58,8 +60,9 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
     public void onClick(View v) {
         int p = (int) v.getTag();
 
-
-        ActivityUtil.startActivityForResult(mActivity, PlanDetailActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("item", mList.get(p));
+        ActivityUtil.startActivityForResult(mActivity, AddProviderActivity.class, b, 100);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

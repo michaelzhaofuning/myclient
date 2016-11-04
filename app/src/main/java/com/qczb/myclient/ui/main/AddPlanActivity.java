@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -49,16 +51,23 @@ public class AddPlanActivity extends BaseActivity {
 
     public static class AddPlanFragment extends ScrollViewFragment {
 
-        private Item item;
+
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            item = ((AddPlanActivity) getActivity()).item;
+
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
 
         @Override
         public void onViewCreated(View v, Bundle savedInstanceState) {
             super.onViewCreated(v, savedInstanceState);
-            item = ((AddPlanActivity) getActivity()).item;
             LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.scroll_view_content);
 
             final MyEditLinearLayout editLinearLayout = (MyEditLinearLayout) linearLayout.findViewById(R.id.pick_date);
-            editLinearLayout.setOnClickListener(new View.OnClickListener() {
+            editLinearLayout.findViewById(R.id.contentOfMyEdit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Calendar calendar = GregorianCalendar.getInstance();
@@ -70,34 +79,14 @@ public class AddPlanActivity extends BaseActivity {
                     }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH) + 1).show();
                 }
             });
+            editLinearLayout.findViewById(R.id.contentOfMyEdit).setFocusable(false);
 
-            if (item == null) return;
 
-            for (int i = 0; i < linearLayout.getChildCount(); i++) {
-                if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
-                    MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
-                    String formName = myEditLinearLayout.getFormName();
-                    for (Field field : Item.class.getDeclaredFields()) {
-                        if (field.getName().equals(formName)) {
-                            try {
-                                myEditLinearLayout.setContent(field.get(item).toString());
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         @Override
         protected void onSendForm() {
-            if (item == null) {
-                map.put("editModel", "add");
-            } else {
-                map.put("editModel", "edit");
-            }
-
+            super.onSendForm();
 
             map.put("salesmanId", UserManager.getUID());
             map.put("salesmanName", UserManager.getUser().getName());
@@ -126,6 +115,11 @@ public class AddPlanActivity extends BaseActivity {
                 return "新增拜访";
             else
                 return "编辑拜访";
+        }
+
+        @Override
+        protected Class getItemClass() {
+            return Item.class;
         }
     }
 }

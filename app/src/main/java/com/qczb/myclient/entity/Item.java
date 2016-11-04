@@ -23,4 +23,5 @@ public class Item implements Serializable {
     public String VId;
     public String visitPlanContent;
     public String addTime;
+    public String Bid;
 }

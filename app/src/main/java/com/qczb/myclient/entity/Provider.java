@@ -1,11 +1,13 @@
 package com.qczb.myclient.entity;
 
+import java.io.Serializable;
+
 /**
  * 2016/11/2
  *
  * @author Michael Zhao
  */
-public class Provider {
+public class Provider implements Serializable {
     /**
      * SPhone : kkk
      * SCompany : jjj

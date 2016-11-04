@@ -11,6 +11,7 @@ import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseEntity;
+import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
@@ -59,6 +60,11 @@ public class StartPlanActivity extends BaseActivity {
         public void onViewCreated(View v, Bundle savedInstanceState) {
             super.onViewCreated(v, savedInstanceState);
             mContainer = (LinearLayout) v.findViewById(R.id.container_photos);
+        }
+
+        @Override
+        protected Class getItemClass() {
+            return Item.class;
         }
 
         @Override

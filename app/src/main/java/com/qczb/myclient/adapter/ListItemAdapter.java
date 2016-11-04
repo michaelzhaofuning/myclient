@@ -79,7 +79,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public void onClick(View v) {
         int p = (int) v.getTag();
 
-        bid = mList.get(p).salesmanId;
+        bid = mList.get(p).Bid;
 
 
         if (mWhich.equals("plan")) {

@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseFragment;
+import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.MyEditLinearLayout;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,7 @@ public abstract class ScrollViewFragment extends BaseFragment {
     ImageView topImageView;
     private LinearLayout linearLayout;
     Map<String, String> map = new HashMap<>();
+    protected Object item;
 
     @Nullable
     @Override
@@ -65,7 +68,27 @@ public abstract class ScrollViewFragment extends BaseFragment {
                 }
             });
 
+        if (item == null) return;
+
+        for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
+                MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
+                String formName = myEditLinearLayout.getFormName();
+                for (Field field : getItemClass().getDeclaredFields()) {
+                    if (field.getName().equals(formName)) {
+                        try {
+                            myEditLinearLayout.setContent(field.get(item).toString());
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
     }
+
+    protected abstract Class getItemClass();
 
     protected boolean collectInput(LinearLayout linearLayout) {
         boolean isMarryOn = false;
@@ -95,7 +118,13 @@ public abstract class ScrollViewFragment extends BaseFragment {
         getActivity().finish();
     }
 
-    protected abstract void onSendForm();
+    protected void onSendForm() {
+        if (item == null) {
+            map.put("editModel", "add");
+        } else {
+            map.put("editModel", "edit");
+        }
+    }
 
     protected abstract int getScrollViewContentLayoutId();
 

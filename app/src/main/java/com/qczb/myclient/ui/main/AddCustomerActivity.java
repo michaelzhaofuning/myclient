@@ -22,6 +22,7 @@ import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
+import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
@@ -175,6 +176,11 @@ public class AddCustomerActivity extends BaseActivity {
                         weddingFeast.setVisibility(View.GONE);
                 }
             });
+        }
+
+        @Override
+        protected Class getItemClass() {
+            return Customer.class;
         }
 
         @Override

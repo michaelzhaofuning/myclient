@@ -38,8 +38,7 @@ public class ProviderFragment extends ListItemFragment<Provider> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-//        return getHttpService().getProviders(getArguments().getString("bid"));
-        return getHttpService().getProviders("40289f815660793c0156607b27fd0002");
+        return getHttpService().getProviders(ListItemAdapter.bid);
     }
 
     @Override
