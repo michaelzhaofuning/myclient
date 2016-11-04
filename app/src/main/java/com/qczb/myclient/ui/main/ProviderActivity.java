@@ -18,7 +18,11 @@ public class ProviderActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_activity);
+        ProviderFragment f = new ProviderFragment();
+        Bundle b = new Bundle();
+        b.putString("bid", getIntent().getStringExtra("bid"));
+        f.setArguments(b);
         getFragmentManager().beginTransaction()
-                .add(R.id.container, new ProviderFragment()).commit();
+                .add(R.id.container, f).commit();
     }
 }

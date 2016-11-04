@@ -1,13 +1,16 @@
 package com.qczb.myclient.ui.main;
 
+import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.qczb.myclient.R;
+import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyCallBack;
@@ -16,6 +19,8 @@ import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.view.MyEditLinearLayout;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -43,13 +48,32 @@ public class AddPlanActivity extends BaseActivity {
     }
 
     public static class AddPlanFragment extends ScrollViewFragment {
+
+        private Item item;
+
         @Override
         public void onViewCreated(View v, Bundle savedInstanceState) {
             super.onViewCreated(v, savedInstanceState);
-            Item item = ((AddPlanActivity) getActivity()).item;
+            item = ((AddPlanActivity) getActivity()).item;
             LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.scroll_view_content);
 
-            /*for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            final MyEditLinearLayout editLinearLayout = (MyEditLinearLayout) linearLayout.findViewById(R.id.pick_date);
+            editLinearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar calendar = GregorianCalendar.getInstance();
+                    new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            editLinearLayout.setContent(year + "-" + (monthOfYear+1) + "-" + dayOfMonth );
+                        }
+                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH) + 1).show();
+                }
+            });
+
+            if (item == null) return;
+
+            for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                     MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
                     String formName = myEditLinearLayout.getFormName();
@@ -63,13 +87,20 @@ public class AddPlanActivity extends BaseActivity {
                         }
                     }
                 }
-            }*/
+            }
         }
 
         @Override
         protected void onSendForm() {
-            map.put("editModel", "add");
+            if (item == null) {
+                map.put("editModel", "add");
+            } else {
+                map.put("editModel", "edit");
+            }
+
+
             map.put("salesmanId", UserManager.getUID());
+            map.put("salesmanName", UserManager.getUser().getName());
             map.put("state", "0");
             getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                 @Override
@@ -91,7 +122,10 @@ public class AddPlanActivity extends BaseActivity {
 
         @Override
         protected String getTitle() {
-            return "新增拜访";
+            if (item == null)
+                return "新增拜访";
+            else
+                return "编辑拜访";
         }
     }
 }

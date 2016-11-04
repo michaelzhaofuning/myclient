@@ -75,10 +75,13 @@ public abstract class ScrollViewFragment extends BaseFragment {
                 if (TextUtils.isEmpty(myEditLinearLayout.getContent())) return false;
                 map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
             } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_exhibit) {
-                map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "true" : "false");
+                map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
             } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
                 isMarryOn = ((Switch) linearLayout.getChildAt(i)).isChecked();
+                if (!isMarryOn)
+                    map.put("isMarry", "0");
             } else if (linearLayout.getChildAt(i) instanceof LinearLayout && isMarryOn) {
+                map.put("isMarry", "1");
                 collectInput((LinearLayout) linearLayout.getChildAt(i));
             }
         }

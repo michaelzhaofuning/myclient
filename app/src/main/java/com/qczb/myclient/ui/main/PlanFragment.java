@@ -45,8 +45,7 @@ public class PlanFragment extends ListItemFragment<Item> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return null;
-//        return getHttpService().getPlans(UserManager.getUID(), null, null, null, null);
+        return getHttpService().getPlans(UserManager.getUID(), 0, null  , null, null);
     }
 
     @Override
