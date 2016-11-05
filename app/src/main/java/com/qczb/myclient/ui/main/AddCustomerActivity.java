@@ -80,6 +80,8 @@ public class AddCustomerActivity extends BaseActivity {
 
         @Override
         protected void onSendForm() {
+            super.onSendForm();
+
             final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
             if (!photoModels.isEmpty()) {
                 for (PhotoModel model : photoModels) {
@@ -176,7 +178,7 @@ public class AddCustomerActivity extends BaseActivity {
                 switchExhibit.setChecked(true);
             }
             if (customer.isMarry.equals("1")) {
-                Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_exhibit);
+                Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_wedding_feast);
                 switchMarry.setChecked(true);
             }
         }

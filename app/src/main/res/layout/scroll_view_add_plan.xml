@@ -40,6 +40,7 @@
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
+        android:id="@+id/bid"
         app:titleOfMyEditLinearLayout="商家编号"
         app:isNumOfMyEditLinearLayout="true"
         app:decoratedDrawable="@mipmap/code"

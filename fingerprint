@@ -1,0 +1,40 @@
+C:\Users\dell\Desktop\MyClient>keytool -list -v -keystore C:\Users\dell\Desktop\Myclient\key.jks
+输入密钥库口令:
+
+密钥库类型: JKS
+密钥库提供方: SUN
+
+您的密钥库包含 1 个条目
+
+别名: myclient
+创建日期: 2016-11-5
+条目类型: PrivateKeyEntry
+证书链长度: 1
+证书[1]:
+所有者: CN=zhao
+发布者: CN=zhao
+序列号: 64ec688e
+有效期开始日期: Sat Nov 05 17:28:44 CST 2016, 截止日期: Wed Oct 30 17:28:44 CST 2041
+证书指纹:
+         MD5: FA:59:39:59:25:09:79:20:6A:14:69:31:85:2F:6C:C5
+         SHA1: B2:69:37:A2:8A:B0:DE:60:D4:DB:4A:6D:BD:7E:C3:E6:01:48:56:E7
+         SHA256: 03:F0:A5:93:91:0D:85:E3:83:39:AE:7B:1D:3E:26:C6:75:5B:5A:19:27:93:7E:48:15:91:D3:8B:4C:80:89:53
+         签名算法名称: SHA256withRSA
+         版本: 3
+
+扩展:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 3A 85 A1 81 E5 EE FD AD   F3 97 45 7D FF 1A 0A EC  :.........E.....
+0010: 31 47 EB 4E                                        1G.N
+]
+]
+
+
+
+*******************************************
+*******************************************
+
+

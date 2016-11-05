@@ -21,6 +21,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
+
+// key: myclient  password: myclient
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long firstTimeOfExit = 0;
     private LinearLayout bar0, bar1, bar2;

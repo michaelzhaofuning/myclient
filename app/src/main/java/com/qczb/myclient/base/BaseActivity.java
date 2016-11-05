@@ -68,7 +68,18 @@ public class BaseActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+            case 666:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onPermission();
+                }
+                break;
         }
+    }
+
+    public void onPermission() {
+
     }
 
 

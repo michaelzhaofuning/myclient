@@ -40,7 +40,7 @@ public interface HttpService {
     Call<UserData> login(@Query("vcPhone") String username, @Query("vcPassword") String password);
 
     @GET("visitPlan/findByUserid.htm")
-    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("state") Integer state, @Query("stateOpt") String stateOpt, @Query("planTime") String time, @Query("planTimeOpt") String planTimeOpt);
+    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("isPlan") Integer isPlan);
 
     @GET("business/findByUserid.htm")
     Call<BaseResult> getCustomers(@Query("vcUserid") String uid);
