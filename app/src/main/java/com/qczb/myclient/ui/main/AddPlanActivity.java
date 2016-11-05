@@ -137,6 +137,7 @@ public class AddPlanActivity extends BaseActivity {
         @Override
         protected void onSendForm() {
             super.onSendForm();
+            if (item !=null) map.put("Vid", ((Item)item).VId);
 
             map.put("salesmanId", UserManager.getUID());
             map.put("salesmanName", UserManager.getUser().getName());
