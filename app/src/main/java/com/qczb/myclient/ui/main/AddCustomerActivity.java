@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,11 +92,26 @@ public class AddCustomerActivity extends BaseActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/kj/uploadPic.htm", rp, new JsonHttpResponseHandler() {
+                    new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/uploadFile", rp, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
+                            Log.e("test", response.toString());
+//                            uris.add(response.get("vcImg").getAsString());
+                            if (uris.size() == photoModels.size()) {
+                                StringBuilder sb = new StringBuilder();
+
+                                int i = 0;
+                                for (String s : uris) {
+                                    sb.append(s);
+                                    if (i++ < uris.size() - 1)
+                                        sb.append(",");
+                                }
+                                map.put("img", sb.toString());
+                                submit();
+                            }
                         }
+
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray response) {

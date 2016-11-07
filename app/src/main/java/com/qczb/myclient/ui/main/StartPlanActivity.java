@@ -191,8 +191,7 @@ initLocation();
         protected void onSendForm() {
             super.onSendForm();
 
-
-            map.put("planId", UUID.randomUUID().toString());
+            map.put("planId", getActivity().getIntent().getStringExtra("vid"));
             map.put("longitude", longitude);
             map.put("latitude", latitude);
             map.put("startTime", simpleDateFormat.format(new Date(startTime)));
