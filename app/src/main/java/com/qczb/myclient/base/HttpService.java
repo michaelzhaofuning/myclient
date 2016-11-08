@@ -32,7 +32,7 @@ public interface HttpService {
     /////////////////////////////////////////////////////////////////////////
 
     @Multipart
-    @POST("uploadFile")
+    @POST("FileUploadServlet")
     Call<BaseResult> uploadGoods(@Part MultipartBody.Part file);
 
 

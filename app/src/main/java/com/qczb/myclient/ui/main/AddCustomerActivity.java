@@ -22,6 +22,7 @@ import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.MyApplication;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Customer;
@@ -92,53 +93,36 @@ public class AddCustomerActivity extends BaseActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/uploadFile", rp, new JsonHttpResponseHandler() {
+                    new AsyncHttpClient().post(getActivity(), MyApplication.BASE_URL + "FileUploadServlet", rp, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
-                            Log.e("test", response.toString());
-//                            uris.add(response.get("vcImg").getAsString());
-                            if (uris.size() == photoModels.size()) {
-                                StringBuilder sb = new StringBuilder();
+                            Log.e("file", response.toString());
+                            //{"fileURL":"http:\/\/192.168.1.101:8080\/kxw\/uploads\/armedhead.jpg","status":"1","message":"操作成功"}
+                            if (response.optString("status").equals("1")) {
+                                uris.add(response.optString("fileURL"));
+                                if (uris.size() == photoModels.size()) {
+                                    StringBuilder sb = new StringBuilder();
 
-                                int i = 0;
-                                for (String s : uris) {
-                                    sb.append(s);
-                                    if (i++ < uris.size() - 1)
-                                        sb.append(",");
+                                    int i = 0;
+                                    for (String s : uris) {
+                                        sb.append(s);
+                                        if (i++ < uris.size() - 1)
+                                            sb.append(",");
+                                    }
+                                    map.put("img1", sb.toString());
+                                    submit();
                                 }
-                                map.put("img", sb.toString());
-                                submit();
                             }
-                        }
-
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                            super.onSuccess(statusCode, headers, response);
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
-                        }
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                            super.onSuccess(statusCode, headers, responseString);
+                            uris.clear();
                         }
                     });
-                    MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                    /*MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                         @Override
                         public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                             uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
@@ -161,7 +145,7 @@ public class AddCustomerActivity extends BaseActivity {
                             super.onMyFailure(call, response);
                             uris.clear();
                         }
-                    });
+                    });*/
                 }
             } else {
                 submit();
@@ -177,6 +161,18 @@ public class AddCustomerActivity extends BaseActivity {
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                     ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class);
                     getActivity().finish();
+                }
+
+                @Override
+                public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
+                    super.onMyFailure(call, response);
+                    uris.clear();
+                }
+
+                @Override
+                public void onFailure(Call<BaseResult> call, Throwable t) {
+                    super.onFailure(call, t);
+                    uris.clear();
                 }
             });
         }
