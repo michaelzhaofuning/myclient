@@ -81,6 +81,8 @@
         <activity android:name=".ui.main.AddProviderActivity"/>
         <activity android:name=".ui.main.ProviderActivity"/>
         <activity android:name=".ui.main.StartPlanActivity"/>
+        <activity android:name=".ui.main.StockActivity"/>
+        <activity android:name=".ui.main.AddStockActivity"/>
 
         <service android:name="com.amap.api.location.APSService"></service>
     </application>

@@ -17,13 +17,15 @@ public class StockActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_activity);
-        ProviderFragment f = new ProviderFragment();
+        StockFragment f = new StockFragment();
         Bundle b = new Bundle();
         b.putString("bid", getIntent().getStringExtra("bid"));
         f.setArguments(b);
         getFragmentManager().beginTransaction()
                 .add(R.id.container, f).commit();
     }
+
+
 
 
 }

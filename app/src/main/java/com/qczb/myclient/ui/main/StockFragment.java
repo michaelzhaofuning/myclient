@@ -52,7 +52,7 @@ public class StockFragment extends ListItemFragment<Stock> {
 
     @Override
     protected String getCacheKey() {
-        return "provider";
+        return "stock";
     }
 
     @Override

@@ -97,6 +97,11 @@ public class StartPlanActivity extends BaseActivity {
         PhotoPopupWindow.callBack(this, photoModels, requestCode, resultCode, data, null, StartPlanFragment.mContainer);
     }
 
+    public void stocks(View view) {
+        ActivityUtil.startActivityForResult(this, StockActivity.class);
+
+    }
+
     public static class StartPlanFragment extends ScrollViewFragment implements TencentLocationListener{
         static LinearLayout mContainer;
         private long startTime = System.currentTimeMillis();

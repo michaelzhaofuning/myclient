@@ -15,7 +15,7 @@
         app:decoratedDrawableOfMyLinearLayout="@mipmap/product"
         android:layout_width="match_parent"
         app:titleOfMyLinearLayout="库存管理"
-        android:onClick="providers"
+        android:onClick="stocks"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyLinearLayout>
 
