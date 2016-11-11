@@ -8,6 +8,7 @@ import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.adapter.StockAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Stock;
 
 import retrofit2.Call;
@@ -37,7 +38,7 @@ public class StockFragment extends ListItemFragment<Stock> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getProviders(ListItemAdapter.bid);
+        return getHttpService().getStocks(ListItemAdapter.bid, UserManager.getUID(), "");
     }
 
     @Override

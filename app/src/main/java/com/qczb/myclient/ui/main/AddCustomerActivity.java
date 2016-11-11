@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -179,12 +180,12 @@ public class AddCustomerActivity extends BaseActivity {
 
         @Override
         protected void reflectToUI() {
+
             weddingFeast = (LinearLayout) getView().findViewById(R.id.wedding_feast);
 
             Customer customer = (Customer) item;
             if (((Customer)item).isMarry.equals("1"))
                 weddingFeast.setVisibility(View.VISIBLE);
-            super.reflectToUI();
             if (customer.isCld.equals("1")) {
                 Switch switchExhibit = (Switch) linearLayout.findViewById(R.id.switch_exhibit);
                 switchExhibit.setChecked(true);
@@ -193,6 +194,19 @@ public class AddCustomerActivity extends BaseActivity {
                 Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_wedding_feast);
                 switchMarry.setChecked(true);
             }
+
+            super.reflectToUI();
+
+            // image
+            String[] imgs = customer.getMarryImgs().split(",");
+            final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
+            for (String s : imgs) {
+                photoModels.add(new PhotoModel(s, 0));
+            }
+            if (TextUtils.isEmpty(customer.getMarryImgs())) {
+                PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, (LinearLayout) weddingFeast.findViewById(R.id.container_photos), photoModels);
+            }
+
         }
 
         @Nullable
@@ -238,6 +252,31 @@ public class AddCustomerActivity extends BaseActivity {
             return R.mipmap.add_customer;
         }
 
+        /**
+         * 客户信息：
+         editModel:edit/add(必填)
+         BId:商家ID（编辑状态下必填）
+         BName:商户名称
+         salesmanId:业务员(必填)
+         salesmanName:业务员姓名(必填)
+         BTelephone:商户电话
+         BAddress:商户地址
+         BLevel:商户级别，ABCD
+         isDtd:是否堆头店
+         isCld:是否陈列店
+         isMarry:是否婚宴
+         AreaId:区域ID
+         DtdImgs：堆头店照片
+         CldImgs：陈列店照片
+         SdhImgs：生动化照片
+         BossName：老板姓名
+         BossTel：老板电话
+         BossBirthday：老板生日
+         BossSpouseName：老板配偶姓名
+         BossSpouseTel：老板配偶电话
+         BossSpouseBirthday：老板配偶生日
+         * @return
+         */
         @Override
         protected String getTitle() {
             if (item == null) return "新增客户";
@@ -246,3 +285,4 @@ public class AddCustomerActivity extends BaseActivity {
         }
     }
 }
+

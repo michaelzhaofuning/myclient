@@ -2,6 +2,8 @@ package com.qczb.myclient.base;
 
 
 
+import android.graphics.Canvas;
+
 import java.util.Map;
 
 import okhttp3.FormBody;
@@ -50,7 +52,11 @@ public interface HttpService {
 
 
     @GET("bstock/findByBidAndUserId")
-    Call<BaseResult> getProviders(@Query("BId") String bid, @Query("vcUserid") String uid, @Query("DId") String did);
+    Call<BaseResult> getStocks(@Query("BId") String bid, @Query("vcUserid") String uid, @Query("DId") String did);
+
+    @GET("area/findAll.htm")
+    Call<BaseResult> getAreas();
+
 
     @GET("visitPlan/msave.htm")
     Call<BaseResult> submitPlan(@QueryMap Map<String, String> map);

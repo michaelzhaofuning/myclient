@@ -29,6 +29,7 @@ import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.util.UiUtil;
 
 import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -178,8 +179,15 @@ public class PhotoPopupWindow extends PopupWindow implements PopupWindow.OnDismi
         final Bundle bundle = new Bundle();
         for (int i = 0; i < tempPhotos.size(); i++) {
             // if file length too large, display thumbnail (use BitmapUtil)
-            File file = new File(tempPhotos.get(i).getOriginalPath());
-            Uri uri = Uri.fromFile(file);
+
+            Uri uri;
+            if (tempPhotos.get(i).getUri() != null) {
+                uri = Uri.parse(tempPhotos.get(i).getUri());
+            } else {
+                File file = new File(tempPhotos.get(i).getOriginalPath());
+                uri = Uri.fromFile(file);
+            }
+
             if (onlyOne) {
                 if (avatar != null) {
                     ImageLoader.getInstance().displayImage(uri.toString(), avatar);

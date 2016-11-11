@@ -76,6 +76,8 @@
         app:formNameOfMyEditLinearLayout="zgTelephone"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <!-- picture -->
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -137,4 +139,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/default_color"/>
+    <!-- picture -->
+
 </LinearLayout>
