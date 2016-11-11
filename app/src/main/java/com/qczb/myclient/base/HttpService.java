@@ -61,6 +61,7 @@ public interface HttpService {
     @GET("supplier/msave.htm")
     Call<BaseResult> submitProvider(@QueryMap Map<String, String> map);
 
+
     /**
      * editModel:edit/add（必填）
      stockId:库存ID（编辑状态下必填）
@@ -73,6 +74,7 @@ public interface HttpService {
      */
     @GET("bstock/msave")
     Call<BaseResult> submitStock(@QueryMap Map<String, String> map);
+
 
     @GET("visitPlan/saveRecord.htm")
     Call<BaseResult> startVisit(@QueryMap Map<String, String> map);
