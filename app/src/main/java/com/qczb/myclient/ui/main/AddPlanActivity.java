@@ -1,28 +1,35 @@
 package com.qczb.myclient.ui.main;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.database.DataSetObserver;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.Switch;
 
+import com.alibaba.fastjson.JSON;
 import com.qczb.myclient.R;
 import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
+import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.view.MyEditLinearLayout;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -81,12 +88,56 @@ public class AddPlanActivity extends BaseActivity {
             });
             editLinearLayout.findViewById(R.id.contentOfMyEdit).setFocusable(false);
 
+            final MyEditLinearLayout editLinearLayoutbid = (MyEditLinearLayout) linearLayout.findViewById(R.id.bid);
+            editLinearLayoutbid.findViewById(R.id.contentOfMyEdit).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            editLinearLayoutbid.findViewById(R.id.contentOfMyEdit).setFocusable(false);
+
+            final MyEditLinearLayout editLinearLayoutbusiness = (MyEditLinearLayout) linearLayout.findViewById(R.id.business);
+            editLinearLayoutbusiness.findViewById(R.id.contentOfMyEdit).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getHttpService().getCustomers(UserManager.getUID()).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                        @Override
+                        public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                            final List<Customer> customers = JSON.parseArray(response.body().getData().toString(), Customer.class);
+                            final CharSequence[] a = new String[customers.size()];
+
+                            int i=0;
+                            for (Customer c : customers) {
+                                a[i++] = c.BName;
+                            }
+
+                            new AlertDialog.Builder(getActivity()).setSingleChoiceItems(a, 0, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    editLinearLayoutbusiness.setContent(a[which]);
+                                    editLinearLayoutbid.setContent(customers.get(which).BId);
+                                }
+                            }).setTitle("请选择商家").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                        }
+                    });
+
+                }
+            });
+            editLinearLayoutbusiness.findViewById(R.id.contentOfMyEdit).setFocusable(false);
+
 
         }
 
         @Override
         protected void onSendForm() {
             super.onSendForm();
+            if (item !=null) map.put("Vid", ((Item)item).VId);
 
             map.put("salesmanId", UserManager.getUID());
             map.put("salesmanName", UserManager.getUser().getName());

@@ -35,11 +35,12 @@
         android:id="@+id/business"
         app:titleOfMyEditLinearLayout="商家名称"
         app:decoratedDrawable="@mipmap/business"
-        app:formNameOfMyEditLinearLayout="Bname"
+        app:formNameOfMyEditLinearLayout="BName"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
+        android:id="@+id/bid"
         app:titleOfMyEditLinearLayout="商家编号"
         app:isNumOfMyEditLinearLayout="true"
         app:decoratedDrawable="@mipmap/code"

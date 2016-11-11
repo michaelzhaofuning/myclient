@@ -36,7 +36,7 @@ public class ExecuteFragment extends ListItemFragment<Item> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getPlans(UserManager.getUID(), 1, null, null, null);
+        return getHttpService().getPlans(UserManager.getUID(), 0);
     }
 
     @Override

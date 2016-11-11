@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
+import com.qczb.myclient.base.MyApplication;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Customer;
@@ -80,6 +82,8 @@ public class AddCustomerActivity extends BaseActivity {
 
         @Override
         protected void onSendForm() {
+            super.onSendForm();
+
             final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
             if (!photoModels.isEmpty()) {
                 for (PhotoModel model : photoModels) {
@@ -89,38 +93,36 @@ public class AddCustomerActivity extends BaseActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    new AsyncHttpClient().post(getActivity(), "http://test.kaopuren.cn/kj/uploadPic.htm", rp, new JsonHttpResponseHandler() {
+                    new AsyncHttpClient().post(getActivity(), MyApplication.BASE_URL + "FileUploadServlet", rp, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
-                        }
+                            Log.e("file", response.toString());
+                            //{"fileURL":"http:\/\/192.168.1.101:8080\/kxw\/uploads\/armedhead.jpg","status":"1","message":"操作成功"}
+                            if (response.optString("status").equals("1")) {
+                                uris.add(response.optString("fileURL"));
+                                if (uris.size() == photoModels.size()) {
+                                    StringBuilder sb = new StringBuilder();
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                            super.onSuccess(statusCode, headers, response);
+                                    int i = 0;
+                                    for (String s : uris) {
+                                        sb.append(s);
+                                        if (i++ < uris.size() - 1)
+                                            sb.append(",");
+                                    }
+                                    map.put("img1", sb.toString());
+                                    submit();
+                                }
+                            }
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
-                        }
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                            super.onSuccess(statusCode, headers, responseString);
+                            uris.clear();
                         }
                     });
-                    MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                    /*MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                         @Override
                         public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                             uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
@@ -143,7 +145,7 @@ public class AddCustomerActivity extends BaseActivity {
                             super.onMyFailure(call, response);
                             uris.clear();
                         }
-                    });
+                    });*/
                 }
             } else {
                 submit();
@@ -159,6 +161,18 @@ public class AddCustomerActivity extends BaseActivity {
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                     ActivityUtil.startActivityForResult(getActivity(), SuccessActivity.class);
                     getActivity().finish();
+                }
+
+                @Override
+                public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
+                    super.onMyFailure(call, response);
+                    uris.clear();
+                }
+
+                @Override
+                public void onFailure(Call<BaseResult> call, Throwable t) {
+                    super.onFailure(call, t);
+                    uris.clear();
                 }
             });
         }
@@ -176,14 +190,9 @@ public class AddCustomerActivity extends BaseActivity {
                 switchExhibit.setChecked(true);
             }
             if (customer.isMarry.equals("1")) {
-                Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_exhibit);
+                Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_wedding_feast);
                 switchMarry.setChecked(true);
             }
-
-
-
-
-
         }
 
         @Nullable
@@ -198,6 +207,8 @@ public class AddCustomerActivity extends BaseActivity {
             super.onViewCreated(v, savedInstanceState);
             mContainer = (LinearLayout) v.findViewById(R.id.container_photos);
             Switch s = (Switch) v.findViewById(R.id.switch_wedding_feast);
+            weddingFeast = (LinearLayout) getView().findViewById(R.id.wedding_feast);
+
             weddingFeast.setLayoutTransition(new LayoutTransition());
             s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

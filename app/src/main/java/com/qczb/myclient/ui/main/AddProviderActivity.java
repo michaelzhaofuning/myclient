@@ -55,6 +55,7 @@ public class AddProviderActivity extends BaseActivity {
         @Override
         protected void onSendForm() {
             super.onSendForm();
+
             map.put("Bid", ListItemAdapter.bid);
             map.put("SId", UUID.randomUUID().toString());
             getHttpService().submitProvider(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {

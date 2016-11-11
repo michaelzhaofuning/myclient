@@ -32,7 +32,7 @@ public interface HttpService {
     /////////////////////////////////////////////////////////////////////////
 
     @Multipart
-    @POST("jk/uploadPic.htm")
+    @POST("FileUploadServlet")
     Call<BaseResult> uploadGoods(@Part MultipartBody.Part file);
 
 
@@ -40,13 +40,17 @@ public interface HttpService {
     Call<UserData> login(@Query("vcPhone") String username, @Query("vcPassword") String password);
 
     @GET("visitPlan/findByUserid.htm")
-    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("state") Integer state, @Query("stateOpt") String stateOpt, @Query("planTime") String time, @Query("planTimeOpt") String planTimeOpt);
+    Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("isPlan") Integer isPlan);
 
     @GET("business/findByUserid.htm")
     Call<BaseResult> getCustomers(@Query("vcUserid") String uid);
 
     @GET("supplier/findByBid.htm")
     Call<BaseResult> getProviders(@Query("Bid") String bid);
+
+
+    @GET("bstock/findByBidAndUserId")
+    Call<BaseResult> getProviders(@Query("BId") String bid, @Query("vcUserid") String uid, @Query("DId") String did);
 
     @GET("visitPlan/msave.htm")
     Call<BaseResult> submitPlan(@QueryMap Map<String, String> map);
@@ -69,6 +73,12 @@ public interface HttpService {
      */
     @GET("bstock/msave")
     Call<BaseResult> submitStock(@QueryMap Map<String, String> map);
+
+    @GET("visitPlan/saveRecord.htm")
+    Call<BaseResult> startVisit(@QueryMap Map<String, String> map);
+
+    @GET("visitPlan/findRecordByVid.htm")
+    Call<BaseResult> getVisit(@Query("Vid") String vid);
 
 
 
