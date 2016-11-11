@@ -57,6 +57,20 @@ public interface HttpService {
     @GET("supplier/msave.htm")
     Call<BaseResult> submitProvider(@QueryMap Map<String, String> map);
 
+    /**
+     * editModel:edit/add（必填）
+     stockId:库存ID（编辑状态下必填）
+     DId：商品ID（必填）
+     BId：商家ID（必填）
+     vcUserid：业务员ID（必填）
+     stockNums：库存数量（必填）
+     * @param map
+     * @return
+     */
+    @GET("bstock/msave")
+    Call<BaseResult> submitStock(@QueryMap Map<String, String> map);
+
+
 
     @GET("yw/yw_main/user_goods_cancel")
     Call<BaseResult> downGoods(@Query("auid") String auid, @Query("user_key") String token, @Query("user_goods_id") String goodsId);
