@@ -27,6 +27,7 @@ import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.view.MyEditLinearLayout;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -59,6 +60,11 @@ public class AddPlanActivity extends BaseActivity {
     public static class AddPlanFragment extends ScrollViewFragment {
 
 
+        private List<Customer> customers;
+        private List<Customer> customersDelive = new ArrayList<>();
+        private CharSequence[] a;
+        private boolean[] b;
+        private int j;
 
         @Nullable
         @Override
@@ -104,23 +110,29 @@ public class AddPlanActivity extends BaseActivity {
                     getHttpService().getCustomers(UserManager.getUID()).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                         @Override
                         public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                            final List<Customer> customers = JSON.parseArray(response.body().getData().toString(), Customer.class);
-                            final CharSequence[] a = new String[customers.size()];
+                            customers = JSON.parseArray(response.body().getData().toString(), Customer.class);
+                            a = new String[customers.size()];
+                            b = new boolean[customers.size()];
 
                             int i=0;
                             for (Customer c : customers) {
                                 a[i++] = c.BName;
                             }
 
-                            new AlertDialog.Builder(getActivity()).setSingleChoiceItems(a, 0, new DialogInterface.OnClickListener() {
+                            new AlertDialog.Builder(getActivity()).setMultiChoiceItems(a, b, new DialogInterface.OnMultiChoiceClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    editLinearLayoutbusiness.setContent(a[which]);
+                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                    editLinearLayoutbusiness.setContent(editLinearLayout.getContent() + ", "+ a[which]);
                                     editLinearLayoutbid.setContent(customers.get(which).BId);
                                 }
                             }).setTitle("请选择商家").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    for (int j = 0; j<customers.size(); j++) {
+                                        if (b[j])
+                                            customersDelive.add(customers.get(j));
+
+                                    }
                                     dialog.dismiss();
                                 }
                             }).show();
@@ -142,12 +154,17 @@ public class AddPlanActivity extends BaseActivity {
             map.put("salesmanId", UserManager.getUID());
             map.put("salesmanName", UserManager.getUser().getName());
             map.put("state", "0");
-            getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
-                @Override
-                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                    success();
-                }
-            });
+            for (Customer c :customersDelive) {
+                map.put("BName", c.BName);
+                map.put("Bid", c.BId);
+                getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                    @Override
+                    public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                        if (j++ == 0)
+                        success();
+                    }
+                });
+            }
         }
 
         @Override

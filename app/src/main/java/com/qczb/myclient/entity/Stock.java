@@ -19,13 +19,13 @@ public class Stock implements Serializable {
      * addTime : 2016-11-09 23:25:01
      */
 
-    private String BId;
-    private int stockNums;
-    private String BName;
-    private String DName;
-    private String stockId;
-    private String DId;
-    private String addTime;
+    public String BId;
+    public int stockNums;
+    public String BName;
+    public String DName;
+    public String stockId;
+    public String DId;
+    public String addTime;
 
     public String getBId() {
         return BId;

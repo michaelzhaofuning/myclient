@@ -70,7 +70,9 @@ public class MyEditLinearLayout extends LinearLayout {
     }
 
     public String getContent() {
+        if (tvContent.getText() != null)
         return tvContent.getText().toString();
+        else return "";
     }
 
     public String getFormName() {

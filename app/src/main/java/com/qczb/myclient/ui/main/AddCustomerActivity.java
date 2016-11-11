@@ -198,13 +198,15 @@ public class AddCustomerActivity extends BaseActivity {
             super.reflectToUI();
 
             // image
-            String[] imgs = customer.getMarryImgs().split(",");
-            final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
-            for (String s : imgs) {
-                photoModels.add(new PhotoModel(s, 0));
-            }
-            if (TextUtils.isEmpty(customer.getMarryImgs())) {
-                PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, (LinearLayout) weddingFeast.findViewById(R.id.container_photos), photoModels);
+            if (customer.getMarryImgs() != null) {
+                String[] imgs = customer.getMarryImgs().split(",");
+                final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
+                for (String s : imgs) {
+                    photoModels.add(new PhotoModel(s, 0));
+                }
+                if (TextUtils.isEmpty(customer.getMarryImgs())) {
+                    PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, (LinearLayout) weddingFeast.findViewById(R.id.container_photos), photoModels);
+                }
             }
 
         }

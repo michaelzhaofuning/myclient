@@ -16,10 +16,10 @@ public class Goods implements Serializable {
      * DNowPrice : 90
      */
 
-    private String DIcon;
-    private String DName;
-    private String DId;
-    private int DNowPrice;
+    public String DIcon;
+    public String DName;
+    public String DId;
+    public int DNowPrice;
 
     public String getDIcon() {
         return DIcon;

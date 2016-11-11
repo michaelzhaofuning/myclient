@@ -32,7 +32,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板姓名"
-        app:decoratedDrawable="@mipmap/tel"
+        app:decoratedDrawable="@mipmap/man"
         app:formNameOfMyEditLinearLayout="BossName"
         android:layout_height="wrap_content">
 
@@ -49,7 +49,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板生日"
-        app:decoratedDrawable="@mipmap/tel"
+        app:decoratedDrawable="@mipmap/time"
         app:formNameOfMyEditLinearLayout="BossBirthday"
         android:layout_height="wrap_content">
 
@@ -58,7 +58,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板配偶姓名"
-        app:decoratedDrawable="@mipmap/tel"
+        app:decoratedDrawable="@mipmap/man"
         app:formNameOfMyEditLinearLayout="BossSpouseName"
         android:layout_height="wrap_content">
 
@@ -66,12 +66,23 @@
 
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
-        app:titleOfMyEditLinearLayout="老板配偶生日"
+        app:titleOfMyEditLinearLayout="老板配偶电话"
         app:decoratedDrawable="@mipmap/tel"
+        app:formNameOfMyEditLinearLayout="BossSpouseTel"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="老板配偶生日"
+        app:decoratedDrawable="@mipmap/time"
         app:formNameOfMyEditLinearLayout="BossSpouseBirthday"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
+
+
 
 
 

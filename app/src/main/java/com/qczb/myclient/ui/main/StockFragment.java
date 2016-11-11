@@ -38,7 +38,7 @@ public class StockFragment extends ListItemFragment<Stock> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getStocks(ListItemAdapter.bid, UserManager.getUID(), "");
+        return getHttpService().getStocks(ListItemAdapter.bid, UserManager.getUID());
     }
 
     @Override

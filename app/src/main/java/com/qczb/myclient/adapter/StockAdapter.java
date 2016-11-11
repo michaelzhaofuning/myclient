@@ -13,6 +13,7 @@ import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Provider;
 import com.qczb.myclient.entity.Stock;
 import com.qczb.myclient.ui.main.AddProviderActivity;
+import com.qczb.myclient.ui.main.AddStockActivity;
 import com.qczb.myclient.util.ActivityUtil;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * @author Michael Zhao
  */
-public class StockAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolder> implements View.OnClickListener{
+public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> implements View.OnClickListener{
     private List<Stock> mList;
     private BaseActivity mActivity;
     public StockAdapter(BaseActivity activity, List<Stock> list) {
@@ -31,23 +32,18 @@ public class StockAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolde
     }
 
     @Override
-    public ProviderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ProviderAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.stock_item, parent, false));
+    public StockAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new StockAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.stock_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ProviderAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(StockAdapter.ViewHolder holder, int position) {
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
-     /*   holder.title.setText(mList.get(position).SName);
-        holder.date.setText(mList.get(position).addTime);
-        holder.location.setText(mList.get(position).SAddr);
-        holder.status.setText(mList.get(position).SPhone);
-        holder.company.setText(mList.get(position).SCompany);
-        holder.companyAddress.setText(mList.get(position).SCompanyAddr);
-        holder.companyTel.setText(mList.get(position).SCompanyTel);*/
-
-
+        holder.title.setText(mList.get(position).getDName());
+        holder.date.setText(mList.get(position).getAddTime());
+        holder.location.setText(mList.get(position).getBName());
+        holder.status.setText(mList.get(position).getStockNums()+"");
     }
 
     @Override
@@ -61,11 +57,11 @@ public class StockAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolde
 
         Bundle b = new Bundle();
         b.putSerializable("item", mList.get(p));
-        ActivityUtil.startActivityForResult(mActivity, AddProviderActivity.class, b, 100);
+        ActivityUtil.startActivityForResult(mActivity, AddStockActivity.class, b, 100);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, location, date, status, company, companyTel, companyAddress;
+        TextView title, location, date, status;
         ImageView avatar;
 
         public ViewHolder(View itemView) {
@@ -75,9 +71,6 @@ public class StockAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolde
             date = (TextView) itemView.findViewById(R.id.date);
             status = (TextView) itemView.findViewById(R.id.status);
             title = (TextView) itemView.findViewById(R.id.title);
-            companyAddress = (TextView) itemView.findViewById(R.id.company_address);
-            company = (TextView) itemView.findViewById(R.id.company);
-            companyTel = (TextView) itemView.findViewById(R.id.company_tel);
         }
     }
 }

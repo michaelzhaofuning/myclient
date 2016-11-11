@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/scroll_view_content"
     android:layout_height="match_parent">
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="商品"
+        android:id="@+id/goods"
+        app:decoratedDrawable="@mipmap/title"
+        app:formNameOfMyEditLinearLayout="DName"
+        android:layout_height="wrap_content">
 
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/DId"
+        app:titleOfMyEditLinearLayout="商品ID"
+        app:decoratedDrawable="@mipmap/content"
+        app:formNameOfMyEditLinearLayout="DId"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/bid"
+        app:titleOfMyEditLinearLayout="库存数量"
+        app:isNumOfMyEditLinearLayout="true"
+        app:decoratedDrawable="@mipmap/code"
+        app:formNameOfMyEditLinearLayout="stockNums"
+        android:layout_height="wrap_content">
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="确      定"
+        android:id="@+id/commit" style="@style/my_button"/>
 </LinearLayout>

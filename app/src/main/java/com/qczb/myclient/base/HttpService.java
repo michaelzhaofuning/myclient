@@ -51,11 +51,15 @@ public interface HttpService {
     Call<BaseResult> getProviders(@Query("Bid") String bid);
 
 
-    @GET("bstock/findByBidAndUserId")
-    Call<BaseResult> getStocks(@Query("BId") String bid, @Query("vcUserid") String uid, @Query("DId") String did);
+    @GET("bstock/findByBidAndUserId.htm")
+    Call<BaseResult> getStocks(@Query("BId") String bid, @Query("vcUserid") String uid);
 
     @GET("area/findAll.htm")
     Call<BaseResult> getAreas();
+
+    @GET("dish/findAll.htm")
+    Call<BaseResult> getGoods();
+
 
 
     @GET("visitPlan/msave.htm")
@@ -78,7 +82,7 @@ public interface HttpService {
      * @param map
      * @return
      */
-    @GET("bstock/msave")
+    @GET("bstock/msave.htm")
     Call<BaseResult> submitStock(@QueryMap Map<String, String> map);
 
 
