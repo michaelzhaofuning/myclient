@@ -27,6 +27,7 @@ import com.qczb.myclient.base.MyApplication;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Customer;
+import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.MyEditLinearLayout;
 import com.qczb.myclient.view.PhotoPopupWindow;
@@ -152,6 +153,8 @@ public class AddCustomerActivity extends BaseActivity {
         private void submit() {
             map.put("salesmanId", UserManager.getUID());
             map.put("salesmanName", UserManager.getUser().getName());
+
+            if (item !=null) map.put("BId", ((Customer)item).BId);
 
             getHttpService().submitCustomer(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                 @Override

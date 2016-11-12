@@ -199,6 +199,7 @@ initLocation();
             map.put("planId", getActivity().getIntent().getStringExtra("vid"));
             map.put("longitude", longitude);
             map.put("latitude", latitude);
+            map.put("state", 2+"");
             map.put("startTime", simpleDateFormat.format(new Date(startTime)));
             map.put("endTime", simpleDateFormat.format(new Date(System.currentTimeMillis())));
 
