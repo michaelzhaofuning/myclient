@@ -82,7 +82,8 @@ public abstract class ScrollViewFragment extends BaseFragment {
                 for (Field field : getItemClass().getDeclaredFields()) {
                     if (field.getName().equals(formName)) {
                         try {
-                            myEditLinearLayout.setContent(field.get(item).toString());
+                            if (field.get(item) != null)
+                                myEditLinearLayout.setContent(field.get(item).toString());
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }

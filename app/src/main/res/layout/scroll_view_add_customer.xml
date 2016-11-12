@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板配偶电话"
         app:decoratedDrawable="@mipmap/tel"
+        app:isNumOfMyEditLinearLayout="true"
         app:formNameOfMyEditLinearLayout="BossSpouseTel"
         android:layout_height="wrap_content">
 

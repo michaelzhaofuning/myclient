@@ -73,6 +73,7 @@ public class Customer implements Serializable {
     public String BossSpouseBirthday;
     public String marryProducts;
     public String zgName;
+    public String marryNums;
 
     public String getAreaId() {
         return AreaId;

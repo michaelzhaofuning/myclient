@@ -62,7 +62,7 @@
         app:titleOfMyEditLinearLayout="喜宴桌数"
         app:decoratedDrawable="@mipmap/fan"
         app:isNumOfMyEditLinearLayout="true"
-        app:formNameOfMyEditLinearLayout="remark"
+        app:formNameOfMyEditLinearLayout="marryNums"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout

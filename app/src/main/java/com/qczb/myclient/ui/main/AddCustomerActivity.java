@@ -129,30 +129,20 @@ public class AddCustomerActivity extends BaseActivity {
                             uris.clear();
                         }
                     });
-                    /*MainActivity.uploadGoods(model.getOriginalPath(), new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
-                        @Override
-                        public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                            uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
-                            if (uris.size() == photoModelsMarry.size()) {
-                                StringBuilder sb = new StringBuilder();
 
-                                int i = 0;
-                                for (String s : uris) {
-                                    sb.append(s);
-                                    if (i++ < uris.size() - 1)
-                                        sb.append(",");
-                                }
-                                map.put("img", sb.toString());
-                                submit();
-                            }
-                        }
+                }
 
-                        @Override
-                        public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
-                            super.onMyFailure(call, response);
-                            uris.clear();
-                        }
-                    });*/
+                if (uris.size() == photoModels.size()) {
+                    StringBuilder sb = new StringBuilder();
+
+                    int i = 0;
+                    for (String s : uris) {
+                        sb.append(s);
+                        if (i++ < uris.size() - 1)
+                            sb.append(",");
+                    }
+                    map.put("marryImgs", sb.toString());
+                    submit();
                 }
             } else {
                 submit();
