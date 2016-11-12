@@ -1,8 +1,6 @@
 package com.qczb.myclient.ui.main;
 
 import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +28,6 @@ import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -48,7 +45,7 @@ import retrofit2.Response;
  * @author Michael Zhao
  */
 public class AddCustomerActivity extends BaseActivity {
-    public ArrayList<PhotoModel> photoModels = new ArrayList<>();
+    public ArrayList<PhotoModel> photoModelsMarry = new ArrayList<>();
     public Customer customer;
 
     @Override
@@ -72,7 +69,7 @@ public class AddCustomerActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PhotoPopupWindow.callBack(this, photoModels, requestCode, resultCode, data, null, AddCustomerFragment.mContainer);
+        PhotoPopupWindow.callBack(this, photoModelsMarry, requestCode, resultCode, data, null, AddCustomerFragment.mContainer);
     }
 
     public static class AddCustomerFragment extends ScrollViewFragment {
@@ -85,15 +82,19 @@ public class AddCustomerActivity extends BaseActivity {
         protected void onSendForm() {
             super.onSendForm();
 
-            final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
+            final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModelsMarry;
             if (!photoModels.isEmpty()) {
                 for (PhotoModel model : photoModels) {
                     RequestParams rp = new RequestParams();
                     try {
-                        rp.put("vcImg", new File(model.getOriginalPath()));
+                        if (model.getOriginalPath() != null)
+                            rp.put("vcImg", new File(model.getOriginalPath()));
+                        else if (model.getUri() != null) uris.add(model.getUri());
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+
+                    if (model.getOriginalPath() != null)
                     new AsyncHttpClient().post(getActivity(), MyApplication.BASE_URL + "FileUploadServlet", rp, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -111,7 +112,7 @@ public class AddCustomerActivity extends BaseActivity {
                                         if (i++ < uris.size() - 1)
                                             sb.append(",");
                                     }
-                                    map.put("img1", sb.toString());
+                                    map.put("marryImgs", sb.toString());
                                     submit();
                                 }
                             }
@@ -127,7 +128,7 @@ public class AddCustomerActivity extends BaseActivity {
                         @Override
                         public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                             uris.add(response.body().getData().get(0).getAsJsonObject().get("vcImg").getAsString());
-                            if (uris.size() == photoModels.size()) {
+                            if (uris.size() == photoModelsMarry.size()) {
                                 StringBuilder sb = new StringBuilder();
 
                                 int i = 0;
@@ -200,7 +201,7 @@ public class AddCustomerActivity extends BaseActivity {
             // image
             if (customer.getMarryImgs() != null) {
                 String[] imgs = customer.getMarryImgs().split(",");
-                final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModels;
+                final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModelsMarry;
                 for (String s : imgs) {
                     photoModels.add(new PhotoModel(s, 0));
                 }
