@@ -51,28 +51,28 @@ public class Customer implements Serializable {
      * zgName :
      */
 
-    private String AreaId;
-    private String marryAddr;
-    private String marryImgs;
-    private String remark;
-    private String DtdImgs;
-    private String salesmanName;
-    private String zgTelephone;
-    private String MTelephone;
-    private String BossSpouseTel;
-    private String BossBirthday;
-    private String BossName;
-    private String BossSpouseName;
-    private String SdhImgs;
-    private String marryTime;
-    private String CldImgs;
-    private String MAddress;
-    private String MName;
-    private String BossTel;
-    private String MNewtime;
-    private String BossSpouseBirthday;
-    private String marryProducts;
-    private String zgName;
+    public String AreaId;
+    public String marryAddr;
+    public String marryImgs;
+    public String remark;
+    public String DtdImgs;
+    public String salesmanName;
+    public String zgTelephone;
+    public String MTelephone;
+    public String BossSpouseTel;
+    public String BossBirthday;
+    public String BossName;
+    public String BossSpouseName;
+    public String SdhImgs;
+    public String marryTime;
+    public String CldImgs;
+    public String MAddress;
+    public String MName;
+    public String BossTel;
+    public String MNewtime;
+    public String BossSpouseBirthday;
+    public String marryProducts;
+    public String zgName;
 
     public String getAreaId() {
         return AreaId;

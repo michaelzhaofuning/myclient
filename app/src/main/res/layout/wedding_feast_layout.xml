@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/wedding_feast"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="新人姓名"
         app:decoratedDrawable="@mipmap/man"
-        app:formNameOfMyEditLinearLayout="Mname"
+        app:formNameOfMyEditLinearLayout="MName"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="家庭住址"
         app:decoratedDrawable="@mipmap/address"
-        app:formNameOfMyEditLinearLayout="Maddress"
+        app:formNameOfMyEditLinearLayout="MAddress"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
@@ -25,14 +26,16 @@
         android:layout_width="match_parent"
         android:id="@+id/title"
         app:titleOfMyEditLinearLayout="联系电话"
+        app:isNumOfMyEditLinearLayout="true"
         app:decoratedDrawable="@mipmap/mobile_small"
-        app:formNameOfMyEditLinearLayout="Mtelephone"
+        app:formNameOfMyEditLinearLayout="MTelephone"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="喜宴时间"
+        android:id="@+id/feast_time"
         app:decoratedDrawable="@mipmap/time"
         app:formNameOfMyEditLinearLayout="marryTime"
         android:layout_height="wrap_content">
@@ -58,7 +61,8 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="喜宴桌数"
         app:decoratedDrawable="@mipmap/fan"
-        app:formNameOfMyEditLinearLayout="content"
+        app:isNumOfMyEditLinearLayout="true"
+        app:formNameOfMyEditLinearLayout="remark"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
@@ -72,6 +76,7 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="总管电话"
         app:decoratedDrawable="@mipmap/tel"
+        app:isNumOfMyEditLinearLayout="true"
         app:formNameOfMyEditLinearLayout="zgTelephone"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>

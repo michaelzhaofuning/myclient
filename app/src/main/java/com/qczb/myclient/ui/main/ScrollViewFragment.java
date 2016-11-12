@@ -70,11 +70,11 @@ public abstract class ScrollViewFragment extends BaseFragment {
 
         if (item == null) return;
 
-        reflectToUI();
+        reflectToUI(linearLayout);
 
     }
 
-    protected void reflectToUI() {
+    protected void reflectToUI(LinearLayout linearLayout) {
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                 MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);

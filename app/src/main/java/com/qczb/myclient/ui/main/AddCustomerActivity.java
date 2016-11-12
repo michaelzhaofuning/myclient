@@ -1,6 +1,7 @@
 package com.qczb.myclient.ui.main;
 
 import android.animation.LayoutTransition;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
@@ -26,6 +28,7 @@ import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.util.ActivityUtil;
+import com.qczb.myclient.view.MyEditLinearLayout;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
 import org.json.JSONObject;
@@ -33,6 +36,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -180,7 +185,7 @@ public class AddCustomerActivity extends BaseActivity {
         }
 
         @Override
-        protected void reflectToUI() {
+        protected void reflectToUI(LinearLayout l) {
 
             weddingFeast = (LinearLayout) getView().findViewById(R.id.wedding_feast);
 
@@ -196,18 +201,17 @@ public class AddCustomerActivity extends BaseActivity {
                 switchMarry.setChecked(true);
             }
 
-            super.reflectToUI();
+            super.reflectToUI(l);
+            super.reflectToUI(weddingFeast);
 
             // image
-            if (customer.getMarryImgs() != null) {
+            if (!TextUtils.isEmpty(customer.getMarryImgs())) {
                 String[] imgs = customer.getMarryImgs().split(",");
                 final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModelsMarry;
                 for (String s : imgs) {
                     photoModels.add(new PhotoModel(s, 0));
                 }
-                if (TextUtils.isEmpty(customer.getMarryImgs())) {
-                    PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, (LinearLayout) weddingFeast.findViewById(R.id.container_photos), photoModels);
-                }
+                PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, (LinearLayout) weddingFeast.findViewById(R.id.container_photos), photoModels);
             }
 
         }
@@ -237,7 +241,41 @@ public class AddCustomerActivity extends BaseActivity {
                 }
             });
 
+            final MyEditLinearLayout boss_birth = (MyEditLinearLayout) linearLayout.findViewById(R.id.boss_birthday);
+            boss_birth.findViewById(R.id.contentOfMyEdit).setFocusable(false);
+            boss_birth.findViewById(R.id.contentOfMyEdit).setOnClickListener(new DateListener(boss_birth));
 
+            final MyEditLinearLayout boss_birth_spouse = (MyEditLinearLayout) linearLayout.findViewById(R.id.boss_spouse_birth);
+            boss_birth_spouse.findViewById(R.id.contentOfMyEdit).setFocusable(false);
+            boss_birth_spouse.findViewById(R.id.contentOfMyEdit).setOnClickListener(new DateListener(boss_birth_spouse));
+
+            final MyEditLinearLayout feast_time = (MyEditLinearLayout) linearLayout.findViewById(R.id.feast_time);
+            feast_time.findViewById(R.id.contentOfMyEdit).setFocusable(false);
+            feast_time.findViewById(R.id.contentOfMyEdit).setOnClickListener(new DateListener(feast_time));
+
+
+
+        }
+
+        /**
+         * pick date
+         */
+        private class DateListener implements View.OnClickListener {
+            MyEditLinearLayout myEditLinearLayout;
+            public DateListener(MyEditLinearLayout linearLayout) {
+                myEditLinearLayout = linearLayout;
+            }
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = GregorianCalendar.getInstance();
+                new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        myEditLinearLayout.setContent(year + "-" + (monthOfYear+1) + "-" + dayOfMonth );
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH) + 1).show();
+            }
         }
 
         @Override

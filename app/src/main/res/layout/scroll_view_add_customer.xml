@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:id="@+id/title"
         app:titleOfMyEditLinearLayout="店铺电话"
+        app:isNumOfMyEditLinearLayout="true"
         app:decoratedDrawable="@mipmap/tel"
         app:formNameOfMyEditLinearLayout="BTelephone"
         android:layout_height="wrap_content">
@@ -41,6 +42,7 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板电话"
         app:decoratedDrawable="@mipmap/tel"
+        app:isNumOfMyEditLinearLayout="true"
         app:formNameOfMyEditLinearLayout="BossTel"
         android:layout_height="wrap_content">
 
@@ -49,6 +51,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板生日"
+        android:id="@+id/boss_birthday"
         app:decoratedDrawable="@mipmap/time"
         app:formNameOfMyEditLinearLayout="BossBirthday"
         android:layout_height="wrap_content">
@@ -76,6 +79,7 @@
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="老板配偶生日"
+        android:id="@+id/boss_spouse_birth"
         app:decoratedDrawable="@mipmap/time"
         app:formNameOfMyEditLinearLayout="BossSpouseBirthday"
         android:layout_height="wrap_content">
