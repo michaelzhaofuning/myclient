@@ -55,7 +55,7 @@ public abstract class BaseListFragment<E extends BaseEntity, I> extends BaseFrag
     protected int mPageIndex = 1;
     protected List<I> mList = new ArrayList<>();
     protected RelativeLayout mActionBar;
-    public boolean FAKE = true;
+    public boolean FAKE = false;
     private Gson gson = new Gson();
     private float lastY = -1;
     private int mRefreshHeight;

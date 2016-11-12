@@ -1,6 +1,7 @@
 package com.qczb.myclient.ui.main;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView textViewBar0, textViewBar1, textViewBar2;
     private ImageView imageViewBar0, imageViewBar1, imageViewBar2;
     private Fragment homeFragment, myFragment, publishFragment;
+    private int showIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,13 +115,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.bar0:
                 selectedBar(0);
+                showIndex = 0;
                 break;
             case R.id.bar1:
                 selectedBar(1);
+                showIndex = 1;
                 break;
             case R.id.bar2:
                 selectedBar(2);
+                showIndex = 2;
                 break;
+        }
+    }
+
+    /**
+     *  homeFragment = new PlanFragment();
+     publishFragment = new ExecuteFragment();
+     myFragment = new CustomerFragment();
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (showIndex) {
+            case 0:
+                ((PlanFragment)homeFragment).onRefresh();
+                break;
+            case 1:
+                ((ExecuteFragment)publishFragment).onRefresh();
+
+
+                break;
+            case 2:
+                ((CustomerFragment)myFragment).onRefresh();
+
+                break;
+
         }
     }
 

@@ -1,5 +1,6 @@
 package com.qczb.myclient.ui.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,13 +35,16 @@ public class AddProviderActivity extends BaseActivity {
         item = (Provider) getIntent().getSerializableExtra("item");
 
         getFragmentManager().beginTransaction()
-                .add(R.id.container, new AddProviderFragment()).commit();
+                .add(R.id.container, new AddProviderFragment(), "provider").commit();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+
     }
+
+
 
     public static class AddProviderFragment extends ScrollViewFragment {
 
@@ -57,7 +61,7 @@ public class AddProviderActivity extends BaseActivity {
             super.onSendForm();
 
             map.put("Bid", ListItemAdapter.bid);
-            map.put("SId", UUID.randomUUID().toString());
+            if (item != null) map.put("Sid", ((Provider)item).SId);
             getHttpService().submitProvider(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                 @Override
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {

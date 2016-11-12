@@ -110,6 +110,7 @@ public class AddPlanActivity extends BaseActivity {
                     getHttpService().getCustomers(UserManager.getUID()).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                         @Override
                         public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                            customersDelive.clear();
                             customers = JSON.parseArray(response.body().getData().toString(), Customer.class);
                             a = new String[customers.size()];
                             b = new boolean[customers.size()];
@@ -122,17 +123,24 @@ public class AddPlanActivity extends BaseActivity {
                             new AlertDialog.Builder(getActivity()).setMultiChoiceItems(a, b, new DialogInterface.OnMultiChoiceClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                    editLinearLayoutbusiness.setContent(editLinearLayout.getContent() + ", "+ a[which]);
-                                    editLinearLayoutbid.setContent(customers.get(which).BId);
+
                                 }
                             }).setTitle("请选择商家").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    StringBuilder sb = new StringBuilder();
                                     for (int j = 0; j<customers.size(); j++) {
-                                        if (b[j])
+                                        if (b[j]) {
                                             customersDelive.add(customers.get(j));
+                                            sb.append(customers.get(j).BName);
+                                            sb.append(",");
+                                        }
 
                                     }
+                                    editLinearLayoutbid.setContent(customers.get(0).BId);
+
+                                    editLinearLayoutbusiness.setContent(sb.toString());
+
                                     dialog.dismiss();
                                 }
                             }).show();
@@ -154,14 +162,25 @@ public class AddPlanActivity extends BaseActivity {
             map.put("salesmanId", UserManager.getUID());
             map.put("salesmanName", UserManager.getUser().getName());
             map.put("state", "0");
-            for (Customer c :customersDelive) {
-                map.put("BName", c.BName);
-                map.put("Bid", c.BId);
+
+            if (item == null) {
+                for (Customer c : customersDelive) {
+                    map.put("BName", c.BName);
+                    map.put("Bid", c.BId);
+                    getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                        @Override
+                        public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                            if (j++ == 0)
+                                success();
+                        }
+                    });
+                }
+            } else {
                 getHttpService().submitPlan(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                     @Override
                     public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                         if (j++ == 0)
-                        success();
+                            success();
                     }
                 });
             }

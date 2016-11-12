@@ -20,6 +20,7 @@
         android:id="@+id/DId"
         app:titleOfMyEditLinearLayout="商品ID"
         app:decoratedDrawable="@mipmap/content"
+        android:visibility="gone"
         app:formNameOfMyEditLinearLayout="DId"
         android:layout_height="wrap_content">
 

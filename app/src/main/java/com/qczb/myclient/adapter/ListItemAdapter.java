@@ -48,9 +48,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(position);
 //        if (mWhich.equals("plan")) {
-            holder.title.setText(mList.get(position).visitPlanTitle);
+            holder.title.setText(mList.get(position).BName);
             holder.date.setText(DateUtil.toMyString(mList.get(position).visitPlanTime));
-            holder.location.setText(mList.get(position).visitPlanContent);
+            holder.location.setText(mList.get(position).visitPlanTitle);
             if (!TextUtils.isEmpty(mList.get(position).state)) {
                 switch (Integer.parseInt(mList.get(position).state)) {
                     // state:0未完成1拜访中2已完成

@@ -1,5 +1,6 @@
 package com.qczb.myclient.ui.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,12 @@ public class ProviderActivity extends BaseActivity {
         b.putString("bid", getIntent().getStringExtra("bid"));
         f.setArguments(b);
         getFragmentManager().beginTransaction()
-                .add(R.id.container, f).commit();
+                .add(R.id.container, f, "provider").commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ((ProviderFragment)getFragmentManager().findFragmentByTag("provider")).onRefresh();
     }
 }

@@ -5,13 +5,6 @@
     android:layout_height="wrap_content"
     android:padding="15dp"
     android:background="@drawable/gray_white_selector">
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_width="60dp"
-        android:visibility="gone"
-        app:riv_oval="true"
-        android:src="@color/colorPrimary"
-        android:layout_height="60dp"
-        android:id="@+id/avatar" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,8 +13,6 @@
         android:text="Medium Text"
         android:id="@+id/title"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/avatar"
-        android:layout_toEndOf="@+id/avatar"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp" />
 
@@ -30,12 +21,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
+        android:drawableLeft="@mipmap/marker"
         android:drawablePadding="3dp"
         android:id="@+id/location"
         android:layout_alignLeft="@+id/title"
         android:layout_alignStart="@+id/title"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="50dp"
         android:layout_alignTop="@+id/title" />
 
     <TextView
@@ -43,6 +34,7 @@
         android:layout_height="wrap_content"
         style="@style/smaller_text_view"
         android:text="拜访中"
+        android:visibility="invisible"
         android:id="@+id/status"
         android:layout_alignParentTop="true"
         android:background="@drawable/round_rectangle_keycolor"
@@ -64,7 +56,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
         android:layout_marginTop="6dp"
-        android:layout_alignBottom="@+id/location" />
+        android:layout_alignBottom="@+id/avatar" />
 
 
 </RelativeLayout>

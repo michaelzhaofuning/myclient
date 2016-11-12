@@ -44,6 +44,7 @@
         app:titleOfMyEditLinearLayout="商家编号"
         app:isNumOfMyEditLinearLayout="true"
         app:decoratedDrawable="@mipmap/code"
+        android:visibility="gone"
         app:formNameOfMyEditLinearLayout="Bid"
         android:layout_height="wrap_content">
     </com.qczb.myclient.view.MyEditLinearLayout>
