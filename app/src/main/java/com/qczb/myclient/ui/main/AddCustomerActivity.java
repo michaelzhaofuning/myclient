@@ -21,6 +21,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
+import com.qczb.myclient.adapter.AreaAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
 import com.qczb.myclient.base.MyApplication;
@@ -244,7 +245,29 @@ public class AddCustomerActivity extends BaseActivity {
             feast_time.findViewById(R.id.contentOfMyEdit).setOnClickListener(new DateListener(feast_time));
 
 
+            final MyEditLinearLayout addr = (MyEditLinearLayout) linearLayout.findViewById(R.id.addr);
+            addr.findViewById(R.id.contentOfMyEdit).setFocusable(false);
+            addr.findViewById(R.id.contentOfMyEdit).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ChooseAreaActivity.class);
+                    startActivityForResult(intent, 130);
+                }
+            });
 
+
+
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (resultCode == RESULT_OK && requestCode == 130) { // choose area
+                AreaAdapter.MyArea myArea = (AreaAdapter.MyArea) data.getSerializableExtra("area");
+                final MyEditLinearLayout addr = (MyEditLinearLayout) linearLayout.findViewById(R.id.addr);
+                addr.setContent(data.getStringExtra("areaName"));
+                addr.setMsgToServer(myArea.id);
+            }
         }
 
         /**

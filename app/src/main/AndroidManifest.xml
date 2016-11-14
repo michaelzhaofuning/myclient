@@ -83,6 +83,7 @@
         <activity android:name=".ui.main.StartPlanActivity"/>
         <activity android:name=".ui.main.StockActivity"/>
         <activity android:name=".ui.main.AddStockActivity"/>
+        <activity android:name=".ui.main.ChooseAreaActivity"/>
 
         <service android:name="com.amap.api.location.APSService"></service>
     </application>

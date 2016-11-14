@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="所在地点"
         app:decoratedDrawable="@mipmap/marker"
+        android:id="@+id/addr"
         app:formNameOfMyEditLinearLayout="BAddress"
         android:layout_height="wrap_content">
 

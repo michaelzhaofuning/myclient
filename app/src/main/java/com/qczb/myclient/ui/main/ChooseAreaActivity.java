@@ -52,7 +52,7 @@ public class ChooseAreaActivity extends BaseActivity {
 
         @Override
         protected void initActionBar() {
-            initToolBar(getView(), "");
+            initToolBar(getView(), "选择区域");
         }
 
         @Override

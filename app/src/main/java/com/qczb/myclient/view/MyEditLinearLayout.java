@@ -26,6 +26,7 @@ public class MyEditLinearLayout extends LinearLayout {
     private TextView tvTitle;
     private ImageView decoration;
     private String formName;
+    private String msgToServer;
 
     public MyEditLinearLayout(Context context) {
         super(context);
@@ -73,6 +74,14 @@ public class MyEditLinearLayout extends LinearLayout {
         if (tvContent.getText() != null)
         return tvContent.getText().toString();
         else return "";
+    }
+
+    public String getMsgToServer() {
+        return msgToServer;
+    }
+
+    public void setMsgToServer(String msgToServer) {
+        this.msgToServer = msgToServer;
     }
 
     public String getFormName() {
