@@ -101,7 +101,8 @@ public abstract class ScrollViewFragment extends BaseFragment {
             if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                 MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
                 if (TextUtils.isEmpty(myEditLinearLayout.getContent())) return false;
-                map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
+                if (myEditLinearLayout.getMsgToServer() != null) map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getMsgToServer());
+                else map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
             } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_exhibit) {
                 map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
             } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
