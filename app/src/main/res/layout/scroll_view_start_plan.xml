@@ -82,6 +82,119 @@
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="竞品分析内容"
+        app:formNameOfMyEditLinearLayout="jpfxContent"
+        app:textColorOfTitle="#000"
+        app:decoratedDrawable="@mipmap/title"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="临逾期内容"
+        app:formNameOfMyEditLinearLayout="lyqContent"
+        app:textColorOfTitle="#000"
+        app:decoratedDrawable="@mipmap/time"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="缺损上报内容"
+        app:formNameOfMyEditLinearLayout="qssbContent"
+        app:textColorOfTitle="#000"
+        app:decoratedDrawable="@mipmap/content"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:text="缺损上报图片"
+            android:id="@+id/textView32"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_marginLeft="10dp" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/decoration"
+            android:src="@mipmap/pic"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:scaleType="centerCrop" />
+
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView32"
+            android:foregroundGravity="center_horizontal"
+            android:layout_marginLeft="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/container_photos"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/add_license"
+                    android:background="@drawable/rectangle"
+                    android:onClick="shot"
+                    android:src="@mipmap/ic_add_large"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerHorizontal="true"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否有效货铺"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/switch_is_goods_shop"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"        android:drawableLeft="@mipmap/wedding"
+        android:drawablePadding="10dp"
+        android:layout_gravity="center_horizontal" />
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        app:titleOfMyEditLinearLayout="拜访内容"
+        app:formNameOfMyEditLinearLayout="visitContent"
+        android:id="@+id/visit_content"
+        app:textColorOfTitle="#000"
+        app:decoratedDrawable="@mipmap/content"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
     <Button
         android:layout_width="match_parent"
         android:text="拜访完成"

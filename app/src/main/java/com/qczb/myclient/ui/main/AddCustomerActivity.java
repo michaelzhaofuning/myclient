@@ -89,66 +89,12 @@ public class AddCustomerActivity extends BaseActivity {
         protected void onSendForm() {
             super.onSendForm();
 
-            final List<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModelsMarry;
-            if (!photoModels.isEmpty()) {
-                for (PhotoModel model : photoModels) {
-                    RequestParams rp = new RequestParams();
-                    try {
-                        if (model.getOriginalPath() != null)
-                            rp.put("vcImg", new File(model.getOriginalPath()));
-                        else if (model.getUri() != null) uris.add(model.getUri());
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (model.getOriginalPath() != null)
-                    new AsyncHttpClient().post(getActivity(), MyApplication.BASE_URL + "FileUploadServlet", rp, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-                            Log.e("file", response.toString());
-                            //{"fileURL":"http:\/\/192.168.1.101:8080\/kxw\/uploads\/armedhead.jpg","status":"1","message":"操作成功"}
-                            if (response.optString("status").equals("1")) {
-                                uris.add(response.optString("fileURL"));
-                                if (uris.size() == photoModels.size()) {
-                                    StringBuilder sb = new StringBuilder();
-
-                                    int i = 0;
-                                    for (String s : uris) {
-                                        sb.append(s);
-                                        if (i++ < uris.size() - 1)
-                                            sb.append(",");
-                                    }
-                                    map.put("marryImgs", sb.toString());
-                                    submit();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                            uris.clear();
-                        }
-                    });
-
-                }
-
-                if (uris.size() == photoModels.size()) {
-                    StringBuilder sb = new StringBuilder();
-
-                    int i = 0;
-                    for (String s : uris) {
-                        sb.append(s);
-                        if (i++ < uris.size() - 1)
-                            sb.append(",");
-                    }
-                    map.put("marryImgs", sb.toString());
+            sendImgs(((AddCustomerActivity) getActivity()).photoModelsMarry, uris, "marryImgs", new OnSentImgsListener() {
+                @Override
+                public void onSentImgs() {
                     submit();
                 }
-            } else {
-                submit();
-            }
+            });
         }
 
         private void submit() {
@@ -179,6 +125,24 @@ public class AddCustomerActivity extends BaseActivity {
         }
 
         @Override
+        protected boolean collectInput(LinearLayout linearLayout) {
+            boolean isMarryOn = false;
+            for (int i = 0; i < linearLayout.getChildCount(); i++) {
+                if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_exhibit) {
+                    map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
+                } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
+                    isMarryOn = ((Switch) linearLayout.getChildAt(i)).isChecked();
+                    if (!isMarryOn)
+                        map.put("isMarry", "0");
+                } else if (linearLayout.getChildAt(i) instanceof LinearLayout && isMarryOn) {
+                    map.put("isMarry", "1");
+                    collectInput((LinearLayout) linearLayout.getChildAt(i));
+                }
+            }
+            return super.collectInput(linearLayout);
+        }
+
+        @Override
         protected void reflectToUI(LinearLayout l) {
 
             weddingFeast = (LinearLayout) getView().findViewById(R.id.wedding_feast);
@@ -198,16 +162,7 @@ public class AddCustomerActivity extends BaseActivity {
             super.reflectToUI(l);
             super.reflectToUI(weddingFeast);
 
-            // image
-            if (!TextUtils.isEmpty(customer.getMarryImgs())) {
-                String[] imgs = customer.getMarryImgs().split(",");
-                final ArrayList<PhotoModel> photoModels = ((AddCustomerActivity) getActivity()).photoModelsMarry;
-                for (String s : imgs) {
-                    photoModels.add(new PhotoModel(s, 0));
-                }
-                PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, (LinearLayout) weddingFeast.findViewById(R.id.container_photos), photoModels);
-            }
-
+            receiveImgs(customer.getMarryImgs(), (LinearLayout) weddingFeast.findViewById(R.id.container_photos), ((AddCustomerActivity) getActivity()).photoModelsMarry);
         }
 
         @Nullable
@@ -269,7 +224,7 @@ public class AddCustomerActivity extends BaseActivity {
                 AreaAdapter.MyArea myArea = (AreaAdapter.MyArea) data.getSerializableExtra("area");
                 final MyEditLinearLayout addr = (MyEditLinearLayout) linearLayout.findViewById(R.id.addr);
                 addr.setContent(data.getStringExtra("areaName"));
-                addr.setMsgToServer(myArea.id);
+                map.put("AreaId", myArea.id);
             }
         }
 

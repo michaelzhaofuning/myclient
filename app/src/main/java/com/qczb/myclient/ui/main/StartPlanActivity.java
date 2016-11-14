@@ -18,6 +18,9 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
@@ -35,12 +38,18 @@ import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.map.geolocation.TencentLocationManager;
 import com.tencent.map.geolocation.TencentLocationRequest;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,44 +118,20 @@ public class StartPlanActivity extends BaseActivity {
         private TencentLocationManager locationManager;
         private String latitude="";
         private String longitude="";
+        public ArrayList<PhotoModel> photoModelsVisit = new ArrayList<>();
+        public ArrayList<PhotoModel> photoModelsAbsent = new ArrayList<>();
 
-        //声明AMapLocationClient类对象
-        public AMapLocationClient mLocationClient = null;
+
+
+
+
+
 
 
 
 
         public void onPermission() {
                         initLocation();
-
-//SDK在Android 6.0下需要进行运行检测的权限如下：
-//            Manifest.permission.ACCESS_COARSE_LOCATION,
-//                    Manifest.permission.ACCESS_FINE_LOCATION,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    Manifest.permission.READ_EXTERNAL_STORAGE,
-//                    Manifest.permission.READ_PHONE_STATE
-
-//这里以ACCESS_COARSE_LOCATION为例
-
-
-
-//初始化定位//声明AMapLocationClientOption对象
-            /*AMapLocationClientOption mLocationOption = null;
-//初始化AMapLocationClientOption对象
-            mLocationOption = new AMapLocationClientOption();
-            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-            mLocationClient = new AMapLocationClient(getActivity().getApplicationContext());
-//设置定位回调监听
-            mLocationClient.setLocationListener(new AMapLocationListener() {
-                @Override
-                public void onLocationChanged(AMapLocation aMapLocation) {
-                    Log.e("test", aMapLocation.toString());
-                    latitude= aMapLocation.getLatitude() + "";
-                    longitude=aMapLocation.getLongitude()+"";
-                }
-            });
-            mLocationClient.setLocationOption(mLocationOption);
-            mLocationClient.startLocation();*/
         }
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -196,6 +181,10 @@ initLocation();
         protected void onSendForm() {
             super.onSendForm();
 
+
+
+
+
             map.put("planId", getActivity().getIntent().getStringExtra("vid"));
             map.put("longitude", longitude);
             map.put("latitude", latitude);
@@ -217,6 +206,16 @@ initLocation();
             });
         }
 
+
+        /**
+         * state:0未完成1拜访中2已完成(必填)
+         jpfxContent:竞品分析内容
+         lyqContent：临逾期内容
+         qssbContent：缺损上报内容
+         qssb_imgs：缺损上报图片
+         is_medic：是否有效铺货（1是0否）
+         * @return
+         */
         @Override
         protected int getScrollViewContentLayoutId() {
             return R.layout.scroll_view_start_plan;

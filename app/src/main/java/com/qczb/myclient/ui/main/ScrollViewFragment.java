@@ -6,6 +6,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,30 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
+import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseFragment;
+import com.qczb.myclient.base.MyApplication;
 import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.MyEditLinearLayout;
+import com.qczb.myclient.view.PhotoPopupWindow;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 2016/8/4
@@ -96,25 +112,89 @@ public abstract class ScrollViewFragment extends BaseFragment {
     protected abstract Class getItemClass();
 
     protected boolean collectInput(LinearLayout linearLayout) {
-        boolean isMarryOn = false;
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) instanceof MyEditLinearLayout) {
                 MyEditLinearLayout myEditLinearLayout = (MyEditLinearLayout) linearLayout.getChildAt(i);
                 if (TextUtils.isEmpty(myEditLinearLayout.getContent())) return false;
-                if (myEditLinearLayout.getMsgToServer() != null) map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getMsgToServer());
-                else map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
-            } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_exhibit) {
-                map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
-            } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
-                isMarryOn = ((Switch) linearLayout.getChildAt(i)).isChecked();
-                if (!isMarryOn)
-                    map.put("isMarry", "0");
-            } else if (linearLayout.getChildAt(i) instanceof LinearLayout && isMarryOn) {
-                map.put("isMarry", "1");
-                collectInput((LinearLayout) linearLayout.getChildAt(i));
+                map.put(myEditLinearLayout.getFormName(), myEditLinearLayout.getContent());
             }
         }
         return true;
+    }
+
+    protected void sendImgs(final List<PhotoModel> photoModels, final List<String> uris, final String form, final OnSentImgsListener onSentImgsListener) {
+        if (!photoModels.isEmpty()) {
+            for (PhotoModel model : photoModels) {
+                RequestParams rp = new RequestParams();
+                try {
+                    if (model.getOriginalPath() != null)
+                        rp.put("vcImg", new File(model.getOriginalPath()));
+                    else if (model.getUri() != null) uris.add(model.getUri());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                if (model.getOriginalPath() != null)
+                    new AsyncHttpClient().post(getActivity(), MyApplication.BASE_URL + "FileUploadServlet", rp, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            Log.e("file", response.toString());
+                            //{"fileURL":"http:\/\/192.168.1.101:8080\/kxw\/uploads\/armedhead.jpg","status":"1","message":"操作成功"}
+                            if (response.optString("status").equals("1")) {
+                                uris.add(response.optString("fileURL"));
+                                if (uris.size() == photoModels.size()) {
+                                    StringBuilder sb = new StringBuilder();
+
+                                    int i = 0;
+                                    for (String s : uris) {
+                                        sb.append(s);
+                                        if (i++ < uris.size() - 1)
+                                            sb.append(",");
+                                    }
+                                    map.put(form, sb.toString());
+                                    onSentImgsListener.onSentImgs();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            uris.clear();
+                        }
+                    });
+
+            }
+
+            if (uris.size() == photoModels.size()) {
+                StringBuilder sb = new StringBuilder();
+
+                int i = 0;
+                for (String s : uris) {
+                    sb.append(s);
+                    if (i++ < uris.size() - 1)
+                        sb.append(",");
+                }
+                map.put(form, sb.toString());
+                onSentImgsListener.onSentImgs();
+
+            }
+        } else {
+            onSentImgsListener.onSentImgs();
+
+        }
+    }
+
+    protected void receiveImgs(final String imgs, LinearLayout container, ArrayList<PhotoModel> photoModels) {
+        // image
+        if (!TextUtils.isEmpty(imgs)) {
+            String[] imgsArray = imgs.split(",");
+            for (String s : imgsArray) {
+                photoModels.add(new PhotoModel(s, 0));
+            }
+            PhotoPopupWindow.setImages((BaseActivity) getActivity(), photoModels, null, container, photoModels);
+        }
     }
 
     protected void success() {
@@ -137,4 +217,8 @@ public abstract class ScrollViewFragment extends BaseFragment {
     protected abstract int getTopImageID();
 
     protected abstract String getTitle();
+
+    public static interface OnSentImgsListener {
+        void onSentImgs();
+    }
 }

@@ -27,4 +27,17 @@ public class PlanContent {
     public String planId;
     public String endTime;
     public String addTime;
+    /**
+     * jpfxContent :
+     * qssbContent :
+     * qssbImgs :
+     * isMedic :
+     * lyqContent :
+     */
+
+    public String jpfxContent;
+    public String qssbContent;
+    public String qssbImgs;
+    public String isMedic;
+    public String lyqContent;
 }
