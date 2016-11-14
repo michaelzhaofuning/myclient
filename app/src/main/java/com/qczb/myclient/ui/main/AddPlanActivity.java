@@ -2,6 +2,7 @@ package com.qczb.myclient.ui.main;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Switch;
 
 import com.alibaba.fastjson.JSON;
 import com.qczb.myclient.R;
+import com.qczb.myclient.adapter.AreaAdapter;
 import com.qczb.myclient.adapter.ListItemAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
@@ -65,6 +67,8 @@ public class AddPlanActivity extends BaseActivity {
         private CharSequence[] a;
         private boolean[] b;
         private int j;
+        private MyEditLinearLayout editLinearLayoutbid;
+        private MyEditLinearLayout editLinearLayoutbusiness;
 
         @Nullable
         @Override
@@ -94,7 +98,7 @@ public class AddPlanActivity extends BaseActivity {
             });
             editLinearLayout.findViewById(R.id.contentOfMyEdit).setFocusable(false);
 
-            final MyEditLinearLayout editLinearLayoutbid = (MyEditLinearLayout) linearLayout.findViewById(R.id.bid);
+            editLinearLayoutbid = (MyEditLinearLayout) linearLayout.findViewById(R.id.bid);
             editLinearLayoutbid.findViewById(R.id.contentOfMyEdit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -103,55 +107,74 @@ public class AddPlanActivity extends BaseActivity {
             });
             editLinearLayoutbid.findViewById(R.id.contentOfMyEdit).setFocusable(false);
 
-            final MyEditLinearLayout editLinearLayoutbusiness = (MyEditLinearLayout) linearLayout.findViewById(R.id.business);
+            editLinearLayoutbusiness = (MyEditLinearLayout) linearLayout.findViewById(R.id.business);
             editLinearLayoutbusiness.findViewById(R.id.contentOfMyEdit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getHttpService().getCustomers(UserManager.getUID()).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
-                        @Override
-                        public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
-                            customersDelive.clear();
-                            customers = JSON.parseArray(response.body().getData().toString(), Customer.class);
-                            a = new String[customers.size()];
-                            b = new boolean[customers.size()];
-
-                            int i=0;
-                            for (Customer c : customers) {
-                                a[i++] = c.BName;
-                            }
-
-                            new AlertDialog.Builder(getActivity()).setMultiChoiceItems(a, b, new DialogInterface.OnMultiChoiceClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-                                }
-                            }).setTitle("请选择商家").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    StringBuilder sb = new StringBuilder();
-                                    for (int j = 0; j<customers.size(); j++) {
-                                        if (b[j]) {
-                                            customersDelive.add(customers.get(j));
-                                            sb.append(customers.get(j).BName);
-                                            sb.append(",");
-                                        }
-
-                                    }
-                                    editLinearLayoutbid.setContent(customers.get(0).BId);
-
-                                    editLinearLayoutbusiness.setContent(sb.toString());
-
-                                    dialog.dismiss();
-                                }
-                            }).show();
-                        }
-                    });
-
+                    Intent intent = new Intent(getActivity(), ChooseAreaActivity.class);
+                    startActivityForResult(intent, 130);
                 }
             });
             editLinearLayoutbusiness.findViewById(R.id.contentOfMyEdit).setFocusable(false);
 
 
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (resultCode == RESULT_OK && requestCode == 130) { // choose area
+                AreaAdapter.MyArea myArea = (AreaAdapter.MyArea) data.getSerializableExtra("area");
+//                final MyEditLinearLayout addr = (MyEditLinearLayout) linearLayout.findViewById(R.id.addr);
+//                addr.setContent(data.getStringExtra("areaName"));
+//                map.put("AreaId", myArea.id);
+                getHttpService().getCustomers(UserManager.getUID(), myArea.id).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                    @Override
+                    public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                        customersDelive.clear();
+                        customers = JSON.parseArray(response.body().getData().toString(), Customer.class);
+
+                        if (customers == null || customers.isEmpty()) {
+                            showToastMsg("该区域暂无商家！");
+                            return;
+                        }
+
+                        a = new String[customers.size()];
+                        b = new boolean[customers.size()];
+
+                        int i=0;
+                        for (Customer c : customers) {
+                            a[i++] = c.BName;
+                        }
+
+                        new AlertDialog.Builder(getActivity()).setMultiChoiceItems(a, b, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                            }
+                        }).setTitle("请选择商家").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                StringBuilder sb = new StringBuilder();
+                                for (int j = 0; j<customers.size(); j++) {
+                                    if (b[j]) {
+                                        customersDelive.add(customers.get(j));
+                                        sb.append(customers.get(j).BName);
+                                        sb.append(",");
+                                    }
+
+                                }
+                                editLinearLayoutbid.setContent(customers.get(0).BId);
+
+                                editLinearLayoutbusiness.setContent(sb.toString());
+
+                                dialog.dismiss();
+                            }
+                        }).show();
+                    }
+                });
+
+            }
         }
 
         @Override

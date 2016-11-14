@@ -27,6 +27,7 @@ public class PlanContent {
     public String planId;
     public String endTime;
     public String addTime;
+    public String visitPlanImgs;
     /**
      * jpfxContent :
      * qssbContent :

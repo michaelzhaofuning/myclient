@@ -45,7 +45,7 @@ public interface HttpService {
     Call<BaseResult> getPlans(@Query("vcUserid") String uid, @Query("isPlan") Integer isPlan);
 
     @GET("business/findByUserid.htm")
-    Call<BaseResult> getCustomers(@Query("vcUserid") String uid);
+    Call<BaseResult> getCustomers(@Query("vcUserid") String uid, @Query("AreaId") String areaId);
 
     @GET("supplier/findByBid.htm")
     Call<BaseResult> getProviders(@Query("Bid") String bid);

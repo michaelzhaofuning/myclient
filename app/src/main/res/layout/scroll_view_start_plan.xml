@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="拜访拍照"
+            android:textColor="@android:color/darker_gray"
             android:id="@+id/textView32"
             android:drawableLeft="@mipmap/camera"
             android:drawablePadding="10dp"
@@ -51,7 +52,7 @@
             android:layout_marginLeft="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:id="@+id/container_photos"
+                android:id="@+id/container_photos_visit"
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="50dp"
@@ -77,7 +78,6 @@
         app:titleOfMyEditLinearLayout="拜访内容"
         app:formNameOfMyEditLinearLayout="visitContent"
         android:id="@+id/visit_content"
-        app:textColorOfTitle="#000"
         app:decoratedDrawable="@mipmap/content"
         android:layout_height="wrap_content">
 
@@ -87,7 +87,6 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="竞品分析内容"
         app:formNameOfMyEditLinearLayout="jpfxContent"
-        app:textColorOfTitle="#000"
         app:decoratedDrawable="@mipmap/title"
         android:layout_height="wrap_content">
 
@@ -97,7 +96,6 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="临逾期内容"
         app:formNameOfMyEditLinearLayout="lyqContent"
-        app:textColorOfTitle="#000"
         app:decoratedDrawable="@mipmap/time"
         android:layout_height="wrap_content">
 
@@ -107,7 +105,6 @@
         android:layout_width="match_parent"
         app:titleOfMyEditLinearLayout="缺损上报内容"
         app:formNameOfMyEditLinearLayout="qssbContent"
-        app:textColorOfTitle="#000"
         app:decoratedDrawable="@mipmap/content"
         android:layout_height="wrap_content">
 
@@ -126,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/darker_gray"
             android:text="缺损上报图片"
             android:id="@+id/textView32"
             android:layout_gravity="center_vertical"
@@ -153,14 +150,14 @@
             android:layout_marginLeft="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:id="@+id/container_photos"
+                android:id="@+id/container_photos_absent"
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/add_license"
                     android:background="@drawable/rectangle"
-                    android:onClick="shot"
+                    android:onClick="shotAbsent"
                     android:src="@mipmap/ic_add_large"
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentTop="false"
@@ -181,22 +178,19 @@
         android:paddingBottom="10dp"
         android:id="@+id/switch_is_goods_shop"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"        android:drawableLeft="@mipmap/wedding"
+        android:textColor="@android:color/darker_gray"        android:drawableLeft="@mipmap/wedding"
         android:drawablePadding="10dp"
         android:layout_gravity="center_horizontal" />
 
-    <com.qczb.myclient.view.MyEditLinearLayout
-        android:layout_width="match_parent"
-        app:titleOfMyEditLinearLayout="拜访内容"
-        app:formNameOfMyEditLinearLayout="visitContent"
-        android:id="@+id/visit_content"
-        app:textColorOfTitle="#000"
-        app:decoratedDrawable="@mipmap/content"
-        android:layout_height="wrap_content">
 
-    </com.qczb.myclient.view.MyEditLinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:text="开始拜访"
+        android:id="@+id/start_plan" style="@style/my_button"/>
+
     <Button
         android:layout_width="match_parent"
         android:text="拜访完成"
+        android:layout_marginBottom="20dp"
         android:id="@+id/commit" style="@style/my_button"/>
 </LinearLayout>

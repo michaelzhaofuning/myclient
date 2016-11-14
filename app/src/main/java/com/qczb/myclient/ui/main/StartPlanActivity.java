@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
 import com.alibaba.fastjson.JSON;
 import com.amap.api.location.AMapLocation;
@@ -60,8 +61,8 @@ import retrofit2.Response;
  * @author Michael Zhao
  */
 public class StartPlanActivity extends BaseActivity {
-    ArrayList<PhotoModel> photoModels = new ArrayList<>();
 
+    private boolean isVisit, isAbsent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,12 +99,19 @@ public class StartPlanActivity extends BaseActivity {
 
     public void shot(View view) {
         new PhotoPopupWindow(this).show(false);
+        isVisit = true;
+        isAbsent =false;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PhotoPopupWindow.callBack(this, photoModels, requestCode, resultCode, data, null, StartPlanFragment.mContainer);
+        StartPlanFragment fragment = (StartPlanFragment) getFragmentManager().findFragmentByTag("location");
+        if (isVisit)
+        PhotoPopupWindow.callBack(this, fragment.photoModelsVisit, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_visit));
+
+        if (isAbsent)
+            PhotoPopupWindow.callBack(this, fragment.photoModelsAbsent, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_absent));
     }
 
     public void stocks(View view) {
@@ -111,8 +119,14 @@ public class StartPlanActivity extends BaseActivity {
 
     }
 
+    public void shotAbsent(View view) {
+        new PhotoPopupWindow(this).show(false);
+        isVisit = false;
+        isAbsent = true;
+
+    }
+
     public static class StartPlanFragment extends ScrollViewFragment implements TencentLocationListener{
-        static LinearLayout mContainer;
         private long startTime = System.currentTimeMillis();
         private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         private TencentLocationManager locationManager;
@@ -120,6 +134,11 @@ public class StartPlanActivity extends BaseActivity {
         private String longitude="";
         public ArrayList<PhotoModel> photoModelsVisit = new ArrayList<>();
         public ArrayList<PhotoModel> photoModelsAbsent = new ArrayList<>();
+        private ArrayList<String> urisVisit = new ArrayList<>();
+        private ArrayList<String> urisAbsent = new ArrayList<>();
+        private boolean imgVisit;
+        private boolean imgAbsent;
+
 
 
 
@@ -160,31 +179,89 @@ initLocation();
         @Override
         public void onViewCreated(View v, Bundle savedInstanceState) {
             super.onViewCreated(v, savedInstanceState);
-            mContainer = (LinearLayout) v.findViewById(R.id.container_photos);
             getHttpService().getVisit(getActivity().getIntent().getStringExtra("vid")).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
                 @Override
                 public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
                     PlanContent planContent = JSON.parseObject(response.body().getData().get(0).getAsJsonObject().toString(), PlanContent.class);
                     item = planContent;
-                    MyEditLinearLayout myEditLinearLayout= (MyEditLinearLayout) linearLayout.findViewById(R.id.visit_content);
-                    myEditLinearLayout.setContent(planContent.visitContent);
+                    reflectToUI(linearLayout);
+                }
+            });
+
+            v.findViewById(R.id.start_plan).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startPlan();
+                }
+            });
+        }
+
+        private void startPlan() {
+
+            if (item != null) {
+                PlanContent planContent = (PlanContent) item;
+                map.put("id", planContent.id);
+                map.put("planId", planContent.planId);
+            }
+
+            super.onSendForm();
+
+            map.put("beginLongitude", longitude);
+            map.put("beginLatitude", latitude);
+            map.put("state", 1+"");
+            map.put("startTime", simpleDateFormat.format(new Date(startTime)));
+            map.put("endTime", simpleDateFormat.format(new Date(System.currentTimeMillis())));
+
+            if (item != null) {
+                PlanContent planContent = (PlanContent) item;
+                map.put("planId", planContent.planId);
+            }
+
+            getHttpService().startVisit(map).enqueue(new MyCallBack<BaseResult>((BaseActivity) getActivity()) {
+                @Override
+                public void onMySuccess(Call<BaseResult> call, Response<BaseResult> response) {
+                    showToastMsg("开始拜访成功，您正在拜访中...");
+
                 }
             });
         }
 
         @Override
         protected Class getItemClass() {
-            return Item.class;
+            return PlanContent.class;
         }
 
         @Override
         protected void onSendForm() {
             super.onSendForm();
+            Switch switchGoods = (Switch) linearLayout.findViewById(R.id.switch_is_goods_shop);
+            map.put("isMedic", switchGoods.isChecked() ? "1" : "0");
+
+
+            sendImgs(photoModelsVisit, urisVisit, "visitPlanImgs", new OnSentImgsListener() {
+                @Override
+                public void onSentImgs() {
+                    imgVisit = true;
+                    if (imgAbsent)
+                        submit();
+                }
+            });
+
+            sendImgs(photoModelsAbsent, urisAbsent, "qssbImgs", new OnSentImgsListener() {
+                @Override
+                public void onSentImgs() {
+                    imgAbsent = true;
+                    if (imgVisit)
+                        submit();
+                }
+            });
 
 
 
 
+        }
 
+        private void submit() {
             map.put("planId", getActivity().getIntent().getStringExtra("vid"));
             map.put("longitude", longitude);
             map.put("latitude", latitude);
@@ -194,6 +271,7 @@ initLocation();
 
             if (item != null) {
                 PlanContent planContent = (PlanContent) item;
+                map.put("id", planContent.id);
                 map.put("planId", planContent.planId);
             }
 
@@ -206,6 +284,20 @@ initLocation();
             });
         }
 
+        @Override
+        protected void reflectToUI(LinearLayout linearLayout) {
+            super.reflectToUI(linearLayout);
+
+
+            PlanContent planContent = (PlanContent) item;
+            if (planContent.isMedic.equals("1")) {
+                Switch switchIsShop = (Switch) linearLayout.findViewById(R.id.switch_is_goods_shop);
+                switchIsShop.setChecked(true);
+            }
+
+            receiveImgs(planContent.visitPlanImgs, (LinearLayout) linearLayout.findViewById(R.id.container_photos_visit), photoModelsVisit);
+            receiveImgs(planContent.qssbImgs, (LinearLayout) linearLayout.findViewById(R.id.container_photos_absent), photoModelsAbsent);
+        }
 
         /**
          * state:0未完成1拜访中2已完成(必填)

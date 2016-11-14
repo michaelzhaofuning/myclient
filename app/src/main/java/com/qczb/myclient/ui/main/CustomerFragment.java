@@ -41,7 +41,7 @@ public class CustomerFragment extends ListItemFragment<Customer> {
 
     @Override
     public Call<BaseResult> getRetrofitCall() {
-        return getHttpService().getCustomers(UserManager.getUID());
+        return getHttpService().getCustomers(UserManager.getUID(), null);
     }
 
     @Override
