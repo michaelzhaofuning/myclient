@@ -11,10 +11,7 @@ import android.widget.TextView;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.entity.Customer;
-import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.ui.main.AddCustomerActivity;
-import com.qczb.myclient.ui.main.PlanDetailActivity;
-import com.qczb.myclient.ui.main.StartPlanActivity;
 import com.qczb.myclient.util.ActivityUtil;
 
 import java.util.List;
