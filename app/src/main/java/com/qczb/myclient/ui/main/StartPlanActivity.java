@@ -204,6 +204,7 @@ initLocation();
         }
 
         private void startPlan() {
+            map.put("planId", getActivity().getIntent().getStringExtra("vid"));
 
             if (item != null) {
                 PlanContent planContent = (PlanContent) item;
