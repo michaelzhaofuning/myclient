@@ -93,6 +93,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         if (mWhich.equals("exec")) {
             Bundle bundle = new Bundle();
             bundle.putString("vid", mList.get(p).VId);
+            bundle.putString("state", mList.get(p).state);
             ActivityUtil.startActivityForResult(mActivity, StartPlanActivity.class, bundle, 102);
         }
 

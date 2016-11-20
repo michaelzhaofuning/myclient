@@ -7,54 +7,33 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.alibaba.fastjson.JSON;
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
-import com.qczb.myclient.base.BaseEntity;
 import com.qczb.myclient.base.BaseResult;
-import com.qczb.myclient.base.MyApplication;
 import com.qczb.myclient.base.MyCallBack;
-import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.entity.PlanContent;
 import com.qczb.myclient.util.ActivityUtil;
-import com.qczb.myclient.view.MyEditLinearLayout;
 import com.qczb.myclient.view.PhotoPopupWindow;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.map.geolocation.TencentLocationManager;
 import com.tencent.map.geolocation.TencentLocationRequest;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
-import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -91,7 +70,7 @@ public class StartPlanActivity extends BaseActivity {
     @Override
     public void onPermission() {
         super.onPermission();
-        ((StartPlanFragment)getFragmentManager().findFragmentByTag("location")).onPermission();
+        ((StartPlanFragment) getFragmentManager().findFragmentByTag("location")).onPermission();
 
     }
 
@@ -102,7 +81,7 @@ public class StartPlanActivity extends BaseActivity {
     public void shot(View view) {
         new PhotoPopupWindow(this).show(false);
         isVisit = true;
-        isAbsent =false;
+        isAbsent = false;
     }
 
     @Override
@@ -110,7 +89,7 @@ public class StartPlanActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         StartPlanFragment fragment = (StartPlanFragment) getFragmentManager().findFragmentByTag("location");
         if (isVisit)
-        PhotoPopupWindow.callBack(this, fragment.photoModelsVisit, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_visit));
+            PhotoPopupWindow.callBack(this, fragment.photoModelsVisit, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_visit));
 
         if (isAbsent)
             PhotoPopupWindow.callBack(this, fragment.photoModelsAbsent, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_absent));
@@ -128,54 +107,47 @@ public class StartPlanActivity extends BaseActivity {
 
     }
 
-    public static class StartPlanFragment extends ScrollViewFragment implements TencentLocationListener{
+    public static class StartPlanFragment extends ScrollViewFragment implements TencentLocationListener {
+        public ArrayList<PhotoModel> photoModelsVisit = new ArrayList<>();
+        public ArrayList<PhotoModel> photoModelsAbsent = new ArrayList<>();
         private long startTime = System.currentTimeMillis();
         private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         private TencentLocationManager locationManager;
-        private String latitude="";
-        private String longitude="";
-        public ArrayList<PhotoModel> photoModelsVisit = new ArrayList<>();
-        public ArrayList<PhotoModel> photoModelsAbsent = new ArrayList<>();
+        private String latitude = "";
+        private String longitude = "";
         private ArrayList<String> urisVisit = new ArrayList<>();
         private ArrayList<String> urisAbsent = new ArrayList<>();
         private boolean imgVisit;
         private boolean imgAbsent;
 
 
-
-
-
-
-
-
-
-
-
         public void onPermission() {
-                        initLocation();
+            initLocation();
         }
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-initLocation();
+            initLocation();
 
 
         }
-    private void initLocation() {
-        TencentLocationRequest request = TencentLocationRequest.create();
-        request.setRequestLevel(TencentLocationRequest.REQUEST_LEVEL_GEO);
-        locationManager = TencentLocationManager.getInstance(getActivity().getApplicationContext());
-        int error = locationManager.requestLocationUpdates(request, this);
-        // 返回值为0时表示位置监听器注册成功
-        Log.e("location", "error: " + error);
-    }
+
+        private void initLocation() {
+            TencentLocationRequest request = TencentLocationRequest.create();
+            request.setRequestLevel(TencentLocationRequest.REQUEST_LEVEL_GEO);
+            locationManager = TencentLocationManager.getInstance(getActivity().getApplicationContext());
+            int error = locationManager.requestLocationUpdates(request, this);
+            // 返回值为0时表示位置监听器注册成功
+            Log.e("location", "error: " + error);
+        }
 
         @Override
         public void onDestroy() {
             super.onDestroy();
-            if (locationManager!=null)
-            locationManager.removeUpdates(this);
+            if (locationManager != null)
+                locationManager.removeUpdates(this);
         }
 
         @Override
@@ -189,18 +161,18 @@ initLocation();
                     reflectToUI(linearLayout);
                 }
             });
+            if (getActivity().getIntent().getStringExtra("state").equals("0"))
+                new AlertDialog.Builder(getActivity()).setMessage("是否开始拜访").setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startPlan();
+                    }
+                }).setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-           new AlertDialog.Builder(getActivity()).setMessage("是否开始拜访").setPositiveButton("是", new DialogInterface.OnClickListener() {
-               @Override
-               public void onClick(DialogInterface dialog, int which) {
-                   startPlan();
-               }
-           }).setNegativeButton("否", new DialogInterface.OnClickListener() {
-               @Override
-               public void onClick(DialogInterface dialog, int which) {
-
-               }
-           }).show();
+                    }
+                }).show();
         }
 
         private void startPlan() {
@@ -216,7 +188,7 @@ initLocation();
 
             map.put("beginLongitude", longitude);
             map.put("beginLatitude", latitude);
-            map.put("state", 1+"");
+            map.put("state", 1 + "");
             map.put("startTime", simpleDateFormat.format(new Date(startTime)));
             map.put("endTime", simpleDateFormat.format(new Date(System.currentTimeMillis())));
 
@@ -265,15 +237,13 @@ initLocation();
             });
 
 
-
-
         }
 
         private void submit() {
             map.put("planId", getActivity().getIntent().getStringExtra("vid"));
             map.put("longitude", longitude);
             map.put("latitude", latitude);
-            map.put("state", 2+"");
+            map.put("state", 2 + "");
             map.put("startTime", simpleDateFormat.format(new Date(startTime)));
             map.put("endTime", simpleDateFormat.format(new Date(System.currentTimeMillis())));
 
@@ -309,11 +279,12 @@ initLocation();
 
         /**
          * state:0未完成1拜访中2已完成(必填)
-         jpfxContent:竞品分析内容
-         lyqContent：临逾期内容
-         qssbContent：缺损上报内容
-         qssb_imgs：缺损上报图片
-         is_medic：是否有效铺货（1是0否）
+         * jpfxContent:竞品分析内容
+         * lyqContent：临逾期内容
+         * qssbContent：缺损上报内容
+         * qssb_imgs：缺损上报图片
+         * is_medic：是否有效铺货（1是0否）
+         *
          * @return
          */
         @Override
