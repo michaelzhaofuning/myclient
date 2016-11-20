@@ -13,10 +13,20 @@
     </com.qczb.myclient.view.MyEditLinearLayout>
     <com.qczb.myclient.view.MyEditLinearLayout
         android:layout_width="match_parent"
-        app:titleOfMyEditLinearLayout="所在地点"
+        app:titleOfMyEditLinearLayout="线路"
         app:decoratedDrawable="@mipmap/marker"
         android:id="@+id/addr"
         app:formNameOfMyEditLinearLayout="BAddress"
+        android:layout_height="wrap_content">
+
+    </com.qczb.myclient.view.MyEditLinearLayout>
+
+    <com.qczb.myclient.view.MyEditLinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/title"
+        app:titleOfMyEditLinearLayout="店铺地点"
+        app:decoratedDrawable="@mipmap/address"
+        app:formNameOfMyEditLinearLayout="BTelephone"
         android:layout_height="wrap_content">
 
     </com.qczb.myclient.view.MyEditLinearLayout>

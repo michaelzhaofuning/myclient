@@ -56,12 +56,15 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
                     // state:0未完成1拜访中2已完成
                     case 0:
                         holder.status.setText("未完成");
+                        holder.status.setBackgroundResource(R.drawable.red);
                         break;
                     case 1:
                         holder.status.setText("拜访中");
+                        holder.status.setBackgroundResource(R.drawable.round_rect_blue);
                         break;
                     case 2:
                         holder.status.setText("已完成");
+                        holder.status.setBackgroundResource(R.drawable.round_rectangle_keycolor);
                         break;
                     default:
 

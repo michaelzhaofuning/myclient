@@ -11,6 +11,7 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -65,8 +66,8 @@ public interface HttpService {
     @GET("visitPlan/msave.htm")
     Call<BaseResult> submitPlan(@QueryMap Map<String, String> map);
 
-    @GET("business/addBusiness.htm")
-    Call<BaseResult> submitCustomer(@QueryMap Map<String, String> map);
+    @POST("business/addBusiness.htm")
+    Call<BaseResult> submitCustomer(@FieldMap Map<String, String> map);
 
     @GET("supplier/msave.htm")
     Call<BaseResult> submitProvider(@QueryMap Map<String, String> map);
