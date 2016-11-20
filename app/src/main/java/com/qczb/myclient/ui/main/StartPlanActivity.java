@@ -1,6 +1,8 @@
 package com.qczb.myclient.ui.main;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -188,12 +190,17 @@ initLocation();
                 }
             });
 
-            v.findViewById(R.id.start_plan).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startPlan();
-                }
-            });
+           new AlertDialog.Builder(getActivity()).setMessage("是否开始拜访").setPositiveButton("是", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+                   startPlan();
+               }
+           }).setNegativeButton("否", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+
+               }
+           }).show();
         }
 
         private void startPlan() {

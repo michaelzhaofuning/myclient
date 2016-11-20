@@ -66,6 +66,7 @@ public interface HttpService {
     @GET("visitPlan/msave.htm")
     Call<BaseResult> submitPlan(@QueryMap Map<String, String> map);
 
+    @FormUrlEncoded
     @POST("business/addBusiness.htm")
     Call<BaseResult> submitCustomer(@FieldMap Map<String, String> map);
 

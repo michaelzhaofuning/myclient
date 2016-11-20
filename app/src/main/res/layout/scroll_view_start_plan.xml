@@ -183,10 +183,7 @@
         android:layout_gravity="center_horizontal" />
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:text="开始拜访"
-        android:id="@+id/start_plan" style="@style/my_button"/>
+
 
     <Button
         android:layout_width="match_parent"

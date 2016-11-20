@@ -26,6 +26,7 @@ public class Customer implements Serializable {
     public String isCld;
     public String BNewtime;
     public String typeId;
+    public String BFullAddress;
     /**
      * AreaId :
      * marryAddr :

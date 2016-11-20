@@ -193,6 +193,12 @@ public class AddCustomerActivity extends BaseActivity {
         protected boolean collectInput(LinearLayout linearLayout) {
             boolean isMarryOn = false;
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
+                if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_vivid) {
+                    map.put("isSdh", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
+                }
+                if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_stack) {
+                    map.put("isDtd", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
+                }
                 if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_exhibit) {
                     map.put("isCld", ((Switch) linearLayout.getChildAt(i)).isChecked() ? "1" : "0");
                 } else if (linearLayout.getChildAt(i) instanceof Switch && linearLayout.getChildAt(i).getId() == R.id.switch_wedding_feast) {
@@ -225,6 +231,10 @@ public class AddCustomerActivity extends BaseActivity {
             }
             if (customer.isDtd.equals("1")) {
                 Switch switchStack = (Switch) linearLayout.findViewById(R.id.switch_stack);
+                switchStack.setChecked(true);
+            }
+            if (customer.isSdh.equals("1")) {
+                Switch switchStack = (Switch) linearLayout.findViewById(R.id.switch_vivid);
                 switchStack.setChecked(true);
             }
 
