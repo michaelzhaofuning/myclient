@@ -2,12 +2,11 @@ package com.qczb.myclient.ui.main;
 
 import android.animation.LayoutTransition;
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,33 +15,22 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.photoselector.model.PhotoModel;
 import com.qczb.myclient.R;
 import com.qczb.myclient.adapter.AreaAdapter;
 import com.qczb.myclient.base.BaseActivity;
 import com.qczb.myclient.base.BaseResult;
-import com.qczb.myclient.base.MyApplication;
 import com.qczb.myclient.base.MyCallBack;
 import com.qczb.myclient.base.UserManager;
 import com.qczb.myclient.entity.Customer;
-import com.qczb.myclient.entity.Item;
 import com.qczb.myclient.util.ActivityUtil;
 import com.qczb.myclient.view.MyEditLinearLayout;
 import com.qczb.myclient.view.PhotoPopupWindow;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -53,7 +41,11 @@ import retrofit2.Response;
  */
 public class AddCustomerActivity extends BaseActivity {
     public ArrayList<PhotoModel> photoModelsMarry = new ArrayList<>();
+    public ArrayList<PhotoModel> photoModelsStack = new ArrayList<>();
+    public ArrayList<PhotoModel> photoModelsExhibit = new ArrayList<>();
+    public ArrayList<PhotoModel> photoModelsVivid = new ArrayList<>();
     public Customer customer;
+    private boolean marry, stack, exhibit, vivid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +53,7 @@ public class AddCustomerActivity extends BaseActivity {
         setContentView(R.layout.base_activity);
         customer = (Customer) getIntent().getSerializableExtra("item");
         getFragmentManager().beginTransaction()
-                .add(R.id.container, new AddCustomerFragment()).commit();
+                .add(R.id.container, new AddCustomerFragment(), "customer").commit();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             getWindow().getDecorView().setSystemUiVisibility(
@@ -71,30 +63,99 @@ public class AddCustomerActivity extends BaseActivity {
 
     public void shot(View view) {
         new PhotoPopupWindow(this).show(false);
+        marry = true;
+        stack = false;
+        exhibit = false;
+        vivid = false;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PhotoPopupWindow.callBack(this, photoModelsMarry, requestCode, resultCode, data, null, AddCustomerFragment.mContainer);
+        AddCustomerFragment fragment = (AddCustomerFragment) getFragmentManager().findFragmentByTag("customer");
+        if (marry)
+            PhotoPopupWindow.callBack(this, photoModelsMarry, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_marry));
+        if (exhibit)
+            PhotoPopupWindow.callBack(this, photoModelsExhibit, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_exhibit));
+        if (vivid)
+            PhotoPopupWindow.callBack(this, photoModelsVivid, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_vivid));
+        if (stack)
+            PhotoPopupWindow.callBack(this, photoModelsStack, requestCode, resultCode, data, null, (LinearLayout) fragment.linearLayout.findViewById(R.id.container_photos_stack));
+    }
+
+    public void shotVivid(View view) {
+        new PhotoPopupWindow(this).show(false);
+        marry = false;
+        stack = false;
+        exhibit = false;
+        vivid = true;
+    }
+
+    public void shotStack(View view) {
+        new PhotoPopupWindow(this).show(false);
+        marry = false;
+        stack = true;
+        exhibit = false;
+        vivid = false;
+    }
+
+    public void shotExhibit(View view) {
+        new PhotoPopupWindow(this).show(false);
+        marry = false;
+        stack = false;
+        exhibit = true;
+        vivid = false;
     }
 
     public static class AddCustomerFragment extends ScrollViewFragment {
-        static LinearLayout mContainer;
-        private ArrayList<String> uris = new ArrayList<>();
+        private ArrayList<String> urisMarry = new ArrayList<>();
+        private ArrayList<String> urisExibit = new ArrayList<>();
+        private ArrayList<String> urisStack = new ArrayList<>();
+        private ArrayList<String> urisVivid = new ArrayList<>();
         private LinearLayout weddingFeast;
+        private boolean marry, exhibit, stack, vivid;
 
 
         @Override
         protected void onSendForm() {
             super.onSendForm();
 
-            sendImgs(((AddCustomerActivity) getActivity()).photoModelsMarry, uris, "marryImgs", new OnSentImgsListener() {
+            sendImgs(((AddCustomerActivity) getActivity()).photoModelsMarry, urisMarry, "marryImgs", new OnSentImgsListener() {
                 @Override
                 public void onSentImgs() {
-                    submit();
+                    marry = true;
+                    if (exhibit && stack && vivid)
+                        submit();
                 }
             });
+
+            sendImgs(((AddCustomerActivity) getActivity()).photoModelsExhibit, urisExibit, "CldImgs", new OnSentImgsListener() {
+                @Override
+                public void onSentImgs() {
+                    exhibit = true;
+                    if (marry && stack && vivid)
+                        submit();                }
+            });
+
+            sendImgs(((AddCustomerActivity) getActivity()).photoModelsStack, urisStack, "DtdImgs", new OnSentImgsListener() {
+                @Override
+                public void onSentImgs() {
+                    stack = true;
+                    if (exhibit && marry && vivid)
+                        submit();
+                }
+            });
+
+            sendImgs(((AddCustomerActivity) getActivity()).photoModelsVivid, urisVivid, "SdhImgs", new OnSentImgsListener() {
+                @Override
+                public void onSentImgs() {
+                    vivid = true;
+                    if (exhibit && stack && marry)
+                        submit();
+                }
+            });
+
+
         }
 
         private void submit() {
@@ -113,13 +174,17 @@ public class AddCustomerActivity extends BaseActivity {
                 @Override
                 public void onMyFailure(Call<BaseResult> call, Response<BaseResult> response) {
                     super.onMyFailure(call, response);
-                    uris.clear();
+                    urisExibit.clear();
+                    urisStack.clear();
+                    urisMarry.clear();
                 }
 
                 @Override
                 public void onFailure(Call<BaseResult> call, Throwable t) {
                     super.onFailure(call, t);
-                    uris.clear();
+                    urisExibit.clear();
+                    urisStack.clear();
+                    urisMarry.clear();
                 }
             });
         }
@@ -136,7 +201,7 @@ public class AddCustomerActivity extends BaseActivity {
                         map.put("isMarry", "0");
                 } else if (linearLayout.getChildAt(i) instanceof LinearLayout && isMarryOn) {
                     map.put("isMarry", "1");
-                    collectInput((LinearLayout) linearLayout.getChildAt(i));
+                    super.collectInput((LinearLayout) linearLayout.getChildAt(i));
                 }
             }
             return super.collectInput(linearLayout);
@@ -158,11 +223,18 @@ public class AddCustomerActivity extends BaseActivity {
                 Switch switchMarry = (Switch) linearLayout.findViewById(R.id.switch_wedding_feast);
                 switchMarry.setChecked(true);
             }
+            if (customer.isDtd.equals("1")) {
+                Switch switchStack = (Switch) linearLayout.findViewById(R.id.switch_stack);
+                switchStack.setChecked(true);
+            }
 
             super.reflectToUI(l);
             super.reflectToUI(weddingFeast);
 
-            receiveImgs(customer.getMarryImgs(), (LinearLayout) weddingFeast.findViewById(R.id.container_photos), ((AddCustomerActivity) getActivity()).photoModelsMarry);
+            receiveImgs(customer.getMarryImgs(), (LinearLayout) weddingFeast.findViewById(R.id.container_photos_marry), ((AddCustomerActivity) getActivity()).photoModelsMarry);
+            receiveImgs(customer.getDtdImgs(), (LinearLayout) linearLayout.findViewById(R.id.container_photos_stack), ((AddCustomerActivity) getActivity()).photoModelsStack);
+            receiveImgs(customer.getSdhImgs(), (LinearLayout) linearLayout.findViewById(R.id.container_photos_vivid), ((AddCustomerActivity) getActivity()).photoModelsVivid);
+            receiveImgs(customer.getCldImgs(), (LinearLayout) linearLayout.findViewById(R.id.container_photos_exhibit), ((AddCustomerActivity) getActivity()).photoModelsExhibit);
         }
 
         @Nullable
@@ -175,7 +247,6 @@ public class AddCustomerActivity extends BaseActivity {
         @Override
         public void onViewCreated(View v, Bundle savedInstanceState) {
             super.onViewCreated(v, savedInstanceState);
-            mContainer = (LinearLayout) v.findViewById(R.id.container_photos);
             Switch s = (Switch) v.findViewById(R.id.switch_wedding_feast);
             weddingFeast = (LinearLayout) getView().findViewById(R.id.wedding_feast);
 

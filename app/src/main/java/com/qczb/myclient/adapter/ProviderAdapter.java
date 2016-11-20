@@ -10,10 +10,8 @@ import android.widget.TextView;
 
 import com.qczb.myclient.R;
 import com.qczb.myclient.base.BaseActivity;
-import com.qczb.myclient.entity.Customer;
 import com.qczb.myclient.entity.Provider;
 import com.qczb.myclient.ui.main.AddProviderActivity;
-import com.qczb.myclient.ui.main.PlanDetailActivity;
 import com.qczb.myclient.util.ActivityUtil;
 
 import java.util.List;

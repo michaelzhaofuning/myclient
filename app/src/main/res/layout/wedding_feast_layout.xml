@@ -122,7 +122,7 @@
             android:layout_marginLeft="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:id="@+id/container_photos"
+                android:id="@+id/container_photos_marry"
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="50dp"

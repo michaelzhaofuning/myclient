@@ -72,8 +72,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.MainActivity"/>
-        <activity android:name=".ui.main.MyLocationActivity"/>
-        <activity android:name=".ui.main.PlanDetailActivity"/>
         <activity android:name=".ui.publish.PublishGoodActivity"/>
         <activity android:name=".ui.main.SuccessActivity"/>
         <activity android:name=".ui.main.AddPlanActivity"/>
