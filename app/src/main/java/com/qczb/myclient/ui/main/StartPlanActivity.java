@@ -173,6 +173,9 @@ public class StartPlanActivity extends BaseActivity {
 
                     }
                 }).show();
+
+            if (getActivity().getIntent().getStringExtra("state").equals("2"))
+                getView().findViewById(R.id.commit).setVisibility(View.GONE);
         }
 
         private void startPlan() {
