@@ -24,7 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MyApplication extends Application {
     private static MyApplication app;
-    public static final String BASE_URL = "http://test.kaopuren.cn/";
+//    public static final String BASE_URL = "http://test.kaopuren.cn/";
+//    public static final String BASE_URL = "http://kx1.weifutianxia.cn/";
+    public static final String BASE_URL = "http://kx2.weifutianxia.cn/";
 //    public static final String BASE_URL = "http://192.168.1.101:8080/kxw/";
     private HttpService httpService;
 
